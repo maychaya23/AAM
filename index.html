@@ -7143,7 +7143,9 @@ window.addEventListener("error", function (e) {
   function hdHtml(p, inHist, status) {
     const own = !masked(p) && S.role === "agent" && !inHist;
     const icon = (k, on) => '<span class="hd-ic' + (on ? " on" : "") + '" role="img" aria-label="' + HD_TXT[k][on ? 0 : 1] + '" title="' + HD_TXT[k][on ? 0 : 1] + '"><svg viewBox="0 0 24 24">' + HD_ICO[k] + "</svg></span>";
-    const head = '<div class="pp-head hd"><div class="hd-row"><h1 class="pp-name">' + esc(pName(p)) + "</h1>" + (masked(p) ? "" : icon("cLine", !!p.cLine) + icon("cSaved", hasPhone(p))) +
+    // V319 · a name still at "รายชื่อ" (not yet talked to) is called "คุณ..." on its own page, like an agent would greet them
+    const nmTitle = p.listed && !/^(พี่|น้อง|คุณ|ป้า|ลุง|เจ๊|น้า|อา)/.test(pName(p)) ? "คุณ" + esc(pName(p)) : esc(pName(p));
+    const head = '<div class="pp-head hd"><div class="hd-row"><h1 class="pp-name">' + nmTitle + "</h1>" + (masked(p) ? "" : icon("cLine", !!p.cLine) + icon("cSaved", hasPhone(p))) +
       (own && !(hdEdit && hdEdit.id === p.id) ? '<button type="button" class="hd-pen" data-act="hdEdit" data-id="' + p.id + '" aria-label="แก้ไขชื่อและช่องทางติดต่อ"><svg viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg></button>' : "") + "</div>" +
       (status ? '<div class="chips">' + status + "</div>" : "") + "</div>";
     if (!own || !hdEdit || hdEdit.id !== p.id) return head;
@@ -7289,7 +7291,7 @@ window.addEventListener("error", function (e) {
   const tcDraft = { get(id) { try { return (JSON.parse(localStorage.getItem("aam-tcdraft") || "{}"))[id] || ""; } catch (e) { return ""; } },
     set(id, v) { try { const d = JSON.parse(localStorage.getItem("aam-tcdraft") || "{}"); if (v) d[id] = maskPII(v); else delete d[id]; localStorage.setItem("aam-tcdraft", JSON.stringify(d)); } catch (e) {} } };
   const TC_RES_MEET = [["talked", "พบแล้ว"], ["moved", "เลื่อนนัด"], ["noshow", "ลูกค้าไม่มา"]];
-  const TOPICS = ["ทักทาย / ถามข่าว", "งาน / ธุรกิจ", "ครอบครัว / ลูก", "เก็บเงิน / เกษียณ", "ค่ารักษาพยาบาล", "ลดหย่อนภาษี", "ประกันที่มีอยู่"];
+  const TOPICS = ["ทักทาย / ถามข่าว", "งาน / ธุรกิจ", "ครอบครัว / ลูก", "เก็บเงิน / ออม", "การลงทุน", "ค่ารักษาพยาบาล", "ลดหย่อนภาษี", "ประกันที่มีอยู่", "บ้าน", "รถ", "สัตว์เลี้ยง"];
   const TC_INT = [["yes", "สนใจ"], ["unsure", "ยังไม่แน่ใจ"], ["later", "ยังไม่สนใจตอนนี้"], ["no", "ปฏิเสธ"]];
   const INT_TH = { yes: "สนใจ", unsure: "ยังไม่แน่ใจ", later: "ยังไม่สนใจตอนนี้", no: "ปฏิเสธ" };
   const CHANCE_TIP = { high: "เปิดใจ ชวนเจอได้", mid: "สนใจ แต่ยังไม่สะดวกเจอ", low: "คุยได้ แต่ยังห่าง" };
@@ -7535,7 +7537,7 @@ window.addEventListener("error", function (e) {
         next = rc[2] + " (เตือน " + thDate(d, { day: "numeric", month: "short" }) + ")";
         if (st.int === "unsure") p.status = p.status === "later" ? (p.listed ? "new" : "yes") : p.status;
       }
-      p.interest = st.int || p.interest; if (st.chance) p.chance = st.chance;
+      p.interest = st.int || p.interest; if (st.chance) p.chance = st.chance; if (st.wantsIns) p.wantsIns = st.wantsIns;
       if (st.topics.length) { const pr = prof(p); pr.topics = Array.from(new Set((pr.topics || []).concat(st.topics))); }
     }
     if (fuDate) { st.nextOn = fuDate;
@@ -7657,6 +7659,9 @@ window.addEventListener("error", function (e) {
     const chanceF = ask ? '<div class="tc-f" id="tcChance"><span class="lbl">โอกาสในการเข้าพบ <small class="muted">ประเมินเอง</small></span><div class="pf-chips tc-chance gt-chance">' +
       Object.keys(CHANCE).map((k) => '<button type="button" class="pf-chip" data-tc="chance" data-v="' + k + '" aria-pressed="' + (st.chance === k) + '"><b>' + CHANCE[k] + "</b><small>" + CHANCE_TIP[k] + "</small></button>").join("") + "</div></div>" : "";
     const noteF = noteField("tcNote", st.note, { ph: "เช่น ลูกค้าสนใจประกันสุขภาพ ขอข้อมูลเพิ่มเติม" });
+    // V319 · ที่ขั้น "รายชื่อ" เท่านั้น ถามเพิ่มว่าลูกค้าสนใจมีประกันไหม อยู่ล่างสุดของฟอร์ม ไม่บังคับ
+    const insF = p.listed ? '<div class="tc-f"><span class="lbl">ลูกค้าสนใจมีประกันไหม <small class="muted">ไม่บังคับ</small></span><div class="pf-chips">' +
+      [["yes", "สนใจ"], ["no", "ยังไม่สนใจ"]].map(([v, t]) => '<button type="button" class="pf-chip" data-tc="wantsIns" data-v="' + v + '" aria-pressed="' + (st.wantsIns === v) + '">' + t + "</button>").join("") + "</div></div>" : "";
     const more = (inner) => '<details class="cf-more" open><summary>เพิ่มบันทึก <small>ไม่บังคับ · ' + (talked ? "คุยเรื่องอะไร · " : "") + (ask ? "โอกาสเข้าพบ · " : "") + "โน้ต</small></summary>" + inner + "</details>";
     const picked = (t) => '<p class="tc-picked"><span class="muted">ผลการติดต่อ</span> <b>' + t + "</b></p>";
     // 1 · ผลการติดต่อ (a big button moves on by itself)
@@ -7676,7 +7681,7 @@ window.addEventListener("error", function (e) {
       const nx = p.listed ? STAGES[0] : null;
       const ob = (k, tone, icon, t, sb) => axBtn({ tone, icon, face: FACE_OF[k], t, sub: sb, attrs: ' data-gt="' + k + '"' });
       return wzProg(1, 3) + '<div class="tc-f" id="tcInt"><p class="cv-q">ลูกค้าสนใจไหม?</p>' + axBar([ob("later", "later", "pause", "ยังไม่สนใจตอนนี้", laterSub(p)), ob("no", "no", "x", "ปฏิเสธ", "ปิดโอกาสการขาย"), ob("yes", "go", nx ? "userplus" : "check", "สนใจ", nx ? "เป็น" + nx.label : "")]) + "</div>" +
-        more(topicsF + chanceF + noteF) + '<div class="step-nav">' + back("res") + "</div>";
+        more(topicsF + chanceF + noteF + insF) + '<div class="step-nav">' + back("res") + "</div>";
     }
     // 3 · ขั้นถัดไป: นัดพบ (date and time) · คุยต่อวันอื่น (date) · ยังไม่นัด, then one "บันทึก"
     const opts = nextOpts(p).filter((x) => x.k !== "presented"), o = opts.find((x) => x.k === st.nx);
@@ -7689,7 +7694,7 @@ window.addEventListener("error", function (e) {
     }
     const sum = o ? '<div class="tc-sum"><b>สรุปก่อนบันทึก</b><span>' + resT + " · สนใจ" + (p.listed ? " · " + esc(pName(p)) + " เป็นผู้มุ่งหวัง" : "") + "</span><span>ขั้นถัดไป: " + label(o) + (o.appt || o.cb ? " " + whenTxt(st.date, o.appt ? st.time || "10:00" : "") : "") + "</span></div>" : "";
     return wzProg(2, 3) + '<div class="tc-f" id="tcNx"><p class="cv-q">ขั้นถัดไป</p>' + axBar(opts.map((x) => axBtn({ tone: "info", icon: CV_ICO[x.k], t: label(x), sub: x.k === "keep" ? "บันทึกไว้ก่อน" : x.s, attrs: ' data-tc="nx" data-v="' + x.k + '"', pressed: st.nx === x.k })), "cf-next") + "</div>" +
-      when + more(topicsF + chanceF + noteF) + sum + '<div class="step-nav">' + back("int") + '<button class="btn primary" type="button" data-gt="save"' + (o ? "" : " disabled") + ">บันทึก</button></div>";
+      when + more(topicsF + chanceF + noteF + insF) + sum + '<div class="step-nav">' + back("int") + '<button class="btn primary" type="button" data-gt="save"' + (o ? "" : " disabled") + ">บันทึก</button></div>";
   }
   // V287 · a date or time typed on the contact page is kept when the page redraws
   document.addEventListener("change", (e) => { const t = e.target; if (!t.closest || !t.closest("#tcPage") || !tcPage) return; if (t.id !== "tcDate" && t.id !== "tcTime") return; if (t.id === "tcDate") tcPage.date = t.value; else tcPage.time = t.value;
