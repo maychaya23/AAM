@@ -7680,8 +7680,9 @@ window.addEventListener("error", function (e) {
     if (st.int !== "yes") {
       const nx = p.listed ? STAGES[0] : null;
       const ob = (k, tone, icon, t, sb) => axBtn({ tone, icon, face: FACE_OF[k], t, sub: sb, attrs: ' data-gt="' + k + '"' });
+      // V320 · ไม่ถามคุยเรื่องอะไร/โอกาสเข้าพบ/โน้ตซ้ำที่นี่: ถ้าสนใจ จะถามครั้งเดียวที่ขั้นถัดไป · ถ้ายังไม่สนใจ/ปฏิเสธ ไม่มีอะไรต้องเพิ่ม บันทึกได้ทันที
       return wzProg(1, 3) + '<div class="tc-f" id="tcInt"><p class="cv-q">ลูกค้าสนใจไหม?</p>' + axBar([ob("later", "later", "pause", "ยังไม่สนใจตอนนี้", laterSub(p)), ob("no", "no", "x", "ปฏิเสธ", "ปิดโอกาสการขาย"), ob("yes", "go", nx ? "userplus" : "check", "สนใจ", nx ? "เป็น" + nx.label : "")]) + "</div>" +
-        more(topicsF + chanceF + noteF + insF) + '<div class="step-nav">' + back("res") + "</div>";
+        '<div class="step-nav">' + back("res") + "</div>";
     }
     // 3 · ขั้นถัดไป: นัดพบ (date and time) · คุยต่อวันอื่น (date) · ยังไม่นัด, then one "บันทึก"
     const opts = nextOpts(p).filter((x) => x.k !== "presented"), o = opts.find((x) => x.k === st.nx);
