@@ -9606,69 +9606,175 @@ window.addEventListener("error", function (e) {
       pts.map(([x, y, k, dx, dy]) => '<circle cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="6" class="lc-dot"/><text x="' + (x + dx * 16).toFixed(1) + '" y="' + (y + dy * 16 + 5).toFixed(1) + '" class="lc-v">' + sc[k] + "</text>" +
         '<text x="' + (c + dx * (o + 4)).toFixed(1) + '" y="' + (c + dy * (o + 4) + (dy < 0 ? -8 : 20)).toFixed(1) + '" class="lc-cn" text-anchor="' + (dx < 0 ? "start" : "end") + '" fill="' + lcAcc(k).ink + '">' + lcAcc(k).t + "</text>").join("") + "</svg>";
   }
-  // V310 · question pictures in the look of the company booklet: flat shapes, no outlines, its blues and lime, the gold ฿ coin.
-  // บัญชีการเงิน has one picture per item (16); the other three accounts show their own emblem until their pictures are drawn.
+  // V312 · one infographic per item (64), in the look of the company booklet: flat shapes, its blues, teal and lime, the gold ฿ coin.
+  // Each picture = one main object + the item's own figure in a round tag (account colour for a deposit, orange for a withdrawal).
   const LW_ART = (() => {
-    const P = "#4666BC", PD = "#2F4A9A", SK = "#4DAEE8", SKL = "#9DD3F3", TL = "#00ACBF", LM = "#A6D71C", LN = "#D8E6F6", SH = "#C3D6F0", INK = "#1F2A44";
-    const frame = (inner) => '<svg viewBox="0 0 320 200" aria-hidden="true" font-family="Prompt, sans-serif"><circle cx="160" cy="104" r="88" fill="#E6F3FD"/>' + inner + "</svg>";
+    const P = "#4666BC", PD = "#2F4A9A", SK = "#4DAEE8", SKL = "#9DD3F3", TL = "#00ACBF", LM = "#A6D71C", LMD = "#8CC21A", LN = "#D8E6F6", SH = "#C3D6F0", INK = "#1F2A44", GR = "#B9C8EA", OR = "#F0932B", RD = "#E8604C", CR = "#F28B7B", GD = "#FBC93D";
+    // layout: the tag always sits at the same top-right spot; the picture itself is centred (and evened in size) on the pale disc from the measured table LAY
+    const TAGX = 268, TAGY = 50, TAGR = 38;
+    const split = (inner) => { const m = /<!--T\|([^|]*)\|([^|]*)\|([^>]*)-->/.exec(inner || ""); return { tag: m, body: (inner || "").replace(/<!--T\|[^>]*-->/g, "") }; };
+    const frame = (inner, lay) => { const p = split(inner), L = lay || [0, 0, 1], cx = p.tag ? 142 : 160, cy = p.tag ? 108 : 102;
+      return '<svg viewBox="0 0 320 200" aria-hidden="true" font-family="Prompt, sans-serif"><circle cx="' + cx + '" cy="' + cy + '" r="86" fill="#E6F3FD"/><g transform="translate(' + L[0] + " " + L[1] + ") scale(" + L[2] + ')">' + p.body + "</g>" +
+        (p.tag ? (p.tag[1] === "ok" ? ok(TAGX, TAGY, 30) : label(TAGX, TAGY, p.tag[1], p.tag[2], p.tag[3])) : "") + "</svg>"; };
+    const mark = (c, b, s) => "<!--T|" + c + "|" + b + "|" + (s || "") + "-->", TOK = "<!--T|ok||-->";
+    const G = (x, y, s, inner) => '<g transform="translate(' + x + " " + y + ") scale(" + s + ')">' + inner + "</g>";
+    const label = (x, y, c, big, small) => { const r = TAGR, fs = big.length > 6 ? 14 : big.length > 5 ? 16 : big.length > 4 ? 18 : big.length > 3 ? 21 : 25;
+      return '<circle cx="' + x + '" cy="' + y + '" r="' + r + '" fill="' + c + '"/><text x="' + x + '" y="' + (y + (small ? 3 : fs * 0.35)) + '" text-anchor="middle" font-size="' + fs + '" font-weight="600" fill="#fff">' + big + "</text>" + (small ? '<text x="' + x + '" y="' +  (y + 19) + '" text-anchor="middle" font-size="12" font-weight="500" fill="#fff">' + small + "</text>" : ""); };
     const coin = (x, y, r) => '<ellipse cx="' + x + '" cy="' + (y + r + 3) + '" rx="' + r * 0.8 + '" ry="' + r * 0.14 + '" fill="#B9CDEB" opacity=".6"/><circle cx="' + x + '" cy="' + y + '" r="' + r + '" fill="#F5B21E"/><circle cx="' + x + '" cy="' + y + '" r="' + r * 0.76 + '" fill="#FBC93D" stroke="#E79A0C" stroke-width="' + r * 0.07 + '"/>' +
       '<text x="' + x + '" y="' + (y + r * 0.38) + '" text-anchor="middle" font-size="' + r * 1.05 + '" font-weight="700" fill="#fff">฿</text>';
     const stack = (x, base, n) => { let s = '<ellipse cx="' + x + '" cy="' + (base + 2) + '" rx="30" ry="6" fill="#B9CDEB" opacity=".6"/>'; for (let k = 0; k < n; k++) { const y = base - k * 9; s += '<rect x="' + (x - 24) + '" y="' + (y - 7) + '" width="48" height="7" fill="#E79A0C"/><ellipse cx="' + x + '" cy="' + y + '" rx="24" ry="6" fill="#E79A0C"/><ellipse cx="' + x + '" cy="' + (y - 7) + '" rx="24" ry="6" fill="#FBC93D"/>'; } return s; };
     const badge = (x, y, r, c, path) => '<circle cx="' + x + '" cy="' + y + '" r="' + r + '" fill="' + c + '"/><g transform="translate(' + (x - 12) + " " + (y - 12) + ')" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' + path + "</g>";
-    const label = (x, y, r, c, big, small) => '<circle cx="' + x + '" cy="' + y + '" r="' + r + '" fill="' + c + '"/><text x="' + x + '" y="' + (y + (small ? 2 : 7)) + '" text-anchor="middle" font-size="' + (small ? 19 : 21) + '" font-weight="600" fill="#fff">' + big + "</text>" + (small ? '<text x="' + x + '" y="' + (y + 17) + '" text-anchor="middle" font-size="11.5" font-weight="500" fill="#fff">' + small + "</text>" : "");
     const drops = (pts) => pts.map(([x, y]) => '<path d="M' + x + " " + y + 'q-8 12 0 17 8-5 0-17z" fill="' + SKL + '"/>').join("");
     const sheet = (x, y, w, h) => '<rect x="' + (x + 6) + '" y="' + (y + 6) + '" width="' + w + '" height="' + h + '" rx="12" fill="' + SH + '"/><rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" rx="12" fill="#fff"/>';
     const bar = (x, y, w) => '<rect x="' + x + '" y="' + y + '" width="' + w + '" height="8" rx="4" fill="' + LN + '"/>';
+    const HEART = '<path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/>', PLUS = '<path d="M12 6v12M6 12h12"/>', HOUSE = '<path d="M4 11l8-7 8 7v9H4z"/><path d="M10 20v-6h4v6"/>';
+    // pictograms, each drawn around its own centre
+    const person = (x, y, s, c) => G(x, y, s, '<circle cx="0" cy="-26" r="14" fill="' + c + '"/><path d="M-24 28v-10a24 24 0 0 1 48 0v10z" fill="' + c + '"/>');
+    const sit = (x, y, s, c) => G(x, y, s, '<circle cx="0" cy="-36" r="13" fill="' + c + '"/><path d="M-16 8v-14a16 16 0 0 1 32 0v14z" fill="' + c + '"/><path d="M-38 22c0-10 17-14 38-14s38 4 38 14-17 10-38 10-38 0-38-10z" fill="' + c + '"/>');
+    const heart = (x, y, s, c) => G(x, y, s, '<path d="M0 16C-22 2-20-16-8-16c4 0 7 2 8 5 1-3 4-5 8-5 12 0 14 18-8 32z" fill="' + c + '"/>');
+    const moon = (x, y, s) => G(x, y, s, '<path d="M6-24a25 25 0 1 0 20 38A20 20 0 0 1 6-24z" fill="' + GD + '"/>');
+    const sun = (x, y, s) => G(x, y, s, '<g stroke="#F5B21E" stroke-width="5" stroke-linecap="round"><path d="M0-30v-9M0 30v9M-30 0h-9M30 0h9M-21-21l-6-6M21-21l6-6M-21 21l-6 6M21 21l6 6"/></g><circle r="19" fill="' + GD + '"/>');
+    const clock = (x, y, r, c) => '<circle cx="' + x + '" cy="' + y + '" r="' + r + '" fill="' + c + '"/><circle cx="' + x + '" cy="' + y + '" r="' + r * 0.76 + '" fill="#fff"/><path d="M' + x + " " + (y - r * 0.5) + "V" + y + "l" + r * 0.36 + " " + r * 0.2 + '" fill="none" stroke="' + c + '" stroke-width="' + r * 0.14 + '" stroke-linecap="round" stroke-linejoin="round"/>';
+    const bubble = (x, y, w, h, c, left, dash) => (dash ? '<rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" rx="14" fill="none" stroke="' + c + '" stroke-width="3.5" stroke-dasharray="7 7"/>' :
+      '<rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" rx="14" fill="' + c + '"/><path d="M' + (left ? x + 16 : x + w - 16) + " " + (y + h - 2) + (left ? "l-4 15 22-15z" : "l4 15-22-15z") + '" fill="' + c + '"/>');
+    const dots3 = (x, y) => [-13, 0, 13].map((d) => '<circle cx="' + (x + d) + '" cy="' + y + '" r="4.5" fill="#fff"/>').join("");
+    const tick = (x, y, s) => '<path d="M' + (x - 9 * s) + " " + y + "l" + 6 * s + " " + 6 * s + " " + 12 * s + " " + -13 * s + '" fill="none" stroke="#fff" stroke-width="' + 4.5 * s + '" stroke-linecap="round" stroke-linejoin="round"/>';
+    const ok = (x, y, r) => '<circle cx="' + x + '" cy="' + y + '" r="' + r + '" fill="' + LM + '"/>' + tick(x, y + 1, r / 18);
+    const xmark = (x, y, r) => '<circle cx="' + x + '" cy="' + y + '" r="' + r + '" fill="' + RD + '"/><path d="M' + (x - r * 0.4) + " " + (y - r * 0.4) + "l" + r * 0.8 + " " + r * 0.8 + "M" + (x + r * 0.4) + " " + (y - r * 0.4) + "l" + -r * 0.8 + " " + r * 0.8 + '" stroke="#fff" stroke-width="' + r * 0.24 + '" stroke-linecap="round"/>';
+    const noSign = (x, y, r) => '<circle cx="' + x + '" cy="' + y + '" r="' + r + '" fill="none" stroke="' + RD + '" stroke-width="' + r * 0.17 + '"/><path d="M' + (x - r * 0.68) + " " + (y - r * 0.68) + "L" + (x + r * 0.68) + " " + (y + r * 0.68) + '" stroke="' + RD + '" stroke-width="' + r * 0.17 + '" stroke-linecap="round"/>';
+    const phone = (x, y, s, c, inner) => G(x, y, s, '<rect x="-24" y="-44" width="48" height="88" rx="10" fill="' + c + '"/><rect x="-19" y="-36" width="38" height="68" rx="4" fill="#fff"/><circle cx="0" cy="38" r="3" fill="#fff"/>' + (inner || ""));
+    const laptop = (x, y, s, c, inner) => G(x, y, s, '<rect x="-44" y="-34" width="88" height="58" rx="7" fill="' + c + '"/><rect x="-37" y="-27" width="74" height="44" rx="3" fill="#fff"/><path d="M-58 24h116l-8 12h-100z" fill="' + PD + '"/>' + (inner || ""));
+    const cal = (x, y, s, c, inner) => G(x, y, s, '<rect x="-38" y="-34" width="84" height="80" rx="11" fill="' + SH + '"/><rect x="-42" y="-38" width="84" height="80" rx="11" fill="#fff"/><path d="M-42-18v-9a11 11 0 0 1 11-11h62a11 11 0 0 1 11 11v9z" fill="' + c + '"/><circle cx="-22" cy="-28" r="4" fill="#fff"/><circle cx="22" cy="-28" r="4" fill="#fff"/>' + (inner || ""));
+    const week = (x, y, cols) => '<rect x="' + (x - 16) + '" y="' + (y - 14) + '" width="' + (cols.length * 20 + 12) + '" height="28" rx="14" fill="#fff"/>' + cols.map((c, i) => (c ? '<circle cx="' + (x + i * 20) + '" cy="' + y + '" r="7" fill="' + c + '"/>' : '<circle cx="' + (x + i * 20) + '" cy="' + y + '" r="6" fill="none" stroke="' + SKL + '" stroke-width="2.5" stroke-dasharray="4 4"/>')).join("");
+    const glass = (x, y, full) => '<path d="M' + (x - 12) + " " + (y - 19) + 'h24l-3.5 38h-17z" fill="#fff" stroke="' + SKL + '" stroke-width="2.5" stroke-linejoin="round"' + (full ? "" : ' stroke-dasharray="5 5"') + "/>" + (full ? '<path d="M' + (x - 10.4) + " " + (y - 4) + 'h20.8l-1.9 21h-17z" fill="' + SK + '"/>' : "");
+    const battery = (level, c) => '<rect x="-46" y="-25" width="86" height="50" rx="11" fill="#fff" stroke="' + PD + '" stroke-width="5"/><rect x="42" y="-9" width="9" height="18" rx="3" fill="' + PD + '"/>' + [0, 1, 2, 3].map((i) => (i < level ? '<rect x="' + (-37 + i * 18) + '" y="-16" width="14" height="32" rx="4" fill="' + c + '"/>' : "")).join("");
+    const cig = (x, y, s) => G(x, y, s, '<rect x="-36" y="-6" width="54" height="12" rx="2" fill="#fff" stroke="' + SH + '" stroke-width="2"/><rect x="16" y="-6" width="20" height="12" rx="2" fill="' + OR + '"/>');
+    const smoke = (x, y) => '<path d="M' + x + " " + y + 'c-9-9 9-15 0-25s9-15 0-24" fill="none" stroke="' + GR + '" stroke-width="6" stroke-linecap="round"/>';
+    const tree = (x, y, s) => G(x, y, s, '<rect x="-5" y="8" width="10" height="30" rx="3" fill="' + PD + '"/><circle cx="-15" cy="4" r="16" fill="' + LMD + '"/><circle cx="15" cy="4" r="16" fill="' + LMD + '"/><circle cx="0" cy="-12" r="24" fill="' + LM + '"/>');
+    const cloud = (x, y, s, c) => G(x, y, s, '<path d="M-34 16a16 16 0 0 1 4-31 24 24 0 0 1 45-5 19 19 0 0 1 19 36z" fill="' + c + '"/>');
+    const bolt = (x, y, s) => G(x, y, s, '<path d="M4-20l-16 24h12l-6 20 22-28h-13l8-16z" fill="#F5B21E"/>');
+    const dumbbell = (x, y, s, c, d) => G(x, y, s, '<rect x="-30" y="-5" width="60" height="10" rx="4" fill="' + d + '"/><rect x="-44" y="-20" width="16" height="40" rx="6" fill="' + c + '"/><rect x="28" y="-20" width="16" height="40" rx="6" fill="' + c + '"/><rect x="-54" y="-12" width="10" height="24" rx="4" fill="' + c + '"/><rect x="44" y="-12" width="10" height="24" rx="4" fill="' + c + '"/>');
+    const shoe = (x, y, s, c) => G(x, y, s, '<path d="M-40 14v-22c0-6 6-8 10-4l8 8 14-14c4-4 8-2 10 2 6 14 38 10 40 30z" fill="' + c + '"/><rect x="-42" y="12" width="86" height="10" rx="5" fill="' + PD + '"/><path d="M-2-8l8 8M6-14l8 8" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>');
+    const burger = (x, y, s) => G(x, y, s, '<path d="M-34-4a34 26 0 0 1 68 0z" fill="#F0A93B"/><rect x="-36" y="-2" width="72" height="8" rx="4" fill="' + LM + '"/><rect x="-34" y="7" width="68" height="11" rx="5" fill="#8A5A3C"/><path d="M-34 20h68v4a10 10 0 0 1-10 10h-48a10 10 0 0 1-10-10z" fill="#F0A93B"/>');
+    const cup = (x, y, s, c) => G(x, y, s, '<path d="M6-28l8-22" stroke="' + PD + '" stroke-width="5" stroke-linecap="round"/><path d="M-18-22h36l-5 50h-26z" fill="' + c + '"/><rect x="-22" y="-28" width="44" height="8" rx="4" fill="' + PD + '"/>');
+    const bowl = (x, y, s) => G(x, y, s, '<circle cx="-14" cy="-8" r="13" fill="' + LM + '"/><circle cx="8" cy="-12" r="15" fill="' + LMD + '"/><circle cx="23" cy="-5" r="9" fill="' + CR + '"/><path d="M-38-2h76a38 30 0 0 1-76 0z" fill="#fff" stroke="' + SKL + '" stroke-width="3"/>');
+    const wine = (x, y, s, c) => G(x, y, s, '<path d="M-18-34h36c0 26-6 36-18 36s-18-10-18-36z" fill="#fff" stroke="' + SKL + '" stroke-width="3"/><path d="M-16-14h32c-2 10-7 14-16 14s-14-4-16-14z" fill="' + c + '"/><rect x="-2.5" y="2" width="5" height="26" fill="' + SKL + '"/><rect x="-14" y="27" width="28" height="6" rx="3" fill="' + SKL + '"/>');
+    const bottle = (x, y, s, c) => G(x, y, s, '<rect x="-7" y="-46" width="14" height="22" rx="3" fill="' + c + '"/><path d="M-7-26c-10 6-10 12-10 18v36a6 6 0 0 0 6 6h22a6 6 0 0 0 6-6v-36c0-6 0-12-10-18z" fill="' + c + '"/><rect x="-17" y="-2" width="34" height="18" fill="#fff" opacity=".85"/>');
+    const chair = (x, y, s, c) => G(x, y, s, '<path d="M-20 18v26M24 18v26" stroke="' + PD + '" stroke-width="7" stroke-linecap="round"/><rect x="-26" y="-44" width="12" height="60" rx="5" fill="' + c + '"/><rect x="-26" y="6" width="56" height="12" rx="5" fill="' + c + '"/>');
+    const clip = (x, y, s, c, inner) => G(x, y, s, '<rect x="-34" y="-40" width="76" height="92" rx="10" fill="' + SH + '"/><rect x="-38" y="-44" width="76" height="92" rx="10" fill="' + c + '"/><rect x="-30" y="-34" width="60" height="74" rx="5" fill="#fff"/><rect x="-14" y="-50" width="28" height="14" rx="6" fill="' + PD + '"/>' + (inner || ""));
+    const gift = (x, y, s, c) => G(x, y, s, '<rect x="-24" y="-8" width="48" height="34" rx="5" fill="' + c + '"/><rect x="-28" y="-18" width="56" height="13" rx="4" fill="' + PD + '"/><rect x="-5" y="-18" width="10" height="44" fill="' + LM + '"/><path d="M0-18c-16-14-22 0 0 0zM0-18c16-14 22 0 0 0z" fill="' + LM + '"/>');
+    const lock = (x, y, s, c) => G(x, y, s, '<path d="M-10-4v-8a10 10 0 0 1 20 0v8" fill="none" stroke="' + c + '" stroke-width="5"/><rect x="-15" y="-5" width="30" height="24" rx="5" fill="' + c + '"/>');
+    const brief = (x, y, s, c) => G(x, y, s, '<path d="M-12-20v-6a6 6 0 0 1 6-6h12a6 6 0 0 1 6 6v6" fill="none" stroke="' + PD + '" stroke-width="6"/><rect x="-36" y="-20" width="72" height="50" rx="8" fill="' + c + '"/><rect x="-36" y="0" width="72" height="6" fill="' + PD + '"/><rect x="-7" y="-4" width="14" height="14" rx="3" fill="#fff"/>');
+    const bed = (x, y, s, c) => G(x, y, s, '<rect x="-46" y="-26" width="10" height="48" rx="4" fill="' + PD + '"/><rect x="36" y="12" width="8" height="10" rx="2" fill="' + PD + '"/><rect x="-40" y="-2" width="84" height="16" rx="5" fill="' + c + '"/><rect x="-32" y="-13" width="26" height="13" rx="6" fill="#fff"/><path d="M-4-2c0-8 6-12 14-12h24a10 10 0 0 1 10 10v2z" fill="' + P + '"/>');
     const donut = (part, top) => '<circle cx="112" cy="104" r="54" fill="none" stroke="' + LM + '" stroke-width="32"/><circle cx="112" cy="104" r="54" fill="none" stroke="' + P + '" stroke-width="32" stroke-dasharray="' + (339.3 * part).toFixed(1) + ' 339.3" transform="rotate(-90 112 104)"/><circle cx="112" cy="104" r="38" fill="#fff"/>' +
       '<text x="112" y="98" text-anchor="middle" font-size="12.5" font-weight="500" fill="#5C6E8C">' + top + '</text><text x="112" y="121" text-anchor="middle" font-size="22" font-weight="600" fill="' + P + '">45%</text>' +
       '<rect x="204" y="70" width="104" height="34" rx="17" fill="#fff"/><circle cx="221" cy="87" r="8" fill="' + P + '"/><text x="236" y="92" font-size="13.5" font-weight="500" fill="' + INK + '">ผ่อนหนี้</text>' +
       '<rect x="204" y="112" width="104" height="34" rx="17" fill="#fff"/><circle cx="221" cy="129" r="8" fill="' + LM + '"/><text x="236" y="134" font-size="13.5" font-weight="500" fill="' + INK + '">เงินที่เหลือ</text>';
-    const HEART = '<path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/>', PLUS = '<path d="M12 6v12M6 12h12"/>', HOUSE = '<path d="M4 11l8-7 8 7v9H4z"/><path d="M10 20v-6h4v6"/>';
-    const money = [
-      // deposits 1–8
-      '<rect x="98" y="34" width="132" height="150" rx="12" fill="' + SH + '"/><rect x="92" y="28" width="132" height="150" rx="12" fill="' + P + '"/><rect x="110" y="28" width="114" height="150" rx="12" fill="#fff"/><rect x="110" y="28" width="14" height="150" fill="#fff"/>' +
-        [58, 90, 122, 154].map((y, n) => '<circle cx="132" cy="' + y + '" r="10" fill="' + (n % 2 ? SK : LM) + '"/><path d="M127 ' + y + "h10" + (n % 2 ? "" : "M132 " + (y - 5) + "v10") + '" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/>' + bar(150, y - 4, [56, 40, 50, 30][n])).join("") +
-        '<g transform="translate(250 112) rotate(32)"><rect x="-8" y="-52" width="16" height="74" rx="5" fill="' + SK + '"/><rect x="-8" y="-52" width="16" height="16" rx="5" fill="' + P + '"/><path d="M-8 22h16l-8 16z" fill="' + PD + '"/></g>' + coin(70, 146, 24) + coin(262, 46, 13),
-      drops([[44, 70], [70, 34], [258, 40], [284, 76], [228, 22]]) + '<rect x="157" y="96" width="6" height="74" rx="3" fill="' + PD + '"/><path d="M160 170q0 12-11 12" fill="none" stroke="' + PD + '" stroke-width="6" stroke-linecap="round"/>' +
-        '<path d="M68 100a92 76 0 0 1 184 0z" fill="' + P + '"/><path d="M129 100a31 76 0 0 1 62 0z" fill="' + SK + '"/><circle cx="160" cy="24" r="5" fill="' + PD + '"/>' + stack(108, 174, 4) + stack(214, 174, 6),
-      stack(84, 172, 2) + stack(142, 172, 4) + stack(200, 172, 6) + '<path d="M62 118L212 52" fill="none" stroke="' + LM + '" stroke-width="9" stroke-linecap="round"/><path d="M228 44l-30-2 14 28z" fill="' + LM + '"/>' + label(262, 118, 31, P, "10%"),
+
+    const money = ((C, CD) => { const D = (b, s) => mark(CD, b, s), W = (b, s) => mark(OR, b, s); return [
+      '<rect x="88" y="34" width="132" height="150" rx="12" fill="' + SH + '"/><rect x="82" y="28" width="132" height="150" rx="12" fill="' + P + '"/><rect x="100" y="28" width="114" height="150" rx="12" fill="#fff"/><rect x="100" y="28" width="14" height="150" fill="#fff"/>' +
+        [58, 90, 122, 154].map((y, n) => '<circle cx="122" cy="' + y + '" r="10" fill="' + (n % 2 ? SK : LM) + '"/><path d="M117 ' + y + "h10" + (n % 2 ? "" : "M122 " + (y - 5) + "v10") + '" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/>' + bar(140, y - 4, [56, 40, 50, 30][n])).join("") +
+        '<g transform="translate(240 136) rotate(32)"><rect x="-8" y="-52" width="16" height="74" rx="5" fill="' + SK + '"/><rect x="-8" y="-52" width="16" height="16" rx="5" fill="' + P + '"/><path d="M-8 22h16l-8 16z" fill="' + PD + '"/></g>' + coin(56, 150, 20) + D("≥4", "ครั้ง/สัปดาห์", 268, 56),
+      drops([[44, 70], [70, 34], [258, 40], [228, 22]]) + '<rect x="157" y="96" width="6" height="74" rx="3" fill="' + PD + '"/><path d="M160 170q0 12-11 12" fill="none" stroke="' + PD + '" stroke-width="6" stroke-linecap="round"/>' +
+        '<path d="M68 100a92 76 0 0 1 184 0z" fill="' + P + '"/><path d="M129 100a31 76 0 0 1 62 0z" fill="' + SK + '"/><circle cx="160" cy="24" r="5" fill="' + PD + '"/>' + stack(108, 174, 4) + stack(206, 174, 6) + D("3–6", "เท่า", 278, 132),
+      stack(84, 172, 2) + stack(142, 172, 4) + stack(200, 172, 6) + '<path d="M62 118L212 52" fill="none" stroke="' + LM + '" stroke-width="9" stroke-linecap="round"/><path d="M228 44l-30-2 14 28z" fill="' + LM + '"/>' + D("≥10%", "ของรายได้", 266, 122),
       donut(0.4, "ไม่เกิน"),
       '<path d="M58 178L150 66l92 112z" fill="' + SKL + '"/><path d="M130 178l62-74 62 74z" fill="' + SK + '"/><path d="M150 66l-19 23 11-4 8 9 8-9 11 4z" fill="#fff"/><rect x="148" y="28" width="5" height="40" rx="2" fill="' + PD + '"/><path d="M153 30l36 10-36 12z" fill="' + LM + '"/>' +
         '<path d="M96 176q26-10 30-34t22-38" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-dasharray="1 11"/>' + badge(54, 132, 24, P, HOUSE) + badge(272, 88, 22, TL, HEART) + badge(84, 58, 19, LM, PLUS) + coin(268, 152, 20),
-      '<path d="M160 26l62 20v46c0 42-27 66-62 80-35-14-62-38-62-80V46z" fill="' + P + '"/><path d="M160 26l62 20v46c0 42-27 66-62 80z" fill="' + SK + '"/><path d="M132 98l20 20 38-42" fill="none" stroke="#fff" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>' +
-        badge(62, 76, 22, TL, HEART) + badge(262, 62, 19, LM, PLUS) + coin(258, 150, 21),
+      '<path d="M160 26l62 20v46c0 42-27 66-62 80-35-14-62-38-62-80V46z" fill="' + P + '"/><path d="M160 26l62 20v46c0 42-27 66-62 80z" fill="' + SK + '"/>' + tick(160, 100, 2.4) + badge(62, 76, 22, TL, HEART) + badge(262, 62, 19, LM, PLUS) + coin(258, 150, 21),
       '<rect x="102" y="38" width="112" height="144" rx="12" fill="' + SH + '"/><rect x="96" y="32" width="112" height="144" rx="12" fill="' + P + '"/><rect x="106" y="44" width="92" height="122" rx="6" fill="#fff"/><rect x="130" y="24" width="44" height="20" rx="8" fill="' + PD + '"/>' +
         bar(118, 62, 58) + bar(118, 80, 40) + '<rect x="118" y="126" width="14" height="28" rx="3" fill="' + SKL + '"/><rect x="138" y="112" width="14" height="42" rx="3" fill="' + SK + '"/><rect x="158" y="100" width="14" height="54" rx="3" fill="' + LM + '"/>' +
-        '<path d="M236 150l28 28" stroke="' + P + '" stroke-width="13" stroke-linecap="round"/><circle cx="216" cy="128" r="30" fill="#EAF6FD" stroke="' + PD + '" stroke-width="9"/>' +
-        '<rect x="48" y="62" width="48" height="48" rx="10" fill="' + SH + '"/><rect x="44" y="58" width="48" height="48" rx="10" fill="#fff"/><path d="M44 76v-8a10 10 0 0 1 10-10h28a10 10 0 0 1 10 10v8z" fill="' + LM + '"/><text x="68" y="99" text-anchor="middle" font-size="19" font-weight="600" fill="' + P + '">1</text>',
+        '<path d="M236 150l28 28" stroke="' + P + '" stroke-width="13" stroke-linecap="round"/><circle cx="216" cy="128" r="30" fill="#EAF6FD" stroke="' + PD + '" stroke-width="9"/>' + D("1", "ครั้ง/ปี", 60, 66),
       [[88, 36], [126, 58], [164, 84], [202, 112]].map(([x, h], n) => '<rect x="' + x + '" y="' + (172 - h) + '" width="28" height="' + h + '" rx="6" fill="' + (n < 2 ? SK : P) + '"/>').join("") +
-        '<path d="M216 60V34" stroke="' + LM + '" stroke-width="5" stroke-linecap="round"/><path d="M216 44c-16 2-22-8-20-18 14-2 22 6 20 18z" fill="' + LM + '"/><path d="M216 38c14 2 20-6 18-16-12-2-20 4-18 16z" fill="#8CC21A"/>' + coin(264, 144, 22) + coin(60, 150, 15),
-      // withdrawals 1–8
-      '<g transform="rotate(-10 112 112)">' + sheet(74, 52, 84, 112) + bar(88, 74, 52) + bar(88, 94, 36) + bar(88, 114, 46) + "</g>" + '<g transform="rotate(8 176 118)">' + sheet(134, 60, 84, 112) + bar(148, 82, 50) + bar(148, 102, 34) + bar(148, 122, 44) + bar(148, 142, 26) + "</g>" +
-        label(248, 66, 30, P, "?") + coin(250, 152, 18),
+        '<path d="M216 60V34" stroke="' + LM + '" stroke-width="5" stroke-linecap="round"/><path d="M216 44c-16 2-22-8-20-18 14-2 22 6 20 18z" fill="' + LM + '"/><path d="M216 38c14 2 20-6 18-16-12-2-20 4-18 16z" fill="' + LMD + '"/>' + coin(264, 144, 22) + coin(60, 150, 15),
+      '<g transform="rotate(-10 112 112)">' + sheet(74, 52, 84, 112) + bar(88, 74, 52) + bar(88, 94, 36) + bar(88, 114, 46) + "</g>" + '<g transform="rotate(8 176 118)">' + sheet(134, 60, 84, 112) + bar(148, 82, 50) + bar(148, 102, 34) + bar(148, 122, 44) + bar(148, 142, 26) + "</g>" + W("?", "", 252, 62) + coin(250, 152, 18),
       '<path d="M110 80a19 19 0 0 1 38 0" fill="none" stroke="' + PD + '" stroke-width="6"/><rect x="92" y="78" width="74" height="96" rx="9" fill="' + P + '"/><path d="M166 98a16 16 0 0 1 32 0" fill="none" stroke="#2E8FCB" stroke-width="6"/><rect x="150" y="96" width="66" height="78" rx="9" fill="' + SK + '"/>' +
-        '<path d="M218 120a11 11 0 0 1 22 0" fill="none" stroke="#7FA91E" stroke-width="5"/><rect x="206" y="118" width="46" height="56" rx="8" fill="' + LM + '"/>' + label(258, 62, 36, TL, "&gt;3", "ครั้ง/เดือน"),
-      '<path d="M56 174h208" stroke="' + SH + '" stroke-width="4" stroke-linecap="round"/>' + [76, 142, 208].map((x) => '<rect x="' + x + '" y="118" width="24" height="54" rx="5" fill="' + LM + '"/><rect x="' + (x + 28) + '" y="' + 78 + '" width="24" height="94" rx="5" fill="' + P + '"/>').join("") +
+        '<path d="M218 120a11 11 0 0 1 22 0" fill="none" stroke="#7FA91E" stroke-width="5"/><rect x="206" y="118" width="46" height="56" rx="8" fill="' + LM + '"/>' + W("&gt;3", "ครั้ง/เดือน"),
+      '<path d="M56 174h208" stroke="' + SH + '" stroke-width="4" stroke-linecap="round"/>' + [76, 142, 208].map((x) => '<rect x="' + x + '" y="118" width="24" height="54" rx="5" fill="' + LM + '"/><rect x="' + (x + 28) + '" y="78" width="24" height="94" rx="5" fill="' + P + '"/>').join("") +
         '<path d="M60 118h204" stroke="#7FA91E" stroke-width="3" stroke-dasharray="7 7"/>' +
         '<rect x="62" y="30" width="86" height="30" rx="15" fill="#fff"/><circle cx="78" cy="45" r="7" fill="' + LM + '"/><text x="92" y="50" font-size="13" font-weight="500" fill="' + INK + '">รายได้</text>' +
         '<rect x="158" y="30" width="96" height="30" rx="15" fill="#fff"/><circle cx="174" cy="45" r="7" fill="' + P + '"/><text x="188" y="50" font-size="13" font-weight="500" fill="' + INK + '">รายจ่าย</text>',
       '<rect x="112" y="68" width="104" height="112" rx="22" fill="' + SH + '"/><rect x="106" y="62" width="104" height="112" rx="22" fill="#F6FBFF" stroke="' + SKL + '" stroke-width="4"/><rect x="118" y="46" width="80" height="20" rx="8" fill="' + P + '"/>' +
-        [142, 126, 110].map((y) => '<ellipse cx="158" cy="' + y + '" rx="34" ry="8" fill="none" stroke="' + SKL + '" stroke-width="3" stroke-dasharray="5 6"/>').join("") + '<ellipse cx="158" cy="160" rx="34" ry="8" fill="#E79A0C"/><ellipse cx="158" cy="155" rx="34" ry="8" fill="#FBC93D"/>' +
-        label(256, 84, 32, TL, "&lt;6", "เดือน"),
+        [142, 126, 110].map((y) => '<ellipse cx="158" cy="' + y + '" rx="34" ry="8" fill="none" stroke="' + SKL + '" stroke-width="3" stroke-dasharray="5 6"/>').join("") + '<ellipse cx="158" cy="160" rx="34" ry="8" fill="#E79A0C"/><ellipse cx="158" cy="155" rx="34" ry="8" fill="#FBC93D"/>' + W("&lt;6", "เดือน", 258, 84),
       donut(0.6, "เกิน"),
-      '<path d="M96 76a24 24 0 0 1 8-46 34 34 0 0 1 64-6 28 28 0 0 1 50 16 22 22 0 0 1 2 36z" fill="#B9C8EA"/>' + drops([[104, 92], [136, 104], [168, 90], [200, 104], [228, 90], [120, 122], [186, 124]]) +
-        '<path d="M160 60l-16 26h14l-8 24 26-32h-15l9-18z" fill="#F5B21E"/>' + stack(118, 176, 3) + stack(204, 176, 2),
+      cloud(160, 56, 1.7, GR) + drops([[104, 96], [136, 108], [200, 108], [228, 94], [120, 126], [186, 128]]) + bolt(160, 104, 1.2) + stack(118, 176, 3) + stack(204, 176, 2),
       sheet(84, 44, 116, 124) + '<path d="M84 76V56a12 12 0 0 1 12-12h92a12 12 0 0 1 12 12v20z" fill="' + P + '"/><circle cx="112" cy="58" r="5" fill="#fff"/><circle cx="172" cy="58" r="5" fill="#fff"/>' +
         '<text x="142" y="124" text-anchor="middle" font-size="34" font-weight="600" fill="' + P + '">2 ปี</text><text x="142" y="150" text-anchor="middle" font-size="14" font-weight="500" fill="#5C6E8C">ไม่ได้ทบทวน</text>' +
         '<rect x="226" y="62" width="48" height="8" rx="4" fill="' + PD + '"/><rect x="226" y="138" width="48" height="8" rx="4" fill="' + PD + '"/><path d="M232 70h36l-18 34z" fill="' + SK + '"/><path d="M250 104l18 34h-36z" fill="' + SKL + '"/>',
       '<path d="M124 124h72l-10 52h-52z" fill="' + P + '"/><rect x="114" y="110" width="92" height="18" rx="7" fill="' + PD + '"/>' +
         '<path d="M160 108V70M160 86c-20 2-28-10-26-24 18-2 28 8 26 24zM160 78c18 2 26-8 24-22-16-2-26 6-24 22z" fill="none" stroke="' + SKL + '" stroke-width="3.5" stroke-dasharray="6 6" stroke-linecap="round"/>' +
-        '<circle cx="254" cy="84" r="22" fill="none" stroke="#F5B21E" stroke-width="4" stroke-dasharray="7 7"/><text x="254" y="93" text-anchor="middle" font-size="24" font-weight="700" fill="#F5B21E">฿</text>' +
-        '<path d="M40 150h46" stroke="' + SKL + '" stroke-width="5" stroke-linecap="round" stroke-dasharray="2 10"/>'
-    ];
-    const emblem = (a) => frame('<circle cx="160" cy="104" r="68" fill="none" stroke="' + a.c + '" stroke-width="4" opacity=".28"/><circle cx="160" cy="104" r="52" fill="' + a.c + '"/><g transform="translate(118 62) scale(3.5)" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">' + a.ico + "</g>" +
-      '<circle cx="66" cy="62" r="9" fill="' + LM + '"/><circle cx="260" cy="150" r="12" fill="' + SK + '"/><circle cx="252" cy="52" r="6" fill="' + P + '"/><circle cx="72" cy="152" r="5" fill="' + TL + '"/>');
-    return (a, i) => (a.k === "money" && money[i] ? frame(money[i]) : emblem(a));
+        '<circle cx="254" cy="84" r="22" fill="none" stroke="#F5B21E" stroke-width="4" stroke-dasharray="7 7"/><text x="254" y="93" text-anchor="middle" font-size="24" font-weight="700" fill="#F5B21E">฿</text>'
+    ]; })("#4666BC", "#2F4A9A");
+
+    const body = ((C, CD) => { const D = (b, s) => mark(CD, b, s), W = (b, s) => mark(OR, b, s); return [
+      moon(86, 56, 0.9) + '<circle cx="126" cy="42" r="4" fill="' + GD + '"/><circle cx="52" cy="92" r="3" fill="' + GD + '"/>' + bed(152, 134, 1.55, C) + D("7", "ชม./คืน"),
+      dumbbell(150, 104, 1.5, C, PD) + week(100, 170, [LM, LM, LM, LM, LM, 0, 0]) + D("150", "นาที/สัปดาห์"),
+      // a person mid-stride: the far arm and leg in the darker tone, a ground line and three marks of movement behind
+      '<path d="M84 178h160" stroke="' + SKL + '" stroke-width="5" stroke-linecap="round"/><path d="M84 88h22M74 108h26M86 128h18" stroke="' + SKL + '" stroke-width="5" stroke-linecap="round"/>' +
+        G(162, 100, 1.28, '<g fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M3-36l-13 18-8 14" stroke="' + CD + '" stroke-width="8"/><path d="M-3 2l-6 26-19 18 3 11" stroke="' + CD + '" stroke-width="10"/>' +
+          '<path d="M5-37l-6 37" stroke="' + C + '" stroke-width="16"/><path d="M-1 2l16 24-2 28h13" stroke="' + C + '" stroke-width="10"/><path d="M5-36l10 20 13-5" stroke="' + C + '" stroke-width="8"/></g><circle cx="10" cy="-55" r="11" fill="' + C + '"/>') + D("6–8", "พันก้าว/วัน"),
+      // junk food: fries (salty, fried), a doughnut (sweet) and a fried drumstick (oily)
+      G(108, 112, 1.35, [[-16, -14], [-8, 0], [0, -6], [8, 4], [16, -10]].map(([x, r]) => '<rect x="' + (x - 4) + '" y="-44" width="8" height="46" rx="3" fill="' + GD + '" transform="rotate(' + r + " " + x + ' 0)"/>').join("") + '<path d="M-26-10h52l-6 46h-40z" fill="' + RD + '"/><path d="M-26-10h52l-2 12h-48z" fill="#F28B7B"/>') +
+        G(196, 136, 1.15, '<circle r="27" fill="#E2A25C"/><circle r="22" fill="' + CR + '"/><circle r="8" fill="#E6F3FD"/><rect x="-15" y="-9" width="8" height="3" rx="1.5" fill="#fff" transform="rotate(-30 -11 -8)"/><rect x="8" y="-14" width="8" height="3" rx="1.5" fill="' + GD + '" transform="rotate(40 12 -13)"/><rect x="9" y="10" width="8" height="3" rx="1.5" fill="#fff" transform="rotate(-20 13 11)"/><rect x="-14" y="11" width="8" height="3" rx="1.5" fill="' + GD + '" transform="rotate(30 -10 12)"/>') +
+        '<g transform="translate(188 70) rotate(35)"><rect x="-4" y="14" width="8" height="30" rx="4" fill="#fff" stroke="' + SH + '" stroke-width="2"/><circle cx="-5" cy="44" r="6" fill="#fff" stroke="' + SH + '" stroke-width="2"/><circle cx="5" cy="44" r="6" fill="#fff" stroke="' + SH + '" stroke-width="2"/><ellipse cx="0" cy="-4" rx="20" ry="26" fill="#D98A3A"/><ellipse cx="-6" cy="-10" rx="6" ry="9" fill="#E8A75A"/></g>' + D("≤2", "ครั้ง/สัปดาห์"),
+      [0, 1, 2, 3].map((i) => glass(92 + i * 34, 84, true) + glass(92 + i * 34, 136, true)).join("") + D("6–8", "แก้ว/วัน", 264, 104),
+      wine(140, 108, 1.7, P) + '<path d="M96 76h88" stroke="' + RD + '" stroke-width="3.5" stroke-dasharray="7 6" stroke-linecap="round"/>' + ok(212, 150, 20) + D("ไม่เกิน", "เกณฑ์"),
+      cig(150, 106, 1.5) + noSign(150, 106, 66) + TOK,
+      clip(138, 110, 1.25, C, heart(0, -8, 0.9, CR) + '<rect x="-20" y="16" width="40" height="7" rx="3.5" fill="' + LN + '"/><rect x="-20" y="28" width="26" height="7" rx="3.5" fill="' + LN + '"/>') + D("1", "ครั้ง/ปี"),
+      moon(74, 58, 0.8) + clock(150, 112, 50, C) + '<text x="212" y="64" font-size="22" font-weight="700" fill="' + GR + '">z</text><text x="226" y="46" font-size="16" font-weight="700" fill="' + GR + '">z</text>' + W("&lt;6", "ชม./คืน", 262, 120),
+      dumbbell(150, 104, 1.5, GR, SH) + week(100, 170, [0, 0, 0, 0, 0, 0, 0]) + W("0", "ครั้ง/สัปดาห์"),
+      chair(122, 112, 1.45, C) + clock(206, 132, 30, PD) + W("&gt;2", "ชม.ต่อเนื่อง"),
+      burger(122, 116, 1.5) + cup(206, 124, 1.15, C) + W("≥4", "ครั้ง/สัปดาห์", 266, 56),
+      [0, 1, 2, 3].map((i) => glass(92 + i * 34, 84, i < 3) + glass(92 + i * 34, 136, false)).join("") + W("&lt;4", "แก้ว/วัน", 264, 104),
+      bottle(118, 110, 1.35, C) + wine(184, 122, 1.2, P) + W("≥3", "ครั้ง/สัปดาห์"),
+      cig(132, 136, 1.6) + smoke(190, 118) + smoke(168, 108) + smoke(212, 104) + W("ประจำ", "", 70, 66),
+      clip(138, 110, 1.25, GR, '<path d="M0 6C-18-6-16-20-6-20c3 0 5 2 6 4 1-2 3-4 6-4 10 0 12 14-6 26z" fill="none" stroke="' + SKL + '" stroke-width="3" stroke-dasharray="5 5"/>') + W("≥2", "ปี")
+    ]; })("#4DAEE8", "#2586C4");
+
+    const mind = ((C, CD) => { const D = (b, s) => mark(CD, b, s), W = (b, s) => mark(OR, b, s); return [
+      sit(150, 116, 1.45, C) + '<circle cx="80" cy="60" r="6" fill="' + SKL + '"/><circle cx="62" cy="96" r="4" fill="' + SK + '"/>' + D("10", "นาที/วัน"),
+      person(104, 128, 1.2, C) + person(204, 128, 1.2, P) + bubble(122, 32, 66, 44, "#fff", false) + heart(155, 53, 0.75, CR) + D("1", "ครั้ง/สัปดาห์", 268, 54),
+      '<circle cx="150" cy="96" r="62" fill="none" stroke="' + SKL + '" stroke-width="3.5" stroke-dasharray="3 9" stroke-linecap="round"/><circle cx="150" cy="96" r="78" fill="none" stroke="' + SKL + '" stroke-width="3" stroke-dasharray="3 12" stroke-linecap="round" opacity=".6"/>' + sit(150, 122, 1.3, C) + D("3", "วัน/สัปดาห์", 268, 54),
+      laptop(140, 108, 1.35, P, '<rect x="-12" y="-17" width="8" height="24" rx="3" fill="' + LM + '"/><rect x="4" y="-17" width="8" height="24" rx="3" fill="' + LM + '"/>') + D("5–10", "นาที/ครั้ง"),
+      cal(140, 108, 1.4, C, sun(0, 12, 0.62)) + D("1", "วัน/สัปดาห์"),
+      phone(128, 106, 1.2, PD, heart(0, -8, 0.8, CR) + '<rect x="-12" y="14" width="24" height="6" rx="3" fill="' + LN + '"/>') + clock(200, 134, 28, CD) + D("≤3", "ชม./วัน"),
+      '<path d="M58 132h124" stroke="' + SKL + '" stroke-width="5" stroke-linecap="round"/>' + sun(118, 96, 1.25) + G(196, 148, 0.9, battery(4, LM)) + D("≥4", "วัน/สัปดาห์"),
+      '<path d="M74 176q42-46 86-18t86-12v30z" fill="' + LM + '" opacity=".5"/>' + sun(78, 58, 0.8) + tree(128, 112, 1.35) + tree(200, 132, 0.95) + D("1", "ครั้ง/สัปดาห์", 266, 56),
+      moon(70, 58, 0.8) + person(140, 138, 1.25, C) + cloud(188, 64, 1.05, GR) + '<path d="M170 66q8-12 16 0t16 0" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"/><circle cx="160" cy="92" r="5" fill="' + GR + '"/>' + W("≥3", "ครั้ง/สัปดาห์", 272, 124),
+      laptop(138, 96, 1.25, P, '<rect x="-26" y="-18" width="40" height="6" rx="3" fill="' + LN + '"/><rect x="-26" y="-6" width="52" height="6" rx="3" fill="' + LN + '"/>') + week(100, 172, [P, P, P, P, P, 0, 0]) + W("≥5", "วัน/สัปดาห์"),
+      // a person, upright, beside a nearly empty battery
+      person(104, 122, 1.35, C) + G(212, 124, 1.15, battery(1, RD)) + W("≥3", "วัน/สัปดาห์"),
+      moon(78, 58, 0.9) + phone(150, 110, 1.25, PD, '<rect x="-19" y="-36" width="38" height="68" rx="4" fill="' + SKL + '"/><circle cx="0" cy="-4" r="10" fill="#fff"/>') + W("&gt;1", "ชม./คืน"),
+      cal(140, 108, 1.5, C, [0, 1].map((r) => [0, 1, 2, 3, 4, 5, 6].map((i) => '<circle cx="' + (-30 + i * 10) + '" cy="' + (2 + r * 16) + '" r="3.8" fill="' + P + '"/>').join("")).join("")) + W("&gt;2", "สัปดาห์"),
+      phone(128, 106, 1.3, PD, heart(0, -14, 0.6, CR) + heart(-6, 10, 0.4, CR) + heart(8, 18, 0.35, CR)) + clock(204, 136, 30, OR) + W("&gt;5", "ชม./วัน"),
+      cloud(150, 70, 1.55, GR) + bolt(150, 114, 1.15) + week(100, 172, [OR, OR, OR, OR, OR, OR, 0]) + W("แทบ", "ทุกวัน"),
+      cal(128, 110, 1.3, C, '<text x="0" y="24" text-anchor="middle" font-size="34" font-weight="600" fill="' + GR + '">?</text>') + '<path d="M222 108l6 13 14 2-10 10 2 14-12-7-12 7 2-14-10-10 14-2z" fill="none" stroke="' + SKL + '" stroke-width="3.5" stroke-dasharray="6 6" stroke-linejoin="round"/>' + W("&gt;2", "สัปดาห์")
+    ]; })("#A6D71C", "#6F9611");
+
+    const bond = ((C, CD) => { const D = (b, s) => mark(CD, b, s), W = (b, s) => mark(OR, b, s); return [
+      person(108, 122, 1.25, C) + person(206, 122, 1.25, P) + person(157, 142, 0.85, LM) + heart(157, 54, 1.05, CR) + D("1", "ครั้ง/สัปดาห์", 268, 54),
+      person(98, 130, 1.15, C) + person(196, 130, 1.15, P) + bubble(78, 40, 54, 36, C, true) + dots3(105, 58) + bubble(152, 34, 54, 36, P, false) + dots3(179, 52) + phone(258, 144, 0.42, PD) + noSign(258, 144, 28) + D("15", "นาที/วัน", 266, 56),
+      phone(126, 108, 1.25, PD, heart(0, -6, 0.85, CR)) + '<path d="M168 70a22 22 0 0 1 0 32M180 60a38 38 0 0 1 0 52" fill="none" stroke="' + C + '" stroke-width="5" stroke-linecap="round"/>' + D("1", "ครั้ง/สัปดาห์"),
+      person(100, 130, 1.2, P) + bubble(82, 34, 84, 46, P, true) + dots3(124, 57) + person(214, 130, 1.2, C) + '<path d="M184 84a14 14 0 0 0 0 26M174 76a26 26 0 0 0 0 42" fill="none" stroke="' + CD + '" stroke-width="4.5" stroke-linecap="round"/>' + TOK,
+      cal(128, 108, 1.4, C, heart(0, 12, 0.85, CR)) + gift(228, 142, 1.05, P) + TOK,
+      bubble(60, 40, 110, 44, GR, true) + dots3(115, 62) + bubble(128, 104, 112, 46, C, false) + tick(184, 127, 1.3) + D("24", "ชม."),
+      person(126, 124, 1.35, C) + person(190, 124, 1.35, P) + heart(158, 50, 1, CR) + D("≥1", "คน", 266, 58),
+      person(96, 132, 1.15, C) + person(220, 132, 1.15, P) + bubble(108, 34, 100, 46, LM, false) + tick(158, 57, 1.5) + D("3", "วัน", 272, 58),
+      brief(126, 108, 1.7, P) + person(222, 142, 0.75, GR) + person(254, 150, 0.55, GR) + W("&gt;2", "สัปดาห์"),
+      person(88, 130, 1.15, C) + person(232, 130, 1.15, P) + phone(160, 112, 1.05, PD, heart(0, -6, 0.7, CR)) + bubble(64, 38, 50, 32, SKL, true, true),
+      person(108, 130, 1.2, C) + person(212, 130, 1.2, P) + bubble(84, 40, 56, 36, SKL, true, true) + bubble(180, 40, 56, 36, SKL, false, true),
+      person(94, 132, 1.2, P) + bubble(78, 32, 92, 50, GR, true) + bolt(124, 57, 0.9) + '<path d="M176 100h22" stroke="' + GR + '" stroke-width="5" stroke-linecap="round"/><path d="M206 100l-12-8v16z" fill="' + GR + '"/>' + person(232, 136, 1.1, C),
+      cal(118, 108, 1.3, C, heart(0, 12, 0.8, CR)) + phone(206, 130, 0.85, GR, '<text x="0" y="6" text-anchor="middle" font-size="22" font-weight="700" fill="' + GR + '">z</text>') + W("&gt;3", "ครั้ง", 264, 56),
+      bubble(58, 40, 124, 46, C, true) + dots3(120, 63) + '<text x="182" y="104" text-anchor="end" font-size="12.5" font-weight="500" fill="#5C6E8C">อ่านแล้ว</text>' + bubble(134, 116, 124, 44, SKL, false, true),
+      cal(146, 108, 1.55, C, xmark(-22, 14, 9) + xmark(0, 14, 9) + xmark(22, 14, 9)),
+      person(118, 134, 1.3, C) + bubble(146, 34, 86, 54, GR, true) + lock(189, 60, 1.05, PD) + W("&gt;1", "สัปดาห์", 266, 124)
+    ]; })("#00ACBF", "#008A99");
+
+    const SETS = { money, body, mind, bond };
+    const LAY = /*LAY*/{"money":[[17.6,26.4,0.789],[12.1,24.9,0.847],[-11.7,-8.6,1.068],[-9.8,5.5,0.928],[17.6,11.5,0.879],[5.5,4.3,0.963],[-28.6,13.5,0.937],[0.7,8.8,0.963],[-13.2,4.9,0.922],[-62.1,-28.1,1.175],[-17.8,-11.3,1.111],[-37.8,-14.8,1.104],[-9.8,5.5,0.928],[21.5,22.9,0.864],[-54.8,-28.8,1.2],[-74,-37,1.2]],"body":[[-7.8,-1.2,1.098],[-31.7,-35.2,1.126],[-4.8,21.9,0.911],[-23.4,-1.8,1.112],[-31.6,-22,1.2],[-56.8,-22.1,1.2],[-28.2,-8.8,1.121],[-23.1,-19.1,1.161],[-15.6,6.8,1.067],[-31.7,-35.2,1.126],[-45.8,-19.9,1.16],[-32.3,-24.4,1.151],[-31.6,-22,1.2],[-40.4,-15.7,1.2],[-33.4,-10.4,1.2],[-23.1,-19.1,1.161]],"mind":[[-17.9,-14.4,1.2],[-35.9,-0.5,1.142],[-2.3,18.9,0.949],[-28,-21.2,1.2],[-31.4,-26.3,1.2],[-56.3,-19.1,1.2],[-13.3,-1.3,1.022],[1.8,14.3,0.944],[-8.2,6.5,1.026],[-26.2,-22,1.103],[-21.6,2.4,0.944],[2.1,-5.8,1.151],[-28,-23.9,1.175],[-58.5,-18.9,1.2],[0.5,20.2,0.881],[-35.8,-18.5,1.115]],"bond":[[-40.7,-6.8,1.151],[-15.4,20.2,0.872],[-31.8,-19.6,1.2],[-32,1.8,1.096],[-23.1,-3.5,0.999],[-16.7,4,1.044],[-43,-3.4,1.158],[-25.8,6,1.049],[-14.2,8.3,0.929],[-26.3,-14.6,1.165],[-32,-20.2,1.2],[-32,-16,1.187],[-27.1,-20.6,1.153],[-23.3,-14,1.16],[-18.9,-35,1.2],[-33,-0.9,1.085]]};
+    const art = (a, i) => frame((SETS[a.k] || [])[i] || "", (LAY[a.k] || [])[i]);
+    art.raw = (k, i) => split(SETS[k][i]);
+    return art;
   })();
   // V309 · the scripts page is this one card
   function lcCard() {
