@@ -7657,7 +7657,7 @@ window.addEventListener("error", function (e) {
     const chanceF = ask ? '<div class="tc-f" id="tcChance"><span class="lbl">โอกาสในการเข้าพบ <small class="muted">ประเมินเอง</small></span><div class="pf-chips tc-chance gt-chance">' +
       Object.keys(CHANCE).map((k) => '<button type="button" class="pf-chip" data-tc="chance" data-v="' + k + '" aria-pressed="' + (st.chance === k) + '"><b>' + CHANCE[k] + "</b><small>" + CHANCE_TIP[k] + "</small></button>").join("") + "</div></div>" : "";
     const noteF = noteField("tcNote", st.note, { ph: "เช่น ลูกค้าสนใจประกันสุขภาพ ขอข้อมูลเพิ่มเติม" });
-    const more = (inner) => '<details class="cf-more"' + (st.topics.length || st.chance || st.note ? " open" : "") + '><summary>เพิ่มบันทึก <small>ไม่บังคับ · ' + (talked ? "คุยเรื่องอะไร · " : "") + (ask ? "โอกาสเข้าพบ · " : "") + "โน้ต</small></summary>" + inner + "</details>";
+    const more = (inner) => '<details class="cf-more" open><summary>เพิ่มบันทึก <small>ไม่บังคับ · ' + (talked ? "คุยเรื่องอะไร · " : "") + (ask ? "โอกาสเข้าพบ · " : "") + "โน้ต</small></summary>" + inner + "</details>";
     const picked = (t) => '<p class="tc-picked"><span class="muted">ผลการติดต่อ</span> <b>' + t + "</b></p>";
     // 1 · ผลการติดต่อ (a big button moves on by itself)
     if (!st.res) {
@@ -8037,7 +8037,7 @@ window.addEventListener("error", function (e) {
       const minor = (p.listed || p.stage === STG.PROSPECT) && !firstYes ? opts.filter((x) => x.k === "keep") : [];
       const majorOpts = opts.filter((x) => !minor.includes(x));
       const minorHtml = minor.length ? '<div class="cf-minor">' + minor.map((x) => '<button type="button" class="linkbtn cf-minor-b" data-cf="nx:' + x.k + '" aria-pressed="' + (cf.nx === x.k) + '">' + x.t + "</button>").join("") + "</div>" : "";
-      const extra = (p.listed || p.stage === STG.PROSPECT) ? '<details class="cf-more"' + (cf.picks.length || cf.chance ? " open" : "") + '><summary>เพิ่มบันทึก <small>ไม่บังคับ · สนใจเรื่องไหน' + (!cf.meet ? " · โอกาสเข้าพบ" : "") + " · โน้ต</small></summary>" : "";
+      const extra = (p.listed || p.stage === STG.PROSPECT) ? '<details class="cf-more" open><summary>เพิ่มบันทึก <small>ไม่บังคับ · สนใจเรื่องไหน' + (!cf.meet ? " · โอกาสเข้าพบ" : "") + " · โน้ต</small></summary>" : "";
       return (firstYes ? "" : '<p class="cv-q">ขั้นถัดไป</p><div class="ax-bar cf-next">' + majorOpts.map((x) => big("nx:" + x.k, x.to > (p.listed ? -1 : p.stage) && !x.appt && !x.cb && x.k !== "keep" && x.k !== "ref" ? "go" : "", (cf.meet && x.k === "meet" ? "นัดพบอีกครั้ง" : x.k === "present" ? "นัดเสนอแผน" : x.t).replace("ความต้องการ", '<span class="nw">ความต้องการ</span>'), x.s, cf.nx === x.k)).join("") + "</div>" + minorHtml + when) + extra +
         (cf.nx === "presented" || cf.nx === "again" ? offerFields(cf) : cf.nx === "agree" ? pickOffer(cf, "ลูกค้าตกลงแผนไหน") : cf.nx === "issued" ? policyFields(cf) : "") +
         ((p.listed || p.stage === STG.PROSPECT) ? '<p class="cv-q cf-sub">สนใจเรื่องไหน? <small>ไม่บังคับ · เลือกได้หลายข้อ</small></p>' + chips(INTERESTS) : "") +
@@ -9305,6 +9305,11 @@ window.addEventListener("error", function (e) {
       // V267 · อาชีพ: a dropdown grouped like "กลุ่มอาชีพ / อาชีพ" in ส่วนที่ 1; a job typed before V267 stays as its own option
       fld("อาชีพ", "job", '<select><option value="">ไม่บังคับ · เลือกอาชีพ</option>' + (p.job && !Object.values(OCC).some((l) => l.includes(p.job)) ? '<option value="' + esc(p.job) + '" selected>' + esc(p.job) + "</option>" : "") + Object.keys(OCC).map((g) => '<optgroup label="' + esc(g) + '">' + OCC[g].map((o) => '<option value="' + esc(g + "|" + o) + '"' + (p.job === o ? " selected" : "") + ">" + esc(o === "อื่น ๆ" ? "อื่น ๆ (" + g + ")" : o) + "</option>").join("") + "</optgroup>").join("") + "</select>") +
       '<fieldset class="full met-chips"><legend>แหล่งที่มา <small>(ไม่บังคับ · แตะซ้ำเพื่อยกเลิก)</small></legend><div class="mc-row">' + MET.map((m, i) => '<label class="mchip" title="' + m + '"><input type="radio" name="met" value="' + i + '"' + (p.met === m ? " checked" : "") + "><span>" + MET_SHORT[i] + "</span></label>").join("") + "</div></fieldset>" +
+      // V318 · ช่องทางติดต่อ ตั้งแต่ตอนเพิ่มรายชื่อ: ติ๊กได้เลยถ้ามีอยู่แล้ว ไม่บังคับ · ไม่เก็บเบอร์จริงไว้ในระบบ (เหมือนหน้าอื่นทุกจุด)
+      (isNew ? '<fieldset class="full met-chips"><legend>ช่องทางติดต่อ <small>(ไม่บังคับ)</small></legend><div class="mc-row">' +
+        '<label class="mchip"><input type="checkbox" name="cSaved"' + (p.cSaved ? " checked" : "") + '><span>บันทึกเบอร์ในมือถือแล้ว</span></label>' +
+        '<label class="mchip"><input type="checkbox" name="cLine"' + (p.cLine ? " checked" : "") + '><span>แอด LINE แล้ว</span></label>' +
+        "</div></fieldset>" : "") +
       (isNew ? "" : fld("ระดับความสนใจ", "temp", "<select>" + optList(TEMPS, p.temp) + "</select>")) +
       fld("หมายเหตุ", "note", '<textarea placeholder="ไม่บังคับ">' + esc(p.note) + "</textarea>", true) + "</div>",
     (d) => {
@@ -9315,7 +9320,9 @@ window.addEventListener("error", function (e) {
         // added by the agent, so the company channel is always "เพิ่มรายชื่อโดยผู้ใช้"
         const np = Object.assign({ id: nid("p"), agentId: defaultOwner(), source: SOURCES[0], temp: "warm", stage: 0, listed: true, created: todayISO, addedAt: Date.now() * 1000 + S.seq, last: null, lastResult: null, note: d.note }, rec);
         if (d.sex || jg) np.know = Object.assign(d.sex ? { sex: d.sex } : {}, jg ? { occGroup: jg, occ: jo } : {});
+        if (d.cSaved) np.cSaved = true; if (d.cLine) np.cLine = true; // V318 · ติ๊กได้ตั้งแต่ตอนเพิ่มรายชื่อ ไม่ต้องกลับมาเพิ่มทีหลัง
         S.prospects.push(np);
+        if (d.cSaved || d.cLine) readyToday(np);
         if (!masked(np)) setTimeout(() => openPerson(np.id, true), 0);
         const at = S.tasks.find((t) => t.kind === "add" && t.date === todayISO && t.agentId === (rec.agentId || defaultOwner()));
         if (at) syncAddTask(at);
