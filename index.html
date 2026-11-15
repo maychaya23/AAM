@@ -7619,7 +7619,7 @@ window.addEventListener("error", function (e) {
     if (cfm) return personHead(p, 'data-act="greetBack"', 'data-act="greetHist"') + '<div class="home pp">' + '<section class="panel gt-panel"><div class="panel-head"><div><h2>' + recTitle + '</h2></div></div><div class="cf" id="cfPage">' + cfHtml(cfPage) + "</div>" +
       (false && cfPage.meet && cfPage.task && cfPage.task.kind === "appt" && cfPage.task.status !== "done" ? '<div class="rec-alt"><span class="muted">ไม่ได้พบตามนัด?</span><button type="button" class="linkbtn" data-act="apptMoveP" data-id="' + cfPage.task.id + '">เลื่อนนัด</button><button type="button" class="linkbtn" data-act="apptCancelP" data-id="' + cfPage.task.id + '">ไม่ได้พบ / ยกเลิกนัด</button></div>' : "") + "</section></div>";
     return personHead(p, 'data-act="greetBack"', 'data-act="greetHist"') +
-      '<div class="home pp">' + '<section class="panel gt-panel"><div class="panel-head"><div><h2>' + esc(st.title || "บันทึกการติดต่อ") + '</h2><p class="muted tc-sub">ครั้งที่ ' + st.n + "</p></div></div>" + lastOfferStrip(p) +
+      '<div class="home pp">' + '<section class="panel gt-panel"><div class="panel-head"><div><h2>' + esc(st.title || "บันทึกการติดต่อ") + ' <small class="muted tc-sub">· ครั้งที่ ' + st.n + "</small></h2></div></div>" + lastOfferStrip(p) +
       // V288 · no separate "ยังไม่มีเบอร์หรือ LINE" box: the dashed icons and the pencil next to the name say it
       '<div class="cf" id="tcPage">' + greetHtml(st) + "</div></section></div>";
   }
