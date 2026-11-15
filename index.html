@@ -3348,6 +3348,49 @@ html.lw-on, html.lw-on body { overflow: hidden; }
 .lw-tips h2 { margin: -18px -20px 14px; padding: 9px 20px; background: var(--lw-grad); color: #fff; font-size: 17px; font-weight: 500; }
 .lw-track { background: linear-gradient(90deg, #D8E6F6, var(--c)); }
 .lw-bal-t h2 { font-weight: 600; }
+/* V313 · the all-sides page in the words and look of the booklet's "เช็กสมดุลชีวิต" page */
+.ls { display: flex; flex-direction: column; gap: 18px; width: 100%; max-width: 560px; margin-inline: auto; }
+.ls section { min-width: 0; }
+.ls-hd { text-align: center; }
+.lw-mode .ls-hd h1 { margin: 4px 0 12px; padding-left: 34px; display: inline-flex; align-items: center; gap: 4px; font-size: clamp(30px, 8.5vw, 38px); line-height: 1; font-weight: 700; color: #4666BC; }
+.ls-lens { position: relative; display: grid; place-items: center; width: 2.5em; height: 2.5em; border-radius: 50%; border: 6px solid #2F4A9A; background: rgba(255, 255, 255, .8); font-size: .9em; flex: none; }
+.ls-lens::after { content: ""; position: absolute; right: 100%; top: 62%; width: 46px; height: 13px; border-radius: 8px; background: #2F4A9A; transform: rotate(-24deg); transform-origin: right center; margin-right: -4px; }
+.ls-hd p { margin: 0; font-size: clamp(15px, 4vw, 19px); font-weight: 500; line-height: 1.65; color: #4666BC; overflow-wrap: anywhere; }
+.ls-hd mark { background: rgba(70, 102, 188, .16); color: inherit; border-radius: 6px; padding: 1px 6px; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+.ls-hd b { font-weight: 700; }
+.ls-chart, .ls-rows, .ls-how { background: #fff; border-radius: 22px; box-shadow: var(--lw-shadow, 0 6px 18px rgba(70, 102, 188, .12)); }
+.ls-chart { padding: 12px; }
+.ls-corners { display: flex; justify-content: space-between; gap: 8px; }
+.ls-pill { display: inline-flex; align-items: center; gap: 6px; font-size: 15px; font-weight: 600; color: var(--k); min-width: 0; line-height: 1.3; }
+.ls-pill i, .ls-row i { width: 30px; height: 30px; border-radius: 50%; background: var(--c); color: #fff; display: grid; place-items: center; flex: none; }
+.ls-chart > svg { display: block; width: 100%; max-width: 360px; margin: 4px auto; height: auto; }
+.ls-r0 { fill: #fff; stroke: #2F4A9A; stroke-width: 1.3; } .ls-r1 { fill: #F3F7FE; stroke: #2F4A9A; stroke-width: 1.3; }
+.ls-tk { font-size: 11px; fill: #2F4A9A; text-anchor: middle; }
+.ls-area { fill: rgba(251, 201, 61, .55); stroke: #E0A600; stroke-width: 2; stroke-linejoin: round; }
+.ls-dot { fill: #2F4A9A; stroke: #fff; stroke-width: 2; }
+.lw-mode .ls-h { margin: 0 0 6px; font-size: 21px; font-weight: 600; color: #4666BC; }
+.ls-rows { padding: 4px 16px; }
+.ls-row { display: flex; align-items: center; gap: 10px; width: 100%; min-height: 60px; padding: 10px 0; border: 0; border-bottom: 1px solid #D8E6F6; background: none; font: inherit; font-size: 17px; font-weight: 500; color: #1F2A44; text-align: left; cursor: pointer; }
+.ls-row:last-child { border-bottom: 0; }
+.ls-row i { width: 36px; height: 36px; }
+.ls-row span { flex: 1; min-width: 0; }
+.ls-row strong { font-size: 26px; font-weight: 700; color: #2F4A9A; font-variant-numeric: tabular-nums; }
+.ls-row strong.neg { color: #D2452F; }
+.ls-row em { font-style: normal; font-size: 16px; font-weight: 600; color: #4666BC; white-space: nowrap; }
+.ls-row.todo span { color: #5C6E8C; }
+.ls-how { overflow: hidden; }
+.lw-mode .ls-how h2 { margin: 0; background: var(--lw-grad, linear-gradient(90deg, #4666BC, #4DAEE8)); color: #fff; font-size: 19px; font-weight: 600; text-align: center; padding: 9px 12px; }
+.ls-lv { padding: 12px 16px; border-bottom: 1px solid #D8E6F6; }
+.ls-lv:last-child { border-bottom: 0; }
+.ls-lv.off { opacity: .8; }
+.ls-lv b { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 18px; font-weight: 600; color: #4666BC; }
+.ls-lv ul { margin: 4px 0 0; padding-left: 20px; font-size: 16px; line-height: 1.65; }
+.ls-lv.on { background: #FFF8E1; box-shadow: inset 5px 0 0 #FBC93D; }
+.ls-lv.on b { color: #2F4A9A; }
+.ls-badge { font-size: 14px; font-weight: 600; background: #2F4A9A; color: #fff; border-radius: 99px; padding: 1px 12px; overflow-wrap: anywhere; }
+.ls-quote { margin: 0; text-align: center; font-size: 16px; line-height: 1.75; color: #4666BC; text-wrap: balance; }
+.ls-wait { background: rgba(255, 255, 255, .75); border: 2px dashed #B9C8EA; border-radius: 22px; padding: 26px 16px; text-align: center; color: #5C6E8C; font-size: 16px; }
+.ls-wait b { display: block; color: #4666BC; font-size: 18px; font-weight: 600; }
 </style>
 
 <div class="shell">
@@ -4658,7 +4701,7 @@ window.addEventListener("error", function (e) {
     { id: "prospects", th: "รายชื่อ", title: "รายชื่อของฉัน", desc: "รายชื่อและผู้มุ่งหวังทั้งหมด" },
     { id: "planner", th: "คำนวณแผนงาน", desc: "ใส่เป้าหมาย FYP แล้วให้ระบบคำนวณกิจกรรมที่ต้องทำ" },
     { id: "calendar", th: "ปฏิทิน", desc: "จัดการนัดหมายและวางแผนพบลูกค้า" },
-    { id: "script", th: "สคริปต์ช่วยขาย", desc: "ชวนผู้มุ่งหวังเช็กสมดุลชีวิต 4 ด้าน" },
+    { id: "script", th: "เครื่องมือชวนคุย", desc: "ชวนผู้มุ่งหวังเช็กสมดุลชีวิต 4 ด้าน" },
     { id: "wham", th: "ติดตามการขาย", en: "WHAM", desc: "ใครค้างอยู่ขั้นไหนนานเท่าไร" },
     { id: "users", th: "ผู้ใช้งาน", desc: "จำนวนผู้ใช้ และการใช้งานรายเดือน (นับจากการบันทึกกิจกรรม)", admin: true },
     { id: "rewards", th: "รางวัลและภารกิจ", desc: "ใครทำภารกิจสำเร็จ และได้รับรางวัลอะไรบ้าง", admin: true }
@@ -6332,12 +6375,12 @@ window.addEventListener("error", function (e) {
   }
   // one gentle nudge at a time on the home page, tied to the time of year; each shows until tapped once
   const SEASONS = [
-    { k: "tax", from: "11-01", to: "12-31", t: "ฤดูวางแผนภาษี", d: "ลูกค้าหลายคนเริ่มคิดเรื่องลดหย่อนภาษีก่อนสิ้นปี ลองชวนคุยเรื่องนี้", btn: "ดูสคริปต์", go: "script:tax" },
+    { k: "tax", from: "11-01", to: "12-31", t: "ฤดูวางแผนภาษี", d: "ลูกค้าหลายคนเริ่มคิดเรื่องลดหย่อนภาษีก่อนสิ้นปี ลองชวนคุยเรื่องนี้", btn: "เครื่องมือชวนคุย", go: "script:tax" },
     { k: "pre90", from: "09-15", to: "09-30", t: "อีก 90 วันสิ้นปี", d: "ผู้มุ่งหวังพอสำหรับปิดการขายปลายปีหรือยัง ลองเติมไว้ตอนนี้", btn: "ดูเส้นทาง", go: "prospects" },
     { k: "half", from: "06-15", to: "06-30", t: "ทบทวนครึ่งปี", d: "ผ่านมาครึ่งปีแล้ว ดูแผนและผลงานของคุณสักครู่", btn: "ดูแผน", go: "planner" },
     { k: "school", from: "05-01", to: "05-31", t: "ช่วงเปิดเทอม", d: "พ่อแม่หลายคนกำลังคิดเรื่องเงินการศึกษาลูก ลองชวนคุยเรื่องสะสมทรัพย์", btn: "ดูรายชื่อ", go: "prospects" },
-    { k: "songkran", from: "04-01", to: "04-20", t: "สงกรานต์ เจอญาติและเพื่อน", d: "โอกาสดีที่จะเพิ่มรายชื่อ และขอรายชื่อแนะนำจากลูกค้าเดิม", btn: "ดูสคริปต์", go: "script:referral" },
-    { k: "taxfile", from: "01-01", to: "03-31", t: "ช่วงยื่นภาษี", d: "ลูกค้าเพิ่งเห็นว่าลดหย่อนได้เท่าไร ชวนคุยวางแผนภาษีของปีนี้ได้เลย", btn: "ดูสคริปต์", go: "script:tax" }
+    { k: "songkran", from: "04-01", to: "04-20", t: "สงกรานต์ เจอญาติและเพื่อน", d: "โอกาสดีที่จะเพิ่มรายชื่อ และขอรายชื่อแนะนำจากลูกค้าเดิม", btn: "เครื่องมือชวนคุย", go: "script:referral" },
+    { k: "taxfile", from: "01-01", to: "03-31", t: "ช่วงยื่นภาษี", d: "ลูกค้าเพิ่งเห็นว่าลดหย่อนได้เท่าไร ชวนคุยวางแผนภาษีของปีนี้ได้เลย", btn: "เครื่องมือชวนคุย", go: "script:tax" }
   ];
   // Admin settings: which nudges are on, and company campaigns shown to every agent during their dates
   const cfg = () => S.cfg || (S.cfg = { off: {}, campaigns: [] });
@@ -9795,6 +9838,30 @@ window.addEventListener("error", function (e) {
     const el = document.querySelector(".lw-mode"); if (el) el.remove();
     document.documentElement.classList.remove("lw-on"); lw = null; // the name and every answer are dropped here
   }
+  // V313 · the all-sides page reads like the booklet's "เช็กสมดุลชีวิต" page: its heading, the square chart with an account at each corner, the scores, and its three levels word for word
+  const LW_LV = [["ชีวิตสมดุล", ["ไม่มีบัญชีไหนต่ำกว่า 0", "และอย่างน้อย 3 บัญชี อยู่ในระดับ 4 คะแนนขึ้นไป"]], ["เริ่มเสียสมดุล", ["มี 1–2 บัญชีต่ำกว่า 0", "หรือมีช่องว่างคะแนนระหว่างบัญชีมากกว่า 6 คะแนน"]], ["เสี่ยงเสียสมดุลระยะยาว", ["มีบัญชีต่ำกว่า −3 ติดต่อกันหลายด้าน", "หรือมีเพียงด้านเดียวที่สูงมาก แต่ด้านอื่นติดลบ"]]];
+  const LW_QUOTE = "“บางช่วงของชีวิต เราอาจต้องทุ่มเทให้บางเรื่องมากเป็นพิเศษ แต่สิ่งสำคัญ คือการหมั่นกลับมาสำรวจว่า มีบัญชีไหนที่กำลังจะติดลบ เพื่อจะได้ค่อย ๆ เติมกลับคืน ก่อนความสุขจะค่อย ๆ รั่วไหลไปโดยไม่รู้ตัว”";
+  function lwChart(sc) {
+    const size = 340, c = size / 2, step = (size / 2 - 8) / 9, ring = (v) => (v < 0 ? 0.55 : v + 1) * step, dir = { bond: [-1, -1], money: [1, -1], body: [1, 1], mind: [-1, 1] };
+    let sq = "", tk = '<text x="' + c + '" y="' + (c + 4) + '" class="ls-tk">&lt;0</text>';
+    for (let k = 9; k >= 0; k--) { const d = k ? k * step : 0.55 * step; sq += '<rect x="' + (c - d).toFixed(1) + '" y="' + (c - d).toFixed(1) + '" width="' + (2 * d).toFixed(1) + '" height="' + (2 * d).toFixed(1) + '" class="ls-r' + (k % 2) + '"/>'; }
+    for (let v = 0; v <= 8; v++) { const d = (v + 1) * step - 5; tk += '<text x="' + (c + d - 3).toFixed(1) + '" y="' + (c + d - 2).toFixed(1) + '" class="ls-tk">' + v + "</text>"; }
+    const pts = Object.keys(dir).map((k) => [(c + dir[k][0] * ring(sc[k])).toFixed(1), (c + dir[k][1] * ring(sc[k])).toFixed(1)]);
+    return '<svg viewBox="0 0 ' + size + " " + size + '" role="img" aria-label="กราฟสมดุลชีวิต ' + LC_ACC.map((a) => a.full + " " + lwNum(sc[a.k])).join(" ") + '">' + sq + '<polygon class="ls-area" points="' + pts.map((p) => p.join(",")).join(" ") + '"/>' + tk + pts.map((p) => '<circle class="ls-dot" cx="' + p[0] + '" cy="' + p[1] + '" r="6"/>').join("") + "</svg>";
+  }
+  function lwSummary(sc, all) {
+    const who = esc(lwWho()), pill = (k) => { const a = lcAcc(k); return '<span class="ls-pill" style="--c:' + a.c + ";--k:" + a.ink + '"><i>' + lcSvg(a.ico, 17) + "</i>" + a.full + "</span>"; };
+    const on = all ? LW_LV.findIndex((l) => l[0] === lcBalance(sc)[0]) : -1;
+    return '<div class="ls"><div class="ls-hd"><h1><span class="ls-lens">เช็ก</span>สมดุลชีวิต</h1><p><mark>จากผลรวมของการสำรวจ <b>4 บัญชี</b></mark><br><mark>มาดูว่า แต่ละบัญชีของ<b>' + who + "</b> สมดุลแค่ไหน</mark></p></div>" +
+      (all ? '<section class="ls-chart"><div class="ls-corners">' + pill("bond") + pill("money") + "</div>" + lwChart(sc) + '<div class="ls-corners">' + pill("mind") + pill("body") + "</div></section>"
+           : '<div class="ls-wait"><b>กราฟสมดุลชีวิต</b>ทำครบ 4 บัญชี จะเห็นกราฟและผลสมดุล</div>') +
+      '<section><h2 class="ls-h">คะแนนรวมของคุณ</h2><div class="ls-rows">' + ["bond", "money", "body", "mind"].map((k) => { const a = lcAcc(k), d = lwDone(k), part = !d && (lw.ans[k] || []).some((x) => typeof x === "boolean");
+        return '<button type="button" class="ls-row' + (d ? "" : " todo") + '" style="--c:' + a.c + '" data-lwside="' + k + '"><i>' + lcSvg(a.ico, 20) + "</i><span>" + a.full + "</span>" + (d ? '<strong class="' + (sc[k] < 0 ? "neg" : "") + '">' + lwNum(sc[k]) + "</strong>" : "<em>" + (part ? "ทำต่อ ›" : "เริ่ม ›") + "</em>") + "</button>"; }).join("") + "</div></section>" +
+      '<section class="ls-how"><h2>วิธีเช็ก “สมดุลชีวิต”</h2>' + LW_LV.map((l, i) => '<div class="ls-lv' + (i === on ? " on" : all ? " off" : "") + '"><b>' + l[0] + (i === on ? '<span class="ls-badge">ผลของ' + who + "</span>" : "") + "</b><ul>" + l[1].map((t) => "<li>" + t + "</li>").join("") + "</ul></div>").join("") + "</section>" +
+      '<p class="ls-quote">' + LW_QUOTE + "</p>" +
+      '<button class="btn add-one lw-main" type="button" data-lw="share">' + lcSvg('<path d="M12 4v11M7 11l5 5 5-5M5 20h14"/>') + "บันทึกผล</button>" +
+      '<p class="lw-note">' + lcSvg(LC_I.lock, 16) + "ไม่บันทึกคำตอบ ออกจากหน้านี้แล้วหายทันที</p></div>";
+  }
   function lwDraw() {
     const el = document.querySelector(".lw-mode"); if (!el || !lw) return;
     const exit = '<button type="button" class="lw-exit" data-lw="exit">' + lcSvg(LC_I.x, 18) + "ออก</button>";
@@ -9803,7 +9870,7 @@ window.addEventListener("error", function (e) {
     if (lw.step === "name") {
       h = top + '<div class="lw-hero"><div class="lw-orbs" aria-hidden="true">' + ["bond", "money", "mind", "body"].map((k) => '<i style="--c:' + lcAcc(k).c + '">' + lcSvg(lcAcc(k).ico, 30) + "</i>").join("") + "</div>" +
         '<h1>ชีวิตดี เริ่มที่ใส่ใจตัวเอง</h1><p class="lw-sub">เช็กสมดุลชีวิตทีละด้าน ด้านละ 16 ข้อ ตอบแค่ ใช่ หรือ ไม่ใช่</p>' +
-        '<form class="lw-name" id="lwForm" novalidate><label for="lwName">ชื่อของคุณ</label><input id="lwName" type="text" maxlength="30" autocomplete="off" placeholder="เช่น บอส" value="' + esc(lw.name) + '"><p class="lw-err" id="lwErr" hidden>กรอกชื่อก่อนเริ่มนะคะ</p>' +
+        '<form class="lw-name" id="lwForm" novalidate><label for="lwName">ชื่อของคุณ</label><input id="lwName" type="text" maxlength="30" autocomplete="off" placeholder="เช่น ใส่ใจ" value="' + esc(lw.name) + '"><p class="lw-err" id="lwErr" hidden>กรอกชื่อก่อนเริ่มนะคะ</p>' +
         '<button class="btn add-one lw-main" type="submit">เริ่มเลย</button></form>' +
         '<p class="lw-note">' + lcSvg(LC_I.lock, 16) + "ไม่บันทึกคำตอบ ออกจากหน้านี้แล้วหายทันที</p></div>";
     } else if (lw.step === "hub") {
@@ -9818,6 +9885,7 @@ window.addEventListener("error", function (e) {
         }).join("") + "</div>" +
         (n ? '<button class="btn add-one lw-main" type="button" data-lw="share">' + lcSvg(LW_I.img) + "บันทึกรูปผล · ส่งทาง LINE ได้</button>" : "") +
         (n && !all ? '<p class="lw-note">ทำครบ 4 ด้าน จะเห็นภาพสมดุลชีวิตทั้งหมด</p>' : "") + "</div>";
+      if (n) h = top + lwSummary(sc, all);
     } else if (lw.step === "q") {
       const a = lcAcc(lw.k), q = lwItems(a)[lw.i], cur = (lw.ans[lw.k] || [])[lw.i];
       h = '<div class="lw-top"><button type="button" class="lw-back" data-lw="hub">' + lcSvg(LW_I.back, 18) + 'เลือกด้าน</button><span class="lw-pill" style="--c:' + a.c + '"><i>' + lcSvg(a.ico, 18) + "</i>" + a.t + "</span>" + exit + "</div>" +
@@ -9838,7 +9906,7 @@ window.addEventListener("error", function (e) {
         '<div class="lw-acts">' + (next ? '<button class="btn lw-sec" type="button" data-lw="hub">ดูผลทุกด้าน</button><button class="btn add-one lw-next" type="button" data-lwside="' + next.k + '">ทำด้านถัดไป</button>' : '<button class="btn add-one lw-main" type="button" data-lw="hub">ดูภาพสมดุลชีวิต</button>') + // V311 · the picture is saved from the all-sides page only
         '<button class="lw-prev" type="button" data-lw="redo">ทำด้านนี้อีกครั้ง</button></div></div>';
     } else if (lw.step === "back") {
-      h = '<div class="lw-hero lw-confirm"><h1>ออกจากแบบทดสอบใช่ไหม</h1><p class="lw-sub">คำตอบและผลทั้งหมดจะหายไป ถ้าอยากเก็บผล ให้บันทึกรูปก่อนออก</p>' +
+      h = '<div class="lw-hero lw-confirm"><h1>ออกจากแบบทดสอบใช่ไหม</h1><p class="lw-sub">คำตอบและผลทั้งหมดจะหายไป ถ้าอยากเก็บผล ให้บันทึกผลก่อนออก</p>' +
         '<div class="lw-two"><button class="btn" type="button" data-lw="stay">กลับไปทำต่อ</button><button class="btn add-one" type="button" data-lw="leave">ออก</button></div></div>';
     }
     el.innerHTML = '<div class="lw-wrap lw-s-' + lw.step + '">' + h + "</div>"; el.scrollTop = 0;
@@ -9852,12 +9920,12 @@ window.addEventListener("error", function (e) {
     const all = lwCount() === 4, sc = {}; LC_ACC.forEach((a) => (sc[a.k] = lwDone(a.k) ? lwScore(a.k) : 0));
     const sky = x.createLinearGradient(0, 0, 0, H); sky.addColorStop(0, "#D3EDFB"); sky.addColorStop(.45, "#F3FAFF"); sky.addColorStop(1, "#DDF1FC"); x.fillStyle = sky; x.fillRect(0, 0, W, H);
     const hd = x.createLinearGradient(0, 0, W, 0); hd.addColorStop(0, "#4666BC"); hd.addColorStop(1, "#4DAEE8"); x.fillStyle = hd; x.fillRect(0, 0, W, 210); x.fillStyle = "#A6D71C"; x.fillRect(0, 210, W, 8);
-    x.fillStyle = "#E6F1FF"; x.font = "500 32px " + D; x.fillText("ชีวิตดี 4 ด้าน", 60, 80);
-    x.fillStyle = "#fff"; x.font = "600 64px " + D; let nm = lwWho(); while (x.measureText(nm).width > 950 && nm.length > 4) nm = nm.slice(0, -2) + "…"; x.fillText(nm, 60, 162);
+    x.fillStyle = "#E6F1FF"; x.font = "500 34px " + D; x.fillText("เช็กสมดุลชีวิต · จากผลรวมของการสำรวจ 4 บัญชี", 60, 84);
+    x.fillStyle = "#fff"; x.font = "600 50px " + D; let nm = lwWho(); const hl = (t) => "แต่ละบัญชีของ" + t + " สมดุลแค่ไหน"; while (x.measureText(hl(nm)).width > 960 && nm.length > 4) nm = nm.slice(0, -2) + "…"; x.fillText(hl(nm), 60, 162);
     const tile = (px, py, w, h, a) => {
       const d = lwDone(a.k), v = sc[a.k];
       x.fillStyle = "#fff"; rr(px, py, w, h, 28); x.fill(); x.fillStyle = a.c; rr(px + 28, py + 30, 12, 62, 6); x.fill();
-      x.textAlign = "left"; x.fillStyle = "#1F2A44"; x.font = "600 40px " + D; x.fillText(a.t, px + 60, py + 62);
+      x.textAlign = "left"; x.fillStyle = "#1F2A44"; x.font = "600 38px " + D; x.fillText(a.full, px + 60, py + 62);
       x.font = "500 28px " + D; x.fillStyle = "#4F6378"; x.fillText(d ? lcLevel(v)[0] : "ยังไม่ได้ทำ", px + 60, py + 104);
       if (!d) return;
       x.textAlign = "right"; x.fillStyle = a.ink; x.font = "600 84px " + D; x.fillText(lwNum(v), px + w - 36, py + 98); x.textAlign = "left";
@@ -9872,7 +9940,7 @@ window.addEventListener("error", function (e) {
       x.beginPath(); ord.forEach((k, n) => { const d = ring(sc[k]), px = c + dir[k][0] * d, py = cy + dir[k][1] * d; n ? x.lineTo(px, py) : x.moveTo(px, py); }); x.closePath();
       x.fillStyle = "rgba(188,214,49,.5)"; x.fill(); x.strokeStyle = "#7FA300"; x.lineWidth = 5; x.stroke();
       x.font = "600 30px " + D;
-      ord.forEach((k) => { const a = lcAcc(k), dx = dir[k][0], dy = dir[k][1]; x.fillStyle = a.ink; x.textAlign = dx < 0 ? "left" : "right"; x.fillText(a.t, c + dx * o, cy + dy * o + (dy < 0 ? -14 : 40)); });
+      ord.forEach((k) => { const a = lcAcc(k), dx = dir[k][0], dy = dir[k][1]; x.fillStyle = a.ink; x.textAlign = dx < 0 ? "left" : "right"; x.fillText(a.full, c + dx * o, cy + dy * o + (dy < 0 ? -14 : 40)); });
       LC_ACC.forEach((a, n) => tile(60 + (n % 2) * 490, 950 + Math.floor(n / 2) * 180, 470, 160, a));
     } else LC_ACC.forEach((a, n) => tile(60, 262 + n * 252, 960, 228, a));
     x.textAlign = "left"; x.fillStyle = "#4F6378"; x.font = "500 24px " + D; x.fillText("เกณฑ์ตามคู่มือ 4 บัญชีชีวิต · " + thDate(todayISO, { day: "numeric", month: "short", year: "numeric" }), 60, 1326);
@@ -9883,8 +9951,8 @@ window.addEventListener("error", function (e) {
     try { if (navigator.canShare && navigator.canShare({ files: [f] })) { await navigator.share({ files: [f] }); return; } } catch (e) { if (e && e.name === "AbortError") return; }
     // inside claude.ai the viewer confirms the save; opened as a plain page, the browser downloads it
     const dl = window.claude && window.claude.use ? await window.claude.use("downloads").catch(() => null) : null;
-    if (dl) { try { await dl.save({ filename: f.name, data: f }); toast("บันทึกรูปแล้ว"); } catch (e) { toast(e && e.code === "declined" ? "ยกเลิกการบันทึกรูป" : "บันทึกรูปไม่ได้ · ถ่ายภาพหน้าจอแทนได้"); } return; }
-    try { const u = URL.createObjectURL(f), a = document.createElement("a"); a.href = u; a.download = f.name; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(u), 30000); toast("บันทึกรูปแล้ว"); } catch (e) { toast("บันทึกรูปไม่ได้ · ถ่ายภาพหน้าจอแทนได้"); }
+    if (dl) { try { await dl.save({ filename: f.name, data: f }); toast("บันทึกผลแล้ว"); } catch (e) { toast(e && e.code === "declined" ? "ยกเลิกการบันทึกผล" : "บันทึกผลไม่ได้ · ถ่ายภาพหน้าจอแทนได้"); } return; }
+    try { const u = URL.createObjectURL(f), a = document.createElement("a"); a.href = u; a.download = f.name; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(u), 30000); toast("บันทึกผลแล้ว"); } catch (e) { toast("บันทึกผลไม่ได้ · ถ่ายภาพหน้าจอแทนได้"); }
   }
   document.addEventListener("submit", (e) => {
     if (!lw || e.target.id !== "lwForm") return; e.preventDefault();
