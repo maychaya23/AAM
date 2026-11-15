@@ -4,7 +4,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anuphan:wght@500;600;700&family=IBM+Plex+Sans+Thai:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anuphan:wght@500;600;700&family=IBM+Plex+Sans+Thai:wght@400;500;600&family=Prompt:wght@400;500;600;700&display=swap">
 <style>
 /* Layout: full-width corporate-blue header, blue sidebar on desktop, bottom tab bar on iPad/phone; activity-only figures throughout */
 :root {
@@ -3175,51 +3175,75 @@ dialog.as-page.in-frame::backdrop { background: transparent; }
 .pf-chip.fl-h { color: var(--hot); border-color: #F0A8A0; background: var(--hot-soft); }
 .pf-chip.fl-w[aria-pressed="true"] { background: var(--warm); border-color: var(--warm); color: #fff; }
 .pf-chip.fl-h[aria-pressed="true"] { background: var(--hot); border-color: var(--hot); color: #fff; }
-/* V308 · 4 บัญชีชีวิต (flow B) · the card on the scripts page, the full-screen customer mode, the result with the square radar */
-
+/* V309 · ชีวิตดี 4 ด้าน · the card on the scripts page and the full-screen test: name → pick a side → 16 items, one per screen → result */
 .lk-ic { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex: none; }
-.lc-card { background: linear-gradient(135deg, #E6F7FD, #EEF6D6); border-color: #BFE6F5; }
-.lc-card h2 { margin: 0 0 2px; }
-.lc-accs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin: 14px 0 16px; }
-.lc-accs span { display: flex; flex-direction: column; align-items: center; gap: 6px; font-weight: 600; font-size: 14.5px; text-align: center; }
-.lc-accs i { width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; color: #fff; }
-.lc-card .btn { width: 100%; justify-content: center; display: flex; gap: 8px; align-items: center; }
-.lc-card .lc-paper { margin-top: 10px; background: var(--surface); }
-.lc-note { display: flex; gap: 6px; align-items: center; color: var(--muted); font-size: 14px; margin: 10px 0 0; }
-.lc-note .lk-ic { width: 16px; height: 16px; }
-html.lc-on, html.lc-on body { overflow: hidden; }
-.lc-mode { position: fixed; inset: 0; z-index: 90; background: var(--bg); overflow-y: auto; overscroll-behavior: contain;
-  padding: max(16px, env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) max(24px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); }
-.lc-wrap { max-width: 1100px; margin: 0 auto; }
-.lc-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; background: #0058A9; color: #fff; padding: 12px 16px; border-radius: 14px; margin-bottom: 18px; }
-.lc-bar b { font-size: 19px; }
-.lc-exit { display: inline-flex; gap: 6px; align-items: center; border: 0; border-radius: 10px; padding: 10px 16px; min-height: 44px; background: rgba(255, 255, 255, .18); color: #fff; font: inherit; font-weight: 700; cursor: pointer; }
-.lc-in h1 { text-align: center; font-size: 30px; color: var(--head); margin: 8px 0 4px; text-wrap: balance; }
-.lc-sub { text-align: center; color: var(--muted); font-size: 17px; margin: 0 auto 18px; max-width: 720px; }
-.lc-big { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-bottom: 16px; }
-.lc-big div { border-radius: 16px; padding: 18px; color: #fff; min-height: 130px; display: flex; flex-direction: column; gap: 6px; }
-.lc-big b { font-size: 20px; margin-top: 6px; } .lc-big small { font-size: 15px; opacity: .95; }
-.lc-two { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 0 auto 18px; max-width: 900px; }
-.lc-box { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px; display: flex; flex-direction: column; gap: 4px; }
-.lc-box b { display: flex; gap: 8px; align-items: center; color: var(--head); }
-.lc-main { display: flex; gap: 8px; justify-content: center; align-items: center; width: 100%; max-width: 460px; margin: 0 auto; min-height: 56px; font-size: 18px; }
-.lc-center { text-align: center; padding-top: 24px; }
-.lc-hand { width: 84px; height: 84px; border-radius: 24px; display: grid; place-items: center; margin: 0 auto; background: var(--cyan-soft); color: var(--head); }
-.lc-qh { display: flex; gap: 12px; align-items: center; } .lc-qh i { width: 46px; height: 46px; border-radius: 12px; display: grid; place-items: center; color: #fff; flex: none; }
-.lc-qh b { display: block; font-size: 20px; color: var(--head); } .lc-qh small { color: var(--muted); font-size: 14.5px; }
-.lc-prog { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin: 14px 0 8px; }
-.lc-prog i { height: 8px; border-radius: 4px; background: var(--line); } .lc-prog i.on { background: #0058A9; }
-.lc-prog i.half { background: linear-gradient(90deg, #0058A9 var(--p), var(--line) var(--p)); }
-.lc-ask { text-align: center; color: var(--muted); margin: 22px 0 4px; }
-.lc-q { text-align: center; font-size: 28px; line-height: 1.5; font-weight: 700; color: var(--fg); max-width: 820px; margin: 0 auto; text-wrap: balance; }
-.lc-yn { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 760px; margin: 26px auto 0; }
-.lc-yn button { min-height: 88px; border-radius: 16px; border: 2px solid var(--line); background: var(--surface); color: var(--fg); font: inherit; font-size: 24px; font-weight: 700; cursor: pointer; }
-.lc-yn button.on { border-color: #0058A9; color: #0058A9; background: var(--blue-soft); }
-.lc-nav { display: flex; justify-content: space-between; align-items: center; gap: 12px; max-width: 760px; margin: 22px auto 0; }
-.lc-res { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; align-items: start; }
-.lc-panel { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 18px; margin-bottom: 14px; }
-.lc-panel h2 { margin: 0 0 4px; font-size: 22px; color: var(--head); } .lc-panel h3 { margin: 0 0 2px; color: var(--head); font-size: 18px; }
-.lc-bal { margin: 0 0 6px; color: var(--muted); } .lc-bal.ok b { color: var(--green-ink); } .lc-bal.warm b { color: var(--warm); } .lc-bal.hot b { color: var(--hot); }
+.lw-tile i, .lw-side i, .lw-orbs i, .lw-pill i, .lw-badge { display: grid; place-items: center; background: var(--c); color: #fff; border-radius: 50%; flex: none; font-style: normal; }
+.lw-card { padding: 24px; display: flex; flex-direction: column; gap: 20px; }
+.lw-card h2 { font-size: 27px; margin: 2px 0 4px; }
+.lw-card p { margin: 0; }
+.lw-tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.lw-tile { background: color-mix(in srgb, var(--c) 11%, var(--surface)); border-radius: 18px; padding: 16px; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.lw-tile i { width: 50px; height: 50px; margin-bottom: 8px; }
+.lw-tile b { font-family: var(--font-display); font-size: 18.5px; color: var(--fg); line-height: 1.3; }
+.lw-tile small { font-size: 15px; color: var(--muted); line-height: 1.45; }
+.lw-how { list-style: none; counter-reset: lw; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.lw-how li { counter-increment: lw; display: grid; grid-template-columns: 34px minmax(0, 1fr); column-gap: 10px; align-items: start; }
+.lw-how li::before { content: counter(lw); grid-row: 1 / span 2; width: 34px; height: 34px; border-radius: 50%; background: var(--blue-soft); color: var(--head); font: 700 16px var(--font-display); display: grid; place-items: center; }
+.lw-how b { font-size: 16.5px; line-height: 1.4; }
+.lw-how span { grid-column: 2; font-size: 15px; color: var(--muted); line-height: 1.45; }
+.btn.lw-start { align-self: flex-start; min-width: 280px; min-height: 60px; font-size: 19px; font-weight: 700; border-radius: 14px; gap: 10px; }
+.lw-note { display: flex; gap: 6px; align-items: center; justify-content: center; color: var(--muted); font-size: 15px; margin: 0; }
+.lw-card .lw-note { justify-content: flex-start; }
+.lw-note .lk-ic { width: 16px; height: 16px; }
+
+html.lw-on, html.lw-on body { overflow: hidden; }
+.lw-mode { position: fixed; inset: 0; z-index: 90; background: var(--bg); overflow-y: auto; overscroll-behavior: contain;
+  padding: max(16px, env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) max(28px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); }
+.lw-wrap { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; animation: lwIn .26s ease both; }
+.lw-wrap.lw-s-hub { max-width: 900px; }
+@keyframes lwIn { from { opacity: 0; transform: translateY(8px); } }
+@media (prefers-reduced-motion: reduce) { .lw-wrap { animation: none; } .lw-side, .lw-yn button { transition: none; } }
+.lw-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 48px; }
+.lw-brand { font-family: var(--font-display); font-size: 18px; color: var(--head); }
+.lw-exit, .lw-back { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 16px; border: 1px solid var(--line); border-radius: 99px; background: var(--surface); color: var(--muted); font-weight: 600; font-size: 15.5px; white-space: nowrap; }
+.lw-exit:hover, .lw-back:hover { border-color: var(--head); color: var(--head); }
+.lw-pill { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-display); font-weight: 700; font-size: 17px; color: var(--fg); min-width: 0; }
+.lw-pill i { width: 32px; height: 32px; }
+.lw-mode h1 { font-size: clamp(26px, 5vw, 34px); color: var(--head); margin: 0; }
+.lw-sub { margin: 0; color: var(--muted); font-size: 17.5px; max-width: 34em; }
+.lw-hero { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 14px; padding-top: clamp(4px, 4vh, 40px); }
+/* four rounded squares set as a diamond: the four corners of the booklet's balance square */
+.lw-orbs { display: grid; grid-template-columns: repeat(2, 64px); gap: 10px; transform: rotate(45deg); margin: 22px 0 26px; }
+.lw-orbs i { width: 64px; height: 64px; border-radius: 22px; }
+.lw-orbs svg { transform: rotate(-45deg); }
+.lw-name { width: 100%; max-width: 440px; display: flex; flex-direction: column; gap: 10px; margin-top: 10px; text-align: left; }
+.lw-name label { font-weight: 600; font-size: 16.5px; }
+.lw-name input { min-height: 60px; border: 2px solid var(--line); border-radius: 14px; padding: 0 18px; font-size: 20px; background: var(--surface); width: 100%; }
+.lw-name input:focus { outline: none; border-color: var(--cyan); box-shadow: 0 0 0 4px var(--cyan-soft); }
+.lw-err { margin: 0; color: var(--hot); font-size: 15.5px; font-weight: 600; }
+.btn.lw-main { width: 100%; min-height: 60px; font-size: 18.5px; font-weight: 700; border-radius: 14px; gap: 10px; white-space: normal; line-height: 1.3; }
+
+.lw-hub { display: flex; flex-direction: column; gap: 18px; }
+.lw-hub > h1, .lw-hub > .lw-sub { text-align: center; margin-inline: auto; overflow-wrap: anywhere; }
+.lw-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.lw-side { display: grid; grid-template-columns: 56px minmax(0, 1fr) auto; gap: 14px; align-items: center; text-align: left; min-height: 104px; padding: 16px 18px; border: 2px solid transparent; border-radius: 20px; background: color-mix(in srgb, var(--c) 11%, var(--surface)); color: var(--fg); transition: transform .15s, border-color .15s; }
+@media (hover: hover) { .lw-side:hover { border-color: var(--c); transform: translateY(-2px); } .lw-y:hover { border-color: var(--c); } .lw-n:hover { border-color: var(--muted); } }
+.lw-side i { width: 56px; height: 56px; }
+.lw-side-t { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.lw-side-t b { font-family: var(--font-display); font-size: 20px; line-height: 1.3; }
+.lw-side-t small { font-size: 15px; color: var(--muted); line-height: 1.45; }
+.lw-side-t em { font-style: normal; white-space: normal; }
+.lw-side-go, .lw-side-v { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; white-space: nowrap; }
+.lw-side-go small, .lw-side-v small { font-size: 15px; color: var(--muted); }
+.lw-side-go strong { font-size: 17px; color: var(--head); }
+.lw-side-v strong { font-family: var(--font-display); font-size: 40px; line-height: 1; font-variant-numeric: tabular-nums; }
+.lw-side.is-done { background: var(--surface); border-color: var(--line); }
+.lw-bal { display: grid; grid-template-columns: minmax(0, 400px) minmax(0, 1fr); gap: 22px; align-items: center; background: var(--surface); border: 1px solid var(--line); border-radius: 22px; padding: 18px; }
+.lw-radar-box { background: #F4F8FC; border-radius: 16px; padding: 8px; }
+.lw-bal-t h2 { font-size: 30px; margin: 2px 0 6px; }
+.lw-bal-t h2.ok { color: var(--green-ink); } .lw-bal-t h2.warm { color: var(--warm); } .lw-bal-t h2.hot { color: var(--hot); }
+.lw-bal-t p { margin: 0; }
+.lw-bal-t .lw-src { color: var(--muted); font-size: 15px; margin-top: 10px; }
 .lc-radar { display: block; width: 100%; max-width: 440px; height: auto; margin: 0 auto; }
 .lc-r0 { fill: #EAF3FB; stroke: #9DB7D6; } .lc-r1 { fill: #FFFFFF; stroke: #9DB7D6; }
 .lc-tk { font-size: 10.5px; fill: #6B7F96; text-anchor: middle; }
@@ -3227,22 +3251,102 @@ html.lc-on, html.lc-on body { overflow: hidden; }
 .lc-dot { fill: #0058A9; stroke: #fff; stroke-width: 2; }
 .lc-v { font-size: 16px; font-weight: 700; fill: #0B2545; text-anchor: middle; }
 .lc-cn { font-size: 15px; font-weight: 700; }
-.lc-src { text-align: center; color: var(--muted); font-size: 13.5px; margin: 8px 0 0; }
-.lc-legend { display: grid; gap: 10px; } .lc-legend div { display: flex; align-items: center; gap: 10px; }
-.lc-legend i { width: 38px; height: 38px; border-radius: 12px; display: grid; place-items: center; color: #fff; flex: none; }
-.lc-legend b { margin-left: auto; font-size: 22px; } .lc-legend em { font-style: normal; }
-.lc-picks { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
-.lc-picks button { border: 1.5px solid var(--line); border-radius: 999px; padding: 10px 16px; min-height: 44px; background: var(--surface); color: var(--fg); font: inherit; font-weight: 600; cursor: pointer; }
-.lc-picks button[aria-checked="true"] { border-color: #0058A9; background: var(--blue-soft); color: #0058A9; }
-.lc-tip { background: var(--green-soft); border-radius: 12px; padding: 12px 14px; margin: 12px 0 0; }
-.lc-res .lc-main { max-width: none; margin-bottom: 10px; }
-.lc-done { width: 100%; min-height: 52px; }
-.lc-backpage { padding-top: 60px; } .lc-backpage .btn { min-height: 60px; font-size: 17px; }
-.lc-after .lc-apick { margin-bottom: 8px; } .lc-hint { margin: 4px 0 0; }
+
+.lw-q { display: flex; flex-direction: column; gap: 16px; }
+.lw-prog { height: 10px; border-radius: 99px; background: var(--line); overflow: hidden; }
+.lw-prog i { display: block; height: 100%; border-radius: 99px; background: var(--c); }
+.lw-count { margin: 0; text-align: center; color: var(--muted); font-size: 16px; font-variant-numeric: tabular-nums; }
+.lw-count b { color: var(--fg); font-size: 21px; font-family: var(--font-display); }
+.lw-qcard { background: var(--surface); border: 1px solid var(--line); border-radius: 24px; padding: clamp(22px, 5vw, 40px); text-align: center; min-height: 240px; display: flex; flex-direction: column; justify-content: center; gap: 10px; box-shadow: 0 12px 32px rgba(16, 36, 58, .07); }
+.lw-ask { margin: 0; color: var(--muted); font-size: 16px; }
+.lw-qt { margin: 0; font-family: var(--font-display); font-weight: 600; font-size: clamp(22px, 4.4vw, 30px); line-height: 1.5; color: var(--fg); text-wrap: balance; overflow-wrap: anywhere; }
+.lw-yn { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.lw-yn button { min-height: 84px; border-radius: 20px; border: 2px solid var(--line); background: var(--surface); font: 700 22px var(--font-display); color: var(--fg); display: flex; align-items: center; justify-content: center; gap: 10px; transition: transform .1s, border-color .15s, background .15s; }
+.lw-yn button:active { transform: scale(.97); }
+.lw-yn .lk-ic { width: 26px; height: 26px; stroke-width: 2.6; }
+.lw-y .lk-ic { color: var(--c); }
+.lw-n .lk-ic { color: var(--muted); }
+.lw-y.on { border-color: var(--c); background: color-mix(in srgb, var(--c) 12%, var(--surface)); }
+.lw-n.on { border-color: var(--muted); background: var(--surface-2); }
+.lw-prev { align-self: center; justify-self: center; min-height: 44px; padding: 0 14px; border: 0; background: none; color: var(--muted); font-weight: 600; font-size: 16px; text-decoration: underline; text-underline-offset: 3px; }
+.lw-prev:hover { color: var(--head); }
+
+.lw-done { display: flex; flex-direction: column; gap: 16px; }
+.lw-result { background: color-mix(in srgb, var(--c) 12%, var(--surface)); border-radius: 28px; padding: 28px 22px 24px; display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; }
+.lw-badge { width: 84px; height: 84px; border-radius: 28px; }
+.lw-of { margin: 10px 0 0; font-family: var(--font-display); font-weight: 600; font-size: 20px; color: var(--fg); overflow-wrap: anywhere; }
+.lw-score { margin: 0; font-family: var(--font-display); font-weight: 700; font-size: 96px; line-height: 1.05; color: var(--fg); font-variant-numeric: tabular-nums; display: flex; align-items: baseline; gap: 10px; }
+.lw-score small { font-size: 18px; font-weight: 500; color: var(--muted); font-family: var(--font-body); }
+.lw-level { margin: 4px 0 0; }
+.lw-level .chip { font-style: normal; font-size: 18px; padding: 6px 18px; font-weight: 600; }
+.lw-scale { width: 100%; max-width: 460px; margin-top: 20px; }
+.lw-track { position: relative; height: 12px; border-radius: 99px; background: linear-gradient(90deg, #E2867C 0%, #EDBE62 55%, #BCD631 100%); }
+.lw-track span { position: absolute; top: 50%; width: 26px; height: 26px; border-radius: 50%; background: #fff; border: 5px solid var(--c); transform: translate(-50%, -50%); box-shadow: 0 2px 6px rgba(0, 0, 0, .25); }
+.lw-ticks { display: flex; justify-content: space-between; margin-top: 10px; color: var(--muted); font-size: 15px; font-variant-numeric: tabular-nums; }
+.lw-dw { margin: 10px 0 0; color: var(--muted); font-size: 16px; }
+.lw-dw b { color: var(--fg); }
+.lw-tips { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 18px 20px; }
+.lw-tips h2 { font-size: 19px; margin: 0 0 8px; }
+.lw-tips ul { margin: 0; padding-left: 1.2em; display: grid; gap: 8px; }
+.lw-tips p { margin: 0; color: var(--muted); }
+.lw-acts { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.lw-acts .lw-main, .lw-acts .lw-prev { grid-column: 1 / -1; }
+.btn.lw-sec { min-height: 54px; font-size: 16.5px; border-radius: 14px; white-space: normal; line-height: 1.3; }
+.lw-two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; max-width: 520px; margin-top: 10px; }
+.lw-two .btn { min-height: 58px; font-size: 17px; white-space: normal; }
+.lw-confirm { padding-top: 16vh; }
 @media (max-width: 760px) {
-  .lc-big { grid-template-columns: 1fr 1fr; } .lc-two, .lc-res { grid-template-columns: 1fr; }
-  .lc-q { font-size: 23px; } .lc-cn { font-size: 20px; } .lc-v { font-size: 21px; } .lc-tk { font-size: 13px; } .lc-yn button { min-height: 72px; font-size: 21px; } .lc-in h1 { font-size: 25px; }
+  .lw-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .lw-how { grid-template-columns: minmax(0, 1fr); }
+  .btn.lw-start { width: 100%; min-width: 0; }
+  .lw-grid { grid-template-columns: minmax(0, 1fr); }
+  .lw-bal { grid-template-columns: minmax(0, 1fr); text-align: center; }
+  .lw-score { font-size: 80px; }
+  .lc-cn { font-size: 23px; } .lc-v { font-size: 22px; } .lc-tk { font-size: 13px; }
 }
+@media (max-width: 380px) {
+  .lw-side { grid-template-columns: 48px minmax(0, 1fr) auto; gap: 10px; padding: 14px; }
+  .lw-side i { width: 48px; height: 48px; }
+  .lw-yn button { font-size: 20px; }
+}
+/* V310 · the test wears the look of the company booklet "4 บัญชีชีวิต": sky gradient, flat shapes, gradient header pills · one light look, as printed */
+.lw-mode { color-scheme: light; --bg: #EAF6FD; --surface: #FFFFFF; --surface-2: #EEF4FB; --fg: #1F2A44; --muted: #5C6E8C; --line: #D8E6F6; --head: #4666BC; --cyan: #4DAEE8; --cyan-soft: #DDF1FC; --blue-soft: #E3EAF8;
+  --green-soft: #EFF5CF; --green-ink: #4A5600; --hot: #B8322A; --hot-soft: #FBE3E0; --warm: #9A5B00; --warm-soft: #FCEDD5;
+  --font-display: "Prompt", "Thonburi", sans-serif; --font-body: "Prompt", "Thonburi", "Leelawadee UI", sans-serif; --lw-grad: linear-gradient(90deg, #4666BC, #4DAEE8); --lw-shadow: 0 6px 20px rgba(70, 102, 188, .13);
+  font-family: var(--font-body); color: var(--fg); background: linear-gradient(180deg, #D3EDFB 0%, #F3FAFF 42%, #DDF1FC 100%); }
+.lw-mode::before { content: ""; position: fixed; left: 50%; top: -230px; width: min(1100px, 190vw); height: 520px; border-radius: 50%; background: rgba(255, 255, 255, .5); transform: translateX(-50%); pointer-events: none; }
+.lw-wrap { position: relative; }
+.lw-mode h1, .lw-brand, .lw-side-t b, .lw-of { font-weight: 600; }
+.lw-mode .btn { border-radius: 99px; }
+.lw-mode .btn.add-one { background: var(--lw-grad); border-color: transparent; color: #fff; }
+.lw-mode .btn.add-one:hover { background: linear-gradient(90deg, #3D5BAE, #3FA0DC); border-color: transparent; }
+.lw-mode .btn.lw-sec, .lw-two .btn:not(.add-one) { background: #fff; border: 2px solid var(--cyan); color: var(--head); }
+.lw-exit, .lw-back { border-color: transparent; box-shadow: 0 2px 8px rgba(70, 102, 188, .12); }
+.lw-pill { background: #fff; border-radius: 99px; padding: 4px 16px 4px 5px; color: var(--head); font-weight: 600; white-space: nowrap; }
+@media (max-width: 420px) { .lw-top { gap: 8px; } .lw-exit, .lw-back { padding: 0 12px; font-size: 15px; } .lw-pill { font-size: 16px; padding-right: 12px; } }
+.lw-name input { border-radius: 99px; padding: 0 24px; border-color: #BFDDF3; }
+.lw-prog { background: rgba(255, 255, 255, .9); }
+.lw-prog i { background: var(--lw-grad); }
+.lw-qcard { padding: 0; overflow: hidden; border: 0; gap: 0; min-height: 0; justify-content: flex-start; box-shadow: var(--lw-shadow); }
+.lw-qhead { background: var(--lw-grad); color: #fff; font-weight: 500; font-size: 16.5px; padding: 9px 16px; }
+.lw-art svg { display: block; width: 100%; max-width: 420px; height: auto; margin: 0 auto; }
+.lw-qcard .lw-qt { padding: 2px 20px 22px; font-weight: 500; font-size: clamp(20px, 4vw, 26px); }
+.lw-yn button { border-radius: 99px; min-height: 72px; font-weight: 600; }
+.lw-yn .lw-y { background: var(--lw-grad); border-color: transparent; color: #fff; }
+.lw-yn .lw-y .lk-ic { color: #fff; }
+.lw-yn .lw-n { background: #fff; border-color: var(--cyan); color: var(--head); }
+.lw-yn .lw-n .lk-ic { color: var(--head); }
+.lw-yn .lw-y.on { background: var(--lw-grad); border-color: transparent; box-shadow: 0 0 0 5px rgba(77, 174, 232, .35); }
+.lw-yn .lw-n.on { background: var(--cyan-soft); border-color: var(--head); }
+@media (hover: hover) { .lw-yn .lw-y:hover { border-color: transparent; filter: brightness(.95); } .lw-yn .lw-n:hover { border-color: var(--head); } }
+.lw-side, .lw-side.is-done { background: #fff; border-color: transparent; box-shadow: var(--lw-shadow); border-radius: 22px; }
+.lw-result { background: #fff; box-shadow: var(--lw-shadow); }
+.lw-badge { border-radius: 50%; }
+.lw-tips, .lw-bal { border: 0; box-shadow: var(--lw-shadow); }
+.lw-tips { overflow: hidden; }
+.lw-tips h2 { margin: -18px -20px 14px; padding: 9px 20px; background: var(--lw-grad); color: #fff; font-size: 17px; font-weight: 500; }
+.lw-track { background: linear-gradient(90deg, #D8E6F6, var(--c)); }
+.lw-bal-t h2 { font-weight: 600; }
 </style>
 
 <div class="shell">
@@ -4553,7 +4657,7 @@ window.addEventListener("error", function (e) {
     { id: "prospects", th: "รายชื่อ", title: "รายชื่อของฉัน", desc: "รายชื่อและผู้มุ่งหวังทั้งหมด" },
     { id: "planner", th: "คำนวณแผนงาน", desc: "ใส่เป้าหมาย FYP แล้วให้ระบบคำนวณกิจกรรมที่ต้องทำ" },
     { id: "calendar", th: "ปฏิทิน", desc: "จัดการนัดหมายและวางแผนพบลูกค้า" },
-    { id: "script", th: "สคริปต์ช่วยขาย", desc: "เลือกสถานการณ์ที่ต้องการพูดคุยกับลูกค้า" },
+    { id: "script", th: "สคริปต์ช่วยขาย", desc: "ชวนผู้มุ่งหวังเช็กสมดุลชีวิต 4 ด้าน" },
     { id: "wham", th: "ติดตามการขาย", en: "WHAM", desc: "ใครค้างอยู่ขั้นไหนนานเท่าไร" },
     { id: "users", th: "ผู้ใช้งาน", desc: "จำนวนผู้ใช้ และการใช้งานรายเดือน (นับจากการบันทึกกิจกรรม)", admin: true },
     { id: "rewards", th: "รางวัลและภารกิจ", desc: "ใครทำภารกิจสำเร็จ และได้รับรางวัลอะไรบ้าง", admin: true }
@@ -4591,7 +4695,7 @@ window.addEventListener("error", function (e) {
      With no search it lists the level that is picked and everything below it; the breadcrumb goes back up. */
   let vpOpen = false, vpQ = "", vpAct = 0;
   // V262 · BDM looks, never changes: these actions add, edit, remove or record something
-  const RO_ACTS = new Set(["stvNote", "stvNoteSave", "lcStart", "lcPaper", "addContact", "addEvent", "addFive", "addProspect", "apptCancelP", "apptMoveP", "bookPresent", "campOk", "cheer", "cheerOk", "dayOff", "delEvent", "editName", "editP", "firstGo", "followOffer", "logCall", "logMeet", "oc", "openGift", "parkP", "planPresent", "scEdit", "spin", "startPlan", "taskLater", "taskSwap", "touch", "wdays", "workToday"]);
+  const RO_ACTS = new Set(["stvNote", "stvNoteSave", "lcStart", "addContact", "addEvent", "addFive", "addProspect", "apptCancelP", "apptMoveP", "bookPresent", "campOk", "cheer", "cheerOk", "dayOff", "delEvent", "editName", "editP", "firstGo", "followOffer", "logCall", "logMeet", "oc", "openGift", "parkP", "planPresent", "scEdit", "spin", "startPlan", "taskLater", "taskSwap", "touch", "wdays", "workToday"]);
   document.addEventListener("click", (e) => { if (S.role !== "bdm") return; const b = e.target.closest("[data-wish],[data-evres],[data-evedit],[data-evcancel],[data-dact],[data-sce],[data-gact=new],[data-sugbook],[data-evr]"); if (b) { e.preventDefault(); e.stopImmediatePropagation(); toast("BDM ดูข้อมูลได้อย่างเดียว"); } }, true);
   const vpCount = (node) => nodeAgents(node).length;
   // the kind ("เขต", "ทีม UM", "ตัวแทน" …) shows as a chip beside it, so the label is just the name
@@ -4697,7 +4801,7 @@ window.addEventListener("error", function (e) {
     person: "ทยอยเก็บข้อมูลได้ทีละนิดระหว่างคุย แตะตัวเลือกแล้วระบบบันทึกให้ทันที ไม่ต้องพิมพ์",
     planner: "ทำเดือนละครั้ง: ใส่เป้าหมาย ดูกิจกรรมที่ระบบแนะนำ แล้วกดเริ่มใช้แผน ระบบติดตามความคืบหน้าให้เอง",
     calendar: "แตะวันที่เพื่อดูนัดหมาย กดเพิ่มนัดหมายเพื่อบันทึกนัดใหม่",
-    script: "เลือกสถานการณ์ แล้วเลือกชื่อลูกค้า สคริปต์จะใส่ชื่อให้",
+    script: "เปิดแบบทดสอบชีวิตดี 4 ด้าน ให้ผู้มุ่งหวังตอบเอง หรือกดให้ก็ได้",
     wham: "แถบสีบอกว่าลูกค้าอยู่ในแต่ละขั้นนานเท่าไร ชื่อที่มีแถบส้มหรือแดงคือคนที่ควรติดตาม"
   };
   // page tips removed: no "got it" bar at the top of any page
@@ -5663,6 +5767,7 @@ window.addEventListener("error", function (e) {
   let scCat = "", scSit = "";
   let scriptId = "approach", scriptFor = "";
   function vScript() {
+    if (true) return head() + '<div class="home sc-page">' + (lcCard() || '<p class="empty">หน้านี้สำหรับตัวแทน</p>') + "</div>"; // V309 · the page is the ชีวิตดี 4 ด้าน card only; the earlier script categories below are kept in the code but no longer shown
     const ps = S.prospects.filter(inScope).filter((x) => !isEnded(x)).slice(0, 80), p = findP(scriptFor);
     const vals = { name: p ? pName(p).split(" ")[0] : "[ชื่อลูกค้า]", agent: me().role === "admin" ? "[ชื่อตัวแทน]" : me().name.split(" ")[0], ref: p && p.refBy ? (findP(p.refBy) ? pName(findP(p.refBy)).split(" ")[0] : "[ชื่อผู้แนะนำ]") : "[ชื่อผู้แนะนำ]", goal: "[เรื่องที่ลูกค้าให้ความสำคัญ]" };
     const fill = (x) => esc(voice(x)).replace(/\{(\w+)\}/g, (_, k) => "<mark>" + esc(vals[k] || "") + "</mark>").replace(/\n/g, "<br>");
@@ -6813,7 +6918,7 @@ window.addEventListener("error", function (e) {
     const showFresh = personFresh && Date.now() < freshUntil;
     if (showFresh) setTimeout(() => { const f = $(".pp-fresh"); if (f) { f.classList.add("bye"); setTimeout(() => f.remove(), 350); } personFresh = false; }, Math.max(0, freshUntil - Date.now()));
     const fresh = showFresh ? '<div class="pp-fresh" role="status"><b>เพิ่มรายชื่อเรียบร้อยแล้ว</b><span>อยากเริ่มพูดคุยเมื่อไหร่ก็ได้เลย</span></div>' : "";
-    return taskBar(p) + head + fresh + tipBar() + '<div class="home pp">' + pathCard(p, true) + nowCard(p) + (isCustomer(p) ? careCard(p) : "") + (isClient(p) ? convCard(p) : "") + (S.role !== "agent" || masked(p) || isCustomer(p) || isEnded(p) || (!p.listed && p.stage > STG.PRESENT) ? "" : '<button type="button" class="linkbtn sc-link" data-act="scriptFor" data-id="' + p.id + '">ไม่รู้จะเริ่มพูดยังไง? ดูสคริปต์ช่วยพูด ›</button>') + offersCard(p) + appsCard(p) + knowFold(p) + "</div>"; // V287 · no bar fixed over the page: the next step is the "ตอนนี้" card under the sales path
+    return taskBar(p) + head + fresh + tipBar() + '<div class="home pp">' + pathCard(p, true) + nowCard(p) + (isCustomer(p) ? careCard(p) : "") + (isClient(p) ? convCard(p) : "") + "" + offersCard(p) + appsCard(p) + knowFold(p) + "</div>"; // V287 · no bar fixed over the page: the next step is the "ตอนนี้" card under the sales path
   }
   // V276 · what to do next sits right under the sales path, inside the first screen (it used to be at the end of the page)
   // V284 · the next step is a bar fixed at the bottom of the screen (thumb reach): the main step big, "ยังไม่สนใจ" and "ปฏิเสธ" small beside each other
@@ -9445,40 +9550,46 @@ window.addEventListener("error", function (e) {
     }
     save(); render(); const box = $("#cfgBody"); if (box) box.outerHTML = cfgHtml();
   });
-  /* ---------- V308 · 4 บัญชีชีวิต (flow B): the customer checks their own life balance on the agent's tablet ----------
+  /* ---------- V309 · ชีวิตดี 4 ด้าน (items from V308): a stand-alone test, one side at a time ----------
      Items and scoring = the company booklet "4 บัญชีชีวิต" word for word (deposit +1, withdrawal −1 · 6–8 / 3–5 / 0–2 / < 0 · the balance check).
      Customer mode is full screen (no menu, no other names). กายฟิต and ใจสมดุล are answered privately (health). Nothing the customer answers
      is stored: when the agent records, only the date and the account the customer chose to grow are kept (p.lc + one history line). */
   const LC_ACC = [
-    { k: "money", t: "เงินพร้อม", full: "บัญชีการเงิน", c: "#0058A9", ico: '<ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v6c0 1.7 3.1 3 7 3s7-1.3 7-3V6M5 12v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6"/>', about: "เงินสำรอง หนี้สิน การออม",
+    { k: "money", t: "เงินพร้อม", full: "บัญชีการเงิน", c: "#4666BC", ink: "#4666BC", ico: '<ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v6c0 1.7 3.1 3 7 3s7-1.3 7-3V6M5 12v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6"/>', about: "เงินสำรอง หนี้สิน การออม",
       dep: ["จดบันทึกรายรับ–รายจ่ายอย่างน้อย ≥ 4 ครั้ง/สัปดาห์", "มีเงินสำรองฉุกเฉิน ≥ 3–6 เท่าของค่าใช้จ่ายรายเดือน", "ออมเงินอย่างสม่ำเสมอ ≥ 10% ของรายได้ต่อเดือน", "ยอดผ่อนชำระหนี้สินรายเดือน ไม่เกิน 45% ของรายได้ต่อเดือน", "มีเป้าหมายทางการเงินชัดเจน เช่น บ้าน เกษียณ ครอบครัว หรือสุขภาพ", "มีความคุ้มครองทางการเงินพื้นฐาน เช่น ประกันสุขภาพ / ประกันชีวิต / กองทุนเพื่อการเลี้ยงชีพ", "มีการทบทวนสถานะการเงินของตัวเองอย่างน้อยปีละ 1 ครั้ง", "มีการลงทุน หรือออมระยะยาวอย่างต่อเนื่อง"],
       wd: ["ไม่เคยตรวจสอบรายรับ–รายจ่ายของตัวเองในแต่ละเดือน", "ซื้อของเพราะความเครียดหรืออารมณ์ มากกว่า 3 ครั้ง/เดือน", "ใช้จ่ายเกินรายได้มากกว่า 3 เดือนต่อเนื่อง", "ไม่มีเงินสำรองฉุกเฉิน หรือมีน้อยกว่า 6 เดือนของค่าใช้จ่ายรายเดือน", "ยอดผ่อนชำระหนี้สินรายเดือนสูงกว่า 45% ของรายได้ต่อเดือน", "ไม่มีแผนรองรับเหตุฉุกเฉินด้านสุขภาพ อุบัติเหตุ หรือรายได้สะดุด", "ไม่เคยทบทวนสถานะการเงินของตัวเอง ติดต่อกันเกิน 2 ปี", "ไม่เคยวางแผนการออมระยะยาว หรือลงทุน"] },
-    { k: "bond", t: "ความสัมพันธ์ดี", full: "บัญชีความสัมพันธ์", c: "#0097A7", ico: '<circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><path d="M2 20c0-3 2.7-5 6-5s6 2 6 5M14 15.3c.6-.2 1.3-.3 2-.3 3.3 0 6 2 6 5"/>', about: "ครอบครัว คนสำคัญ เวลาคุณภาพ",
+    { k: "bond", t: "ความสัมพันธ์ดี", full: "บัญชีความสัมพันธ์", c: "#00ACBF", ink: "#008A99", ico: '<circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><path d="M2 20c0-3 2.7-5 6-5s6 2 6 5M14 15.3c.6-.2 1.3-.3 2-.3 3.3 0 6 2 6 5"/>', about: "ครอบครัว คนสำคัญ เวลาคุณภาพ",
       dep: ["ใช้เวลาคุณภาพกับครอบครัว หรือคนสำคัญ อย่างน้อย 1 ครั้ง/สัปดาห์", "พูดคุยกันแบบไม่เล่นมือถือไปด้วยอย่างน้อย 15 นาที/วัน", "โทรหา หรือทักหาคนสำคัญอย่างน้อย 1 ครั้ง/สัปดาห์", "รับฟังอีกฝ่ายอย่างตั้งใจ โดยไม่ขัดจังหวะเป็นประจำ", "จำและใส่ใจวันสำคัญ หรือเรื่องเล็ก ๆ ที่อีกฝ่ายให้ความสำคัญ", "ตอบข้อความจากคนสำคัญภายใน 24 ชั่วโมงอย่างสม่ำเสมอ", "มีคนใกล้ชิดที่สามารถพูดคุย แลกเปลี่ยนความคิดอย่างน้อย 1 คน", "เคลียร์ความเข้าใจ หรือพูดคุยกันเมื่อมีปัญหาภายใน 3 วัน"],
       wd: ["ทำงานจนไม่มีเวลาคุณภาพให้คนใกล้ตัว นานกว่า 2 สัปดาห์", "ใช้งานมือถือ/หน้าจอระหว่างพูดคุยกับคนใกล้ตัวเป็นประจำ", "อยู่ด้วยกันแต่แทบไม่มีบทสนทนา หรือการรับฟังกันจริง ๆ", "ยกเรื่องงาน หรือความเครียดมาลงกับคนรอบตัวบ่อย", "ไม่เคยโทร/ส่งข้อความทักทายในวันพิเศษของคนสำคัญ ติดต่อกันเกิน 3 ครั้ง", "อ่านแต่ไม่ตอบ หรือเมินการสื่อสารจากคนสำคัญบ่อยครั้ง", "ผิดนัด ยกเลิกนัด หรือเลื่อนเวลาสำคัญซ้ำ ๆ โดยไม่อธิบาย", "เก็บความไม่พอใจ หรือความขัดแย้งไว้ โดยไม่พูดคุยเกิน 1 สัปดาห์"] },
-    { k: "body", t: "กายฟิต", full: "บัญชีสุขภาพกาย", c: "#00AEEF", priv: true, ico: '<circle cx="12" cy="5" r="2"/><path d="M5 9l7 2 7-2M12 11v5l-3 6M12 16l3 6"/>', about: "สุขภาพและการดูแลตัวเอง",
+    { k: "body", t: "กายฟิต", full: "บัญชีสุขภาพกาย", c: "#4DAEE8", ink: "#2586C4", priv: true, ico: '<circle cx="12" cy="5" r="2"/><path d="M5 9l7 2 7-2M12 11v5l-3 6M12 16l3 6"/>', about: "สุขภาพและการดูแลตัวเอง",
       dep: ["นอนหลับไม่น้อยกว่า 7 ชั่วโมง/คืน อย่างน้อย 5 วัน/สัปดาห์", "ออกกำลังกาย อย่างน้อย 150 นาที/สัปดาห์", "เดินเฉลี่ย ≥ 6,000–8,000 ก้าว/วัน", "กินอาหารหวาน มัน เค็ม หรือของทอดไม่เกิน 2 ครั้ง/สัปดาห์", "ดื่มน้ำเพียงพออย่างน้อย 6–8 แก้ว/วัน", "ดื่มแอลกอฮอล์ไม่เกินเกณฑ์สุขภาพ (ไม่เกิน 2 drink/day สำหรับผู้ชาย หรือ 1 drink/day สำหรับผู้หญิง และไม่เกิน 5 วัน/สัปดาห์)", "ไม่สูบบุหรี่", "ตรวจสุขภาพประจำปีอย่างน้อยปีละ 1 ครั้ง"],
       wd: ["นอน < 6 ชั่วโมง/คืน ติดต่อกัน ≥ 3 วัน/สัปดาห์", "ไม่ออกกำลังกายเลยตลอด 1 สัปดาห์", "นั่งต่อเนื่อง > 2 ชั่วโมง โดยไม่ลุกขยับเป็นประจำ", "กินอาหารฟาสต์ฟู้ด / ของทอด / น้ำหวาน ≥ 4 ครั้ง/สัปดาห์", "ดื่มน้ำน้อยกว่า < 4 แก้ว/วัน เป็นประจำ", "ดื่มแอลกอฮอล์ ≥ 3 ครั้ง/สัปดาห์", "สูบบุหรี่ หรือได้รับควันบุหรี่เป็นประจำ", "ไม่ตรวจสุขภาพติดต่อกัน ≥ 2 ปี"] },
-    { k: "mind", t: "ใจสมดุล", full: "บัญชีสุขภาพใจ", c: "#8DB11A", priv: true, ico: '<path d="M12 21s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.6-7 10-7 10z"/><path d="M9 11h6"/>', about: "การพักผ่อน ความเครียด พลังใจ",
+    { k: "mind", t: "ใจสมดุล", full: "บัญชีสุขภาพใจ", c: "#A6D71C", ink: "#6F9611", priv: true, ico: '<path d="M12 21s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.6-7 10-7 10z"/><path d="M9 11h6"/>', about: "การพักผ่อน ความเครียด พลังใจ",
       dep: ["มีเวลาอยู่กับตัวเองแบบสงบ อย่างน้อย 10 นาที/วัน", "พูดคุยหรือระบายความรู้สึกกับคนที่ไว้ใจ อย่างน้อย 1 ครั้ง/สัปดาห์", "ฝึกหายใจลึก / mindfulness / meditation อย่างน้อย 3 วัน/สัปดาห์", "พักจากหน้าจอระหว่างวัน ครั้งละ 5–10 นาที อย่างน้อย 2 ครั้ง/วัน", "มีเวลาพักผ่อนจริง ๆ โดยไม่ทำงาน อย่างน้อย 1 วัน/สัปดาห์", "ใช้ Social Media ไม่เกิน 3 ชั่วโมง/วัน", "รู้สึกสดชื่น หรือมีพลังเมื่อตื่นนอน ≥ 4 วัน/สัปดาห์", "มีช่วงเวลาอยู่กับธรรมชาติ หรือกิจกรรมที่ช่วยให้ใจสงบ ≥ 1 ครั้ง/สัปดาห์"],
       wd: ["คิดมาก หรือกังวลจนรบกวนการนอน ≥ 3 ครั้ง/สัปดาห์", "ทำงานต่อเนื่องโดยแทบไม่มีเวลาพัก ≥ 5 วัน/สัปดาห์", "รู้สึกหมดพลัง หรือ burnout บ่อย ≥ 3 วัน/สัปดาห์", "ใช้มือถือ หรือหน้าจอก่อนนอน > 1 ชั่วโมง/คืนเป็นประจำ", "ไม่มีวันพักผ่อนจริง ๆ ติดต่อกัน > 2 สัปดาห์", "ใช้ Social Media > 5 ชั่วโมง/วัน", "รู้สึกหงุดหงิด อารมณ์เสีย หรือเหนื่อยใจแทบทุกวัน", "ไม่มีเวลาทำสิ่งที่ตัวเองชอบติดต่อกัน > 2 สัปดาห์"] }
   ];
-  const LC_Q = []; LC_ACC.forEach((a, ai) => { a.dep.forEach((t, j) => LC_Q.push({ ai, sign: 1, t, n: j })); a.wd.forEach((t, j) => LC_Q.push({ ai, sign: -1, t, n: 8 + j })); });
   const lcAcc = (k) => LC_ACC.find((a) => a.k === k);
   const lcSvg = (p, s) => '<svg viewBox="0 0 24 24" class="lk-ic" aria-hidden="true"' + (s ? ' style="width:' + s + "px;height:" + s + 'px"' : "") + ">" + p + "</svg>";
   const LC_I = { x: '<path d="M6 6l12 12M18 6L6 18"/>', lock: '<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>', eyeoff: '<path d="M3 3l18 18M10.6 6.1A10 10 0 0 1 12 6c5 0 9 6 9 6a17 17 0 0 1-3 3.5M6.6 6.6A17 17 0 0 0 3 12s4 6 9 6c1.4 0 2.8-.4 4-1"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/>',
     hand: '<path d="M7 11V6a2 2 0 0 1 4 0v5M11 10V4a2 2 0 0 1 4 0v6M15 10V6a2 2 0 0 1 4 0v8a7 7 0 0 1-7 7h-1a7 7 0 0 1-6-3l-2.5-4a2 2 0 0 1 3.3-2.2L7 13"/>', share: '<circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/>',
     tablet: '<rect x="5" y="2" width="14" height="20" rx="2"/><path d="M11 18h2"/>', paper: '<path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/>' };
+  const LW_I = { play: '<path d="M8 5l11 7-11 7z"/>', img: '<rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="1.5"/><path d="M21 16l-5-5-8 8"/>', back: '<path d="M15 6l-6 6 6 6"/>', check: '<path d="M5 12.5l4.5 4.5L19 7.5"/>' };
   // scores and the booklet's words for them
   const lcLevel = (v) => (v >= 6 ? ["แข็งแรงดี", "ok"] : v >= 3 ? ["เริ่มมีจุดที่ควรเติม", "warm"] : v >= 0 ? ["เริ่มรั่วไหล", "hot"] : ["เสี่ยงติดลบ", "hot"]);
   function lcBalance(sc) {
     const v = LC_ACC.map((a) => sc[a.k]), neg = v.filter((x) => x < 0).length, deep = v.filter((x) => x < -3).length, hi = v.filter((x) => x >= 6).length;
-    if (deep >= 2 || (hi === 1 && neg === 3)) return ["เสี่ยงเสียสมดุลระยะยาว", "hot", "มีบัญชีต่ำกว่า −3 หลายด้าน หรือมีด้านเดียวที่สูงมากแต่ด้านอื่นติดลบ"];
-    if (neg === 0 && v.filter((x) => x >= 4).length >= 3) return ["ชีวิตสมดุล", "ok", "ไม่มีบัญชีติดลบ และอย่างน้อย 3 บัญชีได้ 4 คะแนนขึ้นไป"];
-    return ["เริ่มเสียสมดุล", "warm", neg ? "มี " + neg + " บัญชีต่ำกว่า 0" : Math.max(...v) - Math.min(...v) > 6 ? "คะแนนระหว่างบัญชีห่างกันมากกว่า 6" : "ยังมีไม่ถึง 3 บัญชีที่ได้ 4 คะแนนขึ้นไป"];
+    if (deep >= 2 || (hi === 1 && neg === 3)) return ["เสี่ยงเสียสมดุลระยะยาว", "hot", "มีด้านที่ต่ำกว่า −3 หลายด้าน หรือมีด้านเดียวที่สูงมากแต่ด้านอื่นติดลบ"];
+    if (neg === 0 && v.filter((x) => x >= 4).length >= 3) return ["ชีวิตสมดุล", "ok", "ไม่มีด้านที่ติดลบ และอย่างน้อย 3 ด้านได้ 4 คะแนนขึ้นไป"];
+    return ["เริ่มเสียสมดุล", "warm", neg ? "มี " + neg + " ด้านต่ำกว่า 0" : Math.max(...v) - Math.min(...v) > 6 ? "คะแนนระหว่างด้านห่างกันมากกว่า 6" : "ยังมีไม่ถึง 3 ด้านที่ได้ 4 คะแนนขึ้นไป"];
   }
-  let lc = null; // { step: intro|q|priv|result|back, i, ans:[], pick, pid } · lives in memory only, gone on exit
-  const lcScores = () => { const sc = {}; LC_ACC.forEach((a) => (sc[a.k] = 0)); LC_Q.forEach((q, i) => { if (lc.ans[i]) sc[LC_ACC[q.ai].k] += q.sign; }); return sc; };
+  // V309 · the whole test lives here and in memory only: { step: name|hub|q|done|back, name, k (side), i (item 0–15), ans: { side: [16 × true|false] } }
+  let lw = null;
+  const lwItems = (a) => a.dep.map((t) => ({ t, sign: 1 })).concat(a.wd.map((t) => ({ t, sign: -1 })));
+  const lwDone = (k) => { const a = lw.ans[k] || []; for (let i = 0; i < 16; i++) if (typeof a[i] !== "boolean") return false; return true; };
+  const lwScore = (k) => { const a = lw.ans[k] || []; return lwItems(lcAcc(k)).reduce((s, q, i) => s + (a[i] ? q.sign : 0), 0); };
+  const lwCount = () => LC_ACC.filter((a) => lwDone(a.k)).length;
+  const lwWho = () => (/^คุณ/.test(lw.name) ? lw.name : "คุณ" + lw.name);
+  const lwNum = (v) => (v < 0 ? "−" + Math.abs(v) : String(v));
   // the square radar of the booklet's "เช็กสมดุลชีวิต": nested squares, centre "< 0", rings 0–8, the four corners = the four accounts
   function lcRadar(sc, size) {
     const c = size / 2, step = (size / 2 - 44) / 9.5, ring = (v) => (v < 0 ? 0.6 : v + 1) * step;
@@ -9492,137 +9603,210 @@ window.addEventListener("error", function (e) {
     const o = 9 * step;
     return '<svg viewBox="0 0 ' + size + " " + size + '" class="lc-radar" role="img" aria-label="สมดุลชีวิต 4 ด้าน">' + sq + ticks + '<polygon points="' + poly + '" class="lc-area"/>' +
       pts.map(([x, y, k, dx, dy]) => '<circle cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="6" class="lc-dot"/><text x="' + (x + dx * 16).toFixed(1) + '" y="' + (y + dy * 16 + 5).toFixed(1) + '" class="lc-v">' + sc[k] + "</text>" +
-        '<text x="' + (c + dx * (o + 4)).toFixed(1) + '" y="' + (c + dy * (o + 4) + (dy < 0 ? -8 : 20)).toFixed(1) + '" class="lc-cn" text-anchor="' + (dx < 0 ? "start" : "end") + '" fill="' + lcAcc(k).c + '">' + lcAcc(k).t + "</text>").join("") + "</svg>";
+        '<text x="' + (c + dx * (o + 4)).toFixed(1) + '" y="' + (c + dy * (o + 4) + (dy < 0 ? -8 : 20)).toFixed(1) + '" class="lc-cn" text-anchor="' + (dx < 0 ? "start" : "end") + '" fill="' + lcAcc(k).ink + '">' + lcAcc(k).t + "</text>").join("") + "</svg>";
   }
-  // the scripts page: one card above the categories (own work only; managers looking at the team and BDM / admin do not see it)
+  // V310 · question pictures in the look of the company booklet: flat shapes, no outlines, its blues and lime, the gold ฿ coin.
+  // บัญชีการเงิน has one picture per item (16); the other three accounts show their own emblem until their pictures are drawn.
+  const LW_ART = (() => {
+    const P = "#4666BC", PD = "#2F4A9A", SK = "#4DAEE8", SKL = "#9DD3F3", TL = "#00ACBF", LM = "#A6D71C", LN = "#D8E6F6", SH = "#C3D6F0", INK = "#1F2A44";
+    const frame = (inner) => '<svg viewBox="0 0 320 200" aria-hidden="true" font-family="Prompt, sans-serif"><circle cx="160" cy="104" r="88" fill="#E6F3FD"/><path d="M236 178c-6-34 10-62 44-74-2 36-16 62-44 74z" fill="#D6DFF5"/>' + inner + "</svg>";
+    const coin = (x, y, r) => '<ellipse cx="' + x + '" cy="' + (y + r + 3) + '" rx="' + r * 0.8 + '" ry="' + r * 0.14 + '" fill="#B9CDEB" opacity=".6"/><circle cx="' + x + '" cy="' + y + '" r="' + r + '" fill="#F5B21E"/><circle cx="' + x + '" cy="' + y + '" r="' + r * 0.76 + '" fill="#FBC93D" stroke="#E79A0C" stroke-width="' + r * 0.07 + '"/>' +
+      '<text x="' + x + '" y="' + (y + r * 0.38) + '" text-anchor="middle" font-size="' + r * 1.05 + '" font-weight="700" fill="#fff">฿</text>';
+    const stack = (x, base, n) => { let s = '<ellipse cx="' + x + '" cy="' + (base + 2) + '" rx="30" ry="6" fill="#B9CDEB" opacity=".6"/>'; for (let k = 0; k < n; k++) { const y = base - k * 9; s += '<rect x="' + (x - 24) + '" y="' + (y - 7) + '" width="48" height="7" fill="#E79A0C"/><ellipse cx="' + x + '" cy="' + y + '" rx="24" ry="6" fill="#E79A0C"/><ellipse cx="' + x + '" cy="' + (y - 7) + '" rx="24" ry="6" fill="#FBC93D"/>'; } return s; };
+    const badge = (x, y, r, c, path) => '<circle cx="' + x + '" cy="' + y + '" r="' + r + '" fill="' + c + '"/><g transform="translate(' + (x - 12) + " " + (y - 12) + ')" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' + path + "</g>";
+    const label = (x, y, r, c, big, small) => '<circle cx="' + x + '" cy="' + y + '" r="' + r + '" fill="' + c + '"/><text x="' + x + '" y="' + (y + (small ? 2 : 7)) + '" text-anchor="middle" font-size="' + (small ? 19 : 21) + '" font-weight="600" fill="#fff">' + big + "</text>" + (small ? '<text x="' + x + '" y="' + (y + 17) + '" text-anchor="middle" font-size="11.5" font-weight="500" fill="#fff">' + small + "</text>" : "");
+    const drops = (pts) => pts.map(([x, y]) => '<path d="M' + x + " " + y + 'q-8 12 0 17 8-5 0-17z" fill="' + SKL + '"/>').join("");
+    const sheet = (x, y, w, h) => '<rect x="' + (x + 6) + '" y="' + (y + 6) + '" width="' + w + '" height="' + h + '" rx="12" fill="' + SH + '"/><rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" rx="12" fill="#fff"/>';
+    const bar = (x, y, w) => '<rect x="' + x + '" y="' + y + '" width="' + w + '" height="8" rx="4" fill="' + LN + '"/>';
+    const donut = (part, top) => '<circle cx="112" cy="104" r="54" fill="none" stroke="' + LM + '" stroke-width="32"/><circle cx="112" cy="104" r="54" fill="none" stroke="' + P + '" stroke-width="32" stroke-dasharray="' + (339.3 * part).toFixed(1) + ' 339.3" transform="rotate(-90 112 104)"/><circle cx="112" cy="104" r="38" fill="#fff"/>' +
+      '<text x="112" y="98" text-anchor="middle" font-size="12.5" font-weight="500" fill="#5C6E8C">' + top + '</text><text x="112" y="121" text-anchor="middle" font-size="22" font-weight="600" fill="' + P + '">45%</text>' +
+      '<rect x="204" y="70" width="104" height="34" rx="17" fill="#fff"/><circle cx="221" cy="87" r="8" fill="' + P + '"/><text x="236" y="92" font-size="13.5" font-weight="500" fill="' + INK + '">ผ่อนหนี้</text>' +
+      '<rect x="204" y="112" width="104" height="34" rx="17" fill="#fff"/><circle cx="221" cy="129" r="8" fill="' + LM + '"/><text x="236" y="134" font-size="13.5" font-weight="500" fill="' + INK + '">เงินที่เหลือ</text>';
+    const HEART = '<path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/>', PLUS = '<path d="M12 6v12M6 12h12"/>', HOUSE = '<path d="M4 11l8-7 8 7v9H4z"/><path d="M10 20v-6h4v6"/>';
+    const money = [
+      // deposits 1–8
+      '<rect x="98" y="34" width="132" height="150" rx="12" fill="' + SH + '"/><rect x="92" y="28" width="132" height="150" rx="12" fill="' + P + '"/><rect x="110" y="28" width="114" height="150" rx="12" fill="#fff"/><rect x="110" y="28" width="14" height="150" fill="#fff"/>' +
+        [58, 90, 122, 154].map((y, n) => '<circle cx="132" cy="' + y + '" r="10" fill="' + (n % 2 ? SK : LM) + '"/><path d="M127 ' + y + "h10" + (n % 2 ? "" : "M132 " + (y - 5) + "v10") + '" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/>' + bar(150, y - 4, [56, 40, 50, 30][n])).join("") +
+        '<g transform="translate(250 112) rotate(32)"><rect x="-8" y="-52" width="16" height="74" rx="5" fill="' + SK + '"/><rect x="-8" y="-52" width="16" height="16" rx="5" fill="' + P + '"/><path d="M-8 22h16l-8 16z" fill="' + PD + '"/></g>' + coin(70, 146, 24) + coin(262, 46, 13),
+      drops([[44, 70], [70, 34], [258, 40], [284, 76], [228, 22]]) + '<rect x="157" y="96" width="6" height="74" rx="3" fill="' + PD + '"/><path d="M160 170q0 12-11 12" fill="none" stroke="' + PD + '" stroke-width="6" stroke-linecap="round"/>' +
+        '<path d="M68 100a92 76 0 0 1 184 0z" fill="' + P + '"/><path d="M129 100a31 76 0 0 1 62 0z" fill="' + SK + '"/><circle cx="160" cy="24" r="5" fill="' + PD + '"/>' + stack(108, 174, 4) + stack(214, 174, 6),
+      stack(84, 172, 2) + stack(142, 172, 4) + stack(200, 172, 6) + '<path d="M62 118L212 52" fill="none" stroke="' + LM + '" stroke-width="9" stroke-linecap="round"/><path d="M228 44l-30-2 14 28z" fill="' + LM + '"/>' + label(262, 118, 31, P, "10%"),
+      donut(0.4, "ไม่เกิน"),
+      '<path d="M58 178L150 66l92 112z" fill="' + SKL + '"/><path d="M130 178l62-74 62 74z" fill="' + SK + '"/><path d="M150 66l-19 23 11-4 8 9 8-9 11 4z" fill="#fff"/><rect x="148" y="28" width="5" height="40" rx="2" fill="' + PD + '"/><path d="M153 30l36 10-36 12z" fill="' + LM + '"/>' +
+        '<path d="M96 176q26-10 30-34t22-38" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-dasharray="1 11"/>' + badge(54, 132, 24, P, HOUSE) + badge(272, 88, 22, TL, HEART) + badge(84, 58, 19, LM, PLUS) + coin(268, 152, 20),
+      '<path d="M160 26l62 20v46c0 42-27 66-62 80-35-14-62-38-62-80V46z" fill="' + P + '"/><path d="M160 26l62 20v46c0 42-27 66-62 80z" fill="' + SK + '"/><path d="M132 98l20 20 38-42" fill="none" stroke="#fff" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>' +
+        badge(62, 76, 22, TL, HEART) + badge(262, 62, 19, LM, PLUS) + coin(258, 150, 21),
+      '<rect x="102" y="38" width="112" height="144" rx="12" fill="' + SH + '"/><rect x="96" y="32" width="112" height="144" rx="12" fill="' + P + '"/><rect x="106" y="44" width="92" height="122" rx="6" fill="#fff"/><rect x="130" y="24" width="44" height="20" rx="8" fill="' + PD + '"/>' +
+        bar(118, 62, 58) + bar(118, 80, 40) + '<rect x="118" y="126" width="14" height="28" rx="3" fill="' + SKL + '"/><rect x="138" y="112" width="14" height="42" rx="3" fill="' + SK + '"/><rect x="158" y="100" width="14" height="54" rx="3" fill="' + LM + '"/>' +
+        '<path d="M236 150l28 28" stroke="' + P + '" stroke-width="13" stroke-linecap="round"/><circle cx="216" cy="128" r="30" fill="#EAF6FD" stroke="' + PD + '" stroke-width="9"/>' +
+        '<rect x="48" y="62" width="48" height="48" rx="10" fill="' + SH + '"/><rect x="44" y="58" width="48" height="48" rx="10" fill="#fff"/><path d="M44 76v-8a10 10 0 0 1 10-10h28a10 10 0 0 1 10 10v8z" fill="' + LM + '"/><text x="68" y="99" text-anchor="middle" font-size="19" font-weight="600" fill="' + P + '">1</text>',
+      [[88, 36], [126, 58], [164, 84], [202, 112]].map(([x, h], n) => '<rect x="' + x + '" y="' + (172 - h) + '" width="28" height="' + h + '" rx="6" fill="' + (n < 2 ? SK : P) + '"/>').join("") +
+        '<path d="M216 60V34" stroke="' + LM + '" stroke-width="5" stroke-linecap="round"/><path d="M216 44c-16 2-22-8-20-18 14-2 22 6 20 18z" fill="' + LM + '"/><path d="M216 38c14 2 20-6 18-16-12-2-20 4-18 16z" fill="#8CC21A"/>' + coin(264, 144, 22) + coin(60, 150, 15),
+      // withdrawals 1–8
+      '<g transform="rotate(-10 112 112)">' + sheet(74, 52, 84, 112) + bar(88, 74, 52) + bar(88, 94, 36) + bar(88, 114, 46) + "</g>" + '<g transform="rotate(8 176 118)">' + sheet(134, 60, 84, 112) + bar(148, 82, 50) + bar(148, 102, 34) + bar(148, 122, 44) + bar(148, 142, 26) + "</g>" +
+        label(248, 66, 30, P, "?") + coin(250, 152, 18),
+      '<path d="M110 80a19 19 0 0 1 38 0" fill="none" stroke="' + PD + '" stroke-width="6"/><rect x="92" y="78" width="74" height="96" rx="9" fill="' + P + '"/><path d="M166 98a16 16 0 0 1 32 0" fill="none" stroke="#2E8FCB" stroke-width="6"/><rect x="150" y="96" width="66" height="78" rx="9" fill="' + SK + '"/>' +
+        '<path d="M218 120a11 11 0 0 1 22 0" fill="none" stroke="#7FA91E" stroke-width="5"/><rect x="206" y="118" width="46" height="56" rx="8" fill="' + LM + '"/>' + label(258, 62, 36, TL, "&gt;3", "ครั้ง/เดือน"),
+      '<path d="M56 174h208" stroke="' + SH + '" stroke-width="4" stroke-linecap="round"/>' + [76, 142, 208].map((x) => '<rect x="' + x + '" y="118" width="24" height="54" rx="5" fill="' + LM + '"/><rect x="' + (x + 28) + '" y="' + 78 + '" width="24" height="94" rx="5" fill="' + P + '"/>').join("") +
+        '<path d="M60 118h204" stroke="#7FA91E" stroke-width="3" stroke-dasharray="7 7"/>' +
+        '<rect x="62" y="30" width="86" height="30" rx="15" fill="#fff"/><circle cx="78" cy="45" r="7" fill="' + LM + '"/><text x="92" y="50" font-size="13" font-weight="500" fill="' + INK + '">รายได้</text>' +
+        '<rect x="158" y="30" width="96" height="30" rx="15" fill="#fff"/><circle cx="174" cy="45" r="7" fill="' + P + '"/><text x="188" y="50" font-size="13" font-weight="500" fill="' + INK + '">รายจ่าย</text>',
+      '<rect x="112" y="68" width="104" height="112" rx="22" fill="' + SH + '"/><rect x="106" y="62" width="104" height="112" rx="22" fill="#F6FBFF" stroke="' + SKL + '" stroke-width="4"/><rect x="118" y="46" width="80" height="20" rx="8" fill="' + P + '"/>' +
+        [142, 126, 110].map((y) => '<ellipse cx="158" cy="' + y + '" rx="34" ry="8" fill="none" stroke="' + SKL + '" stroke-width="3" stroke-dasharray="5 6"/>').join("") + '<ellipse cx="158" cy="160" rx="34" ry="8" fill="#E79A0C"/><ellipse cx="158" cy="155" rx="34" ry="8" fill="#FBC93D"/>' +
+        label(256, 84, 32, TL, "&lt;6", "เดือน"),
+      donut(0.6, "เกิน"),
+      '<path d="M96 76a24 24 0 0 1 8-46 34 34 0 0 1 64-6 28 28 0 0 1 50 16 22 22 0 0 1 2 36z" fill="#B9C8EA"/>' + drops([[104, 92], [136, 104], [168, 90], [200, 104], [228, 90], [120, 122], [186, 124]]) +
+        '<path d="M160 60l-16 26h14l-8 24 26-32h-15l9-18z" fill="#F5B21E"/>' + stack(118, 176, 3) + stack(204, 176, 2),
+      sheet(84, 44, 116, 124) + '<path d="M84 76V56a12 12 0 0 1 12-12h92a12 12 0 0 1 12 12v20z" fill="' + P + '"/><circle cx="112" cy="58" r="5" fill="#fff"/><circle cx="172" cy="58" r="5" fill="#fff"/>' +
+        '<text x="142" y="124" text-anchor="middle" font-size="34" font-weight="600" fill="' + P + '">2 ปี</text><text x="142" y="150" text-anchor="middle" font-size="14" font-weight="500" fill="#5C6E8C">ไม่ได้ทบทวน</text>' +
+        '<rect x="226" y="62" width="48" height="8" rx="4" fill="' + PD + '"/><rect x="226" y="138" width="48" height="8" rx="4" fill="' + PD + '"/><path d="M232 70h36l-18 34z" fill="' + SK + '"/><path d="M250 104l18 34h-36z" fill="' + SKL + '"/>',
+      '<path d="M124 124h72l-10 52h-52z" fill="' + P + '"/><rect x="114" y="110" width="92" height="18" rx="7" fill="' + PD + '"/>' +
+        '<path d="M160 108V70M160 86c-20 2-28-10-26-24 18-2 28 8 26 24zM160 78c18 2 26-8 24-22-16-2-26 6-24 22z" fill="none" stroke="' + SKL + '" stroke-width="3.5" stroke-dasharray="6 6" stroke-linecap="round"/>' +
+        '<circle cx="254" cy="84" r="22" fill="none" stroke="#F5B21E" stroke-width="4" stroke-dasharray="7 7"/><text x="254" y="93" text-anchor="middle" font-size="24" font-weight="700" fill="#F5B21E">฿</text>' +
+        '<path d="M40 150h46" stroke="' + SKL + '" stroke-width="5" stroke-linecap="round" stroke-dasharray="2 10"/>'
+    ];
+    const emblem = (a) => frame('<circle cx="160" cy="104" r="68" fill="none" stroke="' + a.c + '" stroke-width="4" opacity=".28"/><circle cx="160" cy="104" r="52" fill="' + a.c + '"/><g transform="translate(118 62) scale(3.5)" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">' + a.ico + "</g>" +
+      '<circle cx="66" cy="62" r="9" fill="' + LM + '"/><circle cx="260" cy="150" r="12" fill="' + SK + '"/><circle cx="252" cy="52" r="6" fill="' + P + '"/><circle cx="72" cy="152" r="5" fill="' + TL + '"/>');
+    return (a, i) => (a.k === "money" && money[i] ? frame(money[i]) : emblem(a));
+  })();
+  // V309 · the scripts page is this one card
   function lcCard() {
-    if (!ownView() || S.role === "bdm" || S.role === "admin") return "";
-    return '<section class="panel lc-card"><h2>4 บัญชีชีวิต · เช็กสมดุลกับลูกค้า</h2><p class="muted">ลูกค้าตอบเองทีละข้อ เห็นภาพสมดุลชีวิต ได้รูปผลไปเก็บ</p>' +
-      '<div class="lc-accs">' + LC_ACC.map((a) => '<span><i style="background:' + a.c + '">' + lcSvg(a.ico, 26) + "</i>" + a.t + "</span>").join("") + "</div>" +
-      '<button class="btn add-one lc-go" type="button" data-act="lcStart">' + lcSvg(LC_I.tablet) + "เริ่มสำรวจบนแท็บเล็ต</button>" +
-      '<button class="btn lc-paper" type="button" data-act="lcPaper">' + lcSvg(LC_I.paper) + "ใช้แบบกระดาษ · บันทึกแค่ผล</button>" +
-      '<p class="lc-note">' + lcSvg(LC_I.lock, 16) + "ประมาณ 10 นาที · บัญชีกายและใจตอบแบบส่วนตัว · ไม่บันทึกคำตอบ</p></section>";
+    if (S.role !== "agent") return "";
+    return '<section class="panel lw-card"><div><span class="sec-tag">เครื่องมือชวนคุย</span><h2>ชีวิตดี 4 ด้าน</h2><p class="muted">ชวนผู้มุ่งหวังเช็กสมดุลชีวิตทีละด้าน ให้ตอบเอง หรือคุณกดให้ก็ได้</p></div>' +
+      '<div class="lw-tiles">' + LC_ACC.map((a) => '<div class="lw-tile" style="--c:' + a.c + '"><i>' + lcSvg(a.ico, 26) + "</i><b>" + a.t + "</b><small>" + a.about + "</small></div>").join("") + "</div>" +
+      '<ol class="lw-how"><li><b>กรอกชื่อ</b><span>ใช้แสดงบนผลเท่านั้น</span></li><li><b>เลือกด้าน แล้วตอบ 16 ข้อ</b><span>ใช่ หรือ ไม่ใช่ · ประมาณ 3 นาทีต่อด้าน</span></li><li><b>รับผลเป็นรูป</b><span>บันทึกแล้วส่งต่อทาง LINE ได้</span></li></ol>' +
+      '<button class="btn add-one lw-start" type="button" data-act="lcStart">' + lcSvg(LW_I.play) + "เริ่มทดสอบ</button>" +
+      '<p class="lw-note">' + lcSvg(LC_I.lock, 16) + "ไม่บันทึกคำตอบ · ไม่ผูกกับรายชื่อในระบบ</p></section>";
   }
-  function lcStart(pid) {
-    if (document.querySelector(".lc-mode")) return;
-    lc = { step: "intro", i: 0, ans: [], pick: "", pid: pid || scriptFor || "" };
-    const el = document.createElement("div"); el.className = "lc-mode"; el.setAttribute("role", "dialog"); el.setAttribute("aria-modal", "true"); el.setAttribute("aria-label", "เช็กสมดุลชีวิต 4 ด้าน");
-    document.body.appendChild(el); document.documentElement.classList.add("lc-on"); lcDraw();
+  function lcStart() {
+    if (document.querySelector(".lw-mode")) return;
+    lw = { step: "name", name: "", k: "", i: 0, ans: {}, from: "" };
+    const el = document.createElement("div"); el.className = "lw-mode"; el.setAttribute("role", "dialog"); el.setAttribute("aria-modal", "true"); el.setAttribute("aria-label", "แบบทดสอบชีวิตดี 4 ด้าน");
+    document.body.appendChild(el); document.documentElement.classList.add("lw-on"); lwDraw();
   }
-  function lcClose(toAfter) {
-    const el = document.querySelector(".lc-mode"), pick = lc && lc.pick, pid = lc && lc.pid; if (el) el.remove();
-    document.documentElement.classList.remove("lc-on"); lc = null; // every answer is dropped here
-    if (toAfter) dlgLcAfter(pid, pick);
+  function lwClose() {
+    const el = document.querySelector(".lw-mode"); if (el) el.remove();
+    document.documentElement.classList.remove("lw-on"); lw = null; // the name and every answer are dropped here
   }
-  function lcDraw() {
-    const el = document.querySelector(".lc-mode"); if (!el || !lc) return;
-    const bar = (t) => '<div class="lc-bar"><b>' + t + '</b><button type="button" class="lc-exit" data-lc="exit">' + lcSvg(LC_I.x) + "ออก</button></div>";
+  function lwDraw() {
+    const el = document.querySelector(".lw-mode"); if (!el || !lw) return;
+    const exit = '<button type="button" class="lw-exit" data-lw="exit">' + lcSvg(LC_I.x, 18) + "ออก</button>";
+    const top = '<div class="lw-top"><b class="lw-brand">ชีวิตดี 4 ด้าน</b>' + exit + "</div>";
     let h = "";
-    if (lc.step === "intro") {
-      h = bar("เช็กสมดุลชีวิต 4 ด้าน") + '<div class="lc-in"><h1>ชีวิตดี เริ่มที่ใส่ใจตัวเอง</h1><p class="lc-sub">ตอบทีละข้อ ใช่ หรือ ไม่ใช่ · ประมาณ 10 นาที</p>' +
-        '<div class="lc-big">' + LC_ACC.map((a) => '<div style="background:' + a.c + '">' + lcSvg(a.ico, 28) + "<b>" + a.t + "</b><small>" + a.about + "</small></div>").join("") + "</div>" +
-        '<div class="lc-two"><div class="lc-box"><b>' + lcSvg(LC_I.eyeoff) + "กายฟิตและใจสมดุล ตอบแบบส่วนตัว</b><span>ตัวแทนจะไม่เห็นข้อที่คุณตอบ เห็นเฉพาะผลรวม</span></div>" +
-        '<div class="lc-box"><b>' + lcSvg(LC_I.lock) + "ไม่มีการบันทึกคำตอบ</b><span>คำตอบอยู่บนหน้าจอนี้เท่านั้น ออกแล้วหายทันที</span></div></div>" +
-        '<button class="btn add-one lc-main" type="button" data-lc="begin">เริ่มสำรวจ</button></div>';
-    } else if (lc.step === "priv") {
-      h = bar("ตอบแบบส่วนตัว") + '<div class="lc-in lc-center"><span class="lc-hand">' + lcSvg(LC_I.hand, 40) + '</span><h1>ส่งแท็บเล็ตให้ลูกค้าตอบเอง</h1><p class="lc-sub">บัญชีกายฟิตและใจสมดุลมีเรื่องสุขภาพ เช่น การนอน การสูบบุหรี่ ตัวแทนจะไม่เห็นข้อที่ตอบ เห็นเฉพาะผลรวม</p>' +
-        '<div class="lc-two"><div class="lc-box"><b>' + lcSvg(LC_I.eyeoff) + "ระหว่างตอบ</b><span>หน้าจอไม่แสดงคำตอบที่ผ่านไปแล้ว</span></div><div class=\"lc-box\"><b>" + lcSvg(LC_I.lock) + "เมื่อตอบเสร็จ</b><span>หน้าจอขึ้นแค่คะแนนรวมของแต่ละบัญชี</span></div></div>" +
-        '<button class="btn add-one lc-main" type="button" data-lc="privgo">ลูกค้ารับเครื่องแล้ว · เริ่มตอบ</button></div>';
-    } else if (lc.step === "q") {
-      const q = LC_Q[lc.i], a = LC_ACC[q.ai], n = q.n + 1, priv = a.priv;
-      h = bar(a.t + " · ข้อ " + n + " จาก 16") + '<div class="lc-in"><div class="lc-qh"><i style="background:' + a.c + '">' + lcSvg(a.ico, 24) + "</i><div><b>" + a.full + " · " + (q.sign > 0 ? "รายการฝาก" : "รายการถอน") + "</b><small>บัญชีที่ " + (q.ai + 1) + " จาก 4" + (priv ? " · ตอบแบบส่วนตัว" : "") + "</small></div></div>" +
-        '<div class="lc-prog">' + LC_ACC.map((x, k) => "<i" + (k < q.ai ? ' class="on"' : k === q.ai ? ' class="half" style="--p:' + Math.round((q.n / 16) * 100) + '%"' : "") + "></i>").join("") + "</div>" +
-        '<p class="lc-ask">ข้อนี้ตรงกับคุณไหม</p><p class="lc-q">' + esc(q.t) + "</p>" +
-        '<div class="lc-yn"><button type="button" class="lc-y' + (!priv && lc.ans[lc.i] === true ? " on" : "") + '" data-lc="yes">ใช่</button><button type="button" class="lc-n' + (!priv && lc.ans[lc.i] === false ? " on" : "") + '" data-lc="no">ไม่ใช่</button></div>' +
-        '<div class="lc-nav">' + (lc.i > 0 ? '<button class="btn" type="button" data-lc="prev">‹ ข้อก่อนหน้า</button>' : "<span></span>") + '<span class="muted">แตะคำตอบแล้วไปข้อถัดไปเอง</span></div></div>';
-    } else if (lc.step === "result") {
-      const sc = lcScores(), bal = lcBalance(sc), pick = lc.pick && lcAcc(lc.pick);
-      const tipIdx = pick ? LC_Q.findIndex((q, i) => LC_ACC[q.ai].k === pick.k && q.sign > 0 && !lc.ans[i]) : -1;
-      h = bar("ผลสมดุลชีวิตของคุณ") + '<div class="lc-res"><section class="lc-panel"><h2>สมดุลชีวิตของคุณ</h2><p class="lc-bal ' + bal[1] + '"><b>' + bal[0] + "</b> · " + bal[2] + "</p>" + lcRadar(sc, 440) +
-        '<p class="lc-src">เกณฑ์ตามคู่มือ 4 บัญชีชีวิตของบริษัท · แต่ละบัญชี −8 ถึง 8 คะแนน</p></section><div>' +
-        '<section class="lc-panel lc-legend">' + LC_ACC.map((a) => { const l = lcLevel(sc[a.k]); return '<div><i style="background:' + a.c + '">' + lcSvg(a.ico, 20) + "</i><span>" + a.t + '</span><em class="chip ' + l[1] + '">' + l[0] + "</em><b>" + sc[a.k] + "</b></div>"; }).join("") + "</section>" +
-        '<section class="lc-panel"><h3>ถ้าเลือกเติมได้ 1 บัญชีในปีนี้</h3><p class="muted">เลือกด้วยตัวเอง</p><div class="lc-picks" role="radiogroup" aria-label="บัญชีที่อยากเติม">' + LC_ACC.map((a) => '<button type="button" role="radio" aria-checked="' + (lc.pick === a.k) + '" data-lcpick="' + a.k + '">' + a.t + "</button>").join("") + "</div>" +
-        (pick ? '<p class="lc-tip"><b>เริ่มเติม' + pick.t + ":</b> " + esc(tipIdx >= 0 ? LC_Q[tipIdx].t : "รักษารายการฝากที่ทำอยู่ให้ต่อเนื่อง") + "</p>" : "") + "</section>" +
-        '<button class="btn add-one lc-main" type="button" data-lc="share">' + lcSvg(LC_I.share) + "รับรูปผลไปเก็บ · ส่งทาง LINE ได้</button>" +
-        '<button class="btn lc-done" type="button" data-lc="done">เสร็จแล้ว · ส่งเครื่องคืนตัวแทน</button></div></div>';
-    } else if (lc.step === "back") {
-      h = '<div class="lc-in lc-center lc-backpage"><span class="lc-hand">' + lcSvg(LC_I.hand, 40) + '</span><h1>ส่งเครื่องคืนตัวแทนแล้วใช่ไหม</h1><p class="lc-sub">เมื่อออก หน้าจอจะลบคำตอบทั้งหมด และกลับไปหน้าของตัวแทน</p>' +
-        '<div class="lc-two"><button class="btn" type="button" data-lc="stay">‹ ยังไม่เสร็จ กลับไปตอบต่อ</button><button class="btn add-one" type="button" data-lc="leave">ใช่ · ออกจากโหมดลูกค้า</button></div></div>';
+    if (lw.step === "name") {
+      h = top + '<div class="lw-hero"><div class="lw-orbs" aria-hidden="true">' + ["bond", "money", "mind", "body"].map((k) => '<i style="--c:' + lcAcc(k).c + '">' + lcSvg(lcAcc(k).ico, 30) + "</i>").join("") + "</div>" +
+        '<h1>ชีวิตดี เริ่มที่ใส่ใจตัวเอง</h1><p class="lw-sub">เช็กสมดุลชีวิตทีละด้าน ด้านละ 16 ข้อ ตอบแค่ ใช่ หรือ ไม่ใช่</p>' +
+        '<form class="lw-name" id="lwForm" novalidate><label for="lwName">ชื่อของคุณ</label><input id="lwName" type="text" maxlength="30" autocomplete="off" placeholder="เช่น บอส" value="' + esc(lw.name) + '"><p class="lw-err" id="lwErr" hidden>กรอกชื่อก่อนเริ่มนะคะ</p>' +
+        '<button class="btn add-one lw-main" type="submit">เริ่มเลย</button></form>' +
+        '<p class="lw-note">' + lcSvg(LC_I.lock, 16) + "ไม่บันทึกคำตอบ ออกจากหน้านี้แล้วหายทันที</p></div>";
+    } else if (lw.step === "hub") {
+      const n = lwCount(), all = n === 4, sc = {}; LC_ACC.forEach((a) => (sc[a.k] = lwDone(a.k) ? lwScore(a.k) : 0));
+      const bal = all ? lcBalance(sc) : null;
+      h = top + '<div class="lw-hub"><h1>' + (n ? "ผลของ" : "สวัสดีค่ะ ") + esc(lwWho()) + '</h1><p class="lw-sub">' + (all ? "ครบทั้ง 4 ด้านแล้ว" : n ? "ทำแล้ว " + n + " จาก 4 ด้าน · เลือกด้านถัดไปได้เลย" : "เลือกด้านที่อยากเช็กก่อน ทำทีละด้านได้") + "</p>" +
+        (all ? '<section class="lw-bal"><div class="lw-radar-box">' + lcRadar(sc, 440) + '</div><div class="lw-bal-t"><span class="sec-tag">สมดุลชีวิต</span><h2 class="' + bal[1] + '">' + bal[0] + "</h2><p>" + bal[2] + '</p><p class="lw-src">เกณฑ์ตามคู่มือ 4 บัญชีชีวิตของบริษัท · แต่ละด้าน −8 ถึง 8 คะแนน</p></div></section>' : "") +
+        '<div class="lw-grid">' + LC_ACC.map((a) => {
+          const d = lwDone(a.k), v = d ? lwScore(a.k) : 0, l = d ? lcLevel(v) : null, part = !d && (lw.ans[a.k] || []).some((x) => typeof x === "boolean");
+          return '<button type="button" class="lw-side' + (d ? " is-done" : "") + '" style="--c:' + a.c + '" data-lwside="' + a.k + '"><i>' + lcSvg(a.ico, 28) + '</i><span class="lw-side-t"><b>' + a.t + "</b><small>" + (d ? '<em class="chip ' + l[1] + '">' + l[0] + "</em>" : a.about) + "</small></span>" +
+            (d ? '<span class="lw-side-v"><strong>' + lwNum(v) + "</strong><small>ดูผล ›</small></span>" : '<span class="lw-side-go"><small>16 ข้อ · 3 นาที</small><strong>' + (part ? "ทำต่อ ›" : "เริ่ม ›") + "</strong></span>") + "</button>";
+        }).join("") + "</div>" +
+        (n ? '<button class="btn add-one lw-main" type="button" data-lw="share">' + lcSvg(LW_I.img) + "บันทึกรูปผล · ส่งทาง LINE ได้</button>" : "") +
+        (n && !all ? '<p class="lw-note">ทำครบ 4 ด้าน จะเห็นภาพสมดุลชีวิตทั้งหมด</p>' : "") + "</div>";
+    } else if (lw.step === "q") {
+      const a = lcAcc(lw.k), q = lwItems(a)[lw.i], cur = (lw.ans[lw.k] || [])[lw.i];
+      h = '<div class="lw-top"><button type="button" class="lw-back" data-lw="hub">' + lcSvg(LW_I.back, 18) + 'เลือกด้าน</button><span class="lw-pill" style="--c:' + a.c + '"><i>' + lcSvg(a.ico, 18) + "</i>" + a.t + "</span>" + exit + "</div>" +
+        '<div class="lw-q" style="--c:' + a.c + '"><div class="lw-prog" role="progressbar" aria-valuemin="0" aria-valuemax="16" aria-valuenow="' + lw.i + '" aria-label="ความคืบหน้า"><i style="width:' + ((lw.i / 16) * 100).toFixed(1) + '%"></i></div>' +
+        '<p class="lw-count">ข้อ <b>' + (lw.i + 1) + "</b> / 16</p>" +
+        '<div class="lw-qcard"><div class="lw-qhead">ข้อนี้ตรงกับคุณไหม</div><div class="lw-art">' + LW_ART(a, lw.i) + '</div><p class="lw-qt">' + esc(q.t) + "</p></div>" +
+        '<div class="lw-yn"><button type="button" class="lw-y' + (cur === true ? " on" : "") + '" data-lw="yes">' + lcSvg(LW_I.check) + 'ใช่</button><button type="button" class="lw-n' + (cur === false ? " on" : "") + '" data-lw="no">' + lcSvg(LC_I.x) + "ไม่ใช่</button></div>" +
+        (lw.i > 0 ? '<button class="lw-prev" type="button" data-lw="prev">‹ ข้อก่อนหน้า</button>' : "") + "</div>";
+    } else if (lw.step === "done") {
+      const a = lcAcc(lw.k), v = lwScore(lw.k), l = lcLevel(v), ans = lw.ans[lw.k], it = lwItems(a);
+      const dep = it.filter((q, i) => q.sign > 0 && ans[i]).length, wd = it.filter((q, i) => q.sign < 0 && ans[i]).length;
+      const tips = it.filter((q, i) => q.sign > 0 && !ans[i]).slice(0, 3), next = LC_ACC.find((x) => !lwDone(x.k));
+      h = top + '<div class="lw-done" style="--c:' + a.c + '"><section class="lw-result"><i class="lw-badge">' + lcSvg(a.ico, 40) + '</i><p class="lw-of">' + a.t + "ของ" + esc(lwWho()) + '</p><p class="lw-score">' + lwNum(v) + "<small>คะแนน</small></p>" +
+        '<p class="lw-level"><em class="chip ' + l[1] + '">' + l[0] + "</em></p>" +
+        '<div class="lw-scale" aria-hidden="true"><div class="lw-track"><span style="left:' + (((v + 8) / 16) * 100).toFixed(1) + '%"></span></div><div class="lw-ticks"><small>−8</small><small>0</small><small>8</small></div></div>' +
+        '<p class="lw-dw">รายการฝาก <b>' + dep + "</b> ข้อ · รายการถอน <b>" + wd + "</b> ข้อ</p></section>" +
+        '<section class="lw-tips"><h2>' + (tips.length ? "ลองเริ่มเติมจาก" : "ทำได้ครบทุกรายการฝากแล้ว") + "</h2>" + (tips.length ? "<ul>" + tips.map((q) => "<li>" + esc(q.t) + "</li>").join("") + "</ul>" : "<p>รักษาสิ่งที่ทำอยู่ให้ต่อเนื่อง</p>") + "</section>" +
+        '<div class="lw-acts">' + (next ? '<button class="btn add-one lw-main" type="button" data-lwside="' + next.k + '">ทำด้านถัดไป · ' + next.t + "</button>" : '<button class="btn add-one lw-main" type="button" data-lw="hub">ดูภาพสมดุลชีวิต</button>') +
+        '<button class="btn lw-sec" type="button" data-lw="share">' + lcSvg(LW_I.img) + 'บันทึกรูปผล</button><button class="btn lw-sec" type="button" data-lw="hub">ดูผลทุกด้าน</button>' +
+        '<button class="lw-prev" type="button" data-lw="redo">ทำด้านนี้อีกครั้ง</button></div></div>';
+    } else if (lw.step === "back") {
+      h = '<div class="lw-hero lw-confirm"><h1>ออกจากแบบทดสอบใช่ไหม</h1><p class="lw-sub">คำตอบและผลทั้งหมดจะหายไป ถ้าอยากเก็บผล ให้บันทึกรูปก่อนออก</p>' +
+        '<div class="lw-two"><button class="btn" type="button" data-lw="stay">กลับไปทำต่อ</button><button class="btn add-one" type="button" data-lw="leave">ออก</button></div></div>';
     }
-    el.innerHTML = '<div class="lc-wrap">' + h + "</div>"; el.scrollTop = 0;
-    const f = el.querySelector(".lc-main, .lc-y, [data-lc='leave']"); if (f) f.focus({ preventScroll: true });
+    el.innerHTML = '<div class="lw-wrap lw-s-' + lw.step + '">' + h + "</div>"; el.scrollTop = 0;
+    const f = el.querySelector("#lwName, .lw-y, .lw-main, [data-lw='stay']"); if (f) f.focus({ preventScroll: true });
   }
-  function lcNext() {
-    const nx = lc.i + 1;
-    if (nx >= LC_Q.length) { lc.step = "result"; return lcDraw(); }
-    if (!LC_ACC[LC_Q[lc.i].ai].priv && LC_ACC[LC_Q[nx].ai].priv) { lc.i = nx; lc.step = "priv"; return lcDraw(); }
-    lc.i = nx; lcDraw();
+  // the picture to keep: the name, each side's score and level, and the balance square once all four sides are done
+  function lwImage() {
+    const W = 1080, H = 1350, cv = document.createElement("canvas"); cv.width = W; cv.height = H;
+    const x = cv.getContext("2d"), D = "Prompt, Anuphan, 'IBM Plex Sans Thai', sans-serif";
+    const rr = (px, py, w, h, r) => { x.beginPath(); if (x.roundRect) x.roundRect(px, py, w, h, r); else x.rect(px, py, w, h); };
+    const all = lwCount() === 4, sc = {}; LC_ACC.forEach((a) => (sc[a.k] = lwDone(a.k) ? lwScore(a.k) : 0));
+    const sky = x.createLinearGradient(0, 0, 0, H); sky.addColorStop(0, "#D3EDFB"); sky.addColorStop(.45, "#F3FAFF"); sky.addColorStop(1, "#DDF1FC"); x.fillStyle = sky; x.fillRect(0, 0, W, H);
+    const hd = x.createLinearGradient(0, 0, W, 0); hd.addColorStop(0, "#4666BC"); hd.addColorStop(1, "#4DAEE8"); x.fillStyle = hd; x.fillRect(0, 0, W, 210); x.fillStyle = "#A6D71C"; x.fillRect(0, 210, W, 8);
+    x.fillStyle = "#E6F1FF"; x.font = "500 32px " + D; x.fillText("ชีวิตดี 4 ด้าน", 60, 80);
+    x.fillStyle = "#fff"; x.font = "600 64px " + D; let nm = lwWho(); while (x.measureText(nm).width > 950 && nm.length > 4) nm = nm.slice(0, -2) + "…"; x.fillText(nm, 60, 162);
+    const tile = (px, py, w, h, a) => {
+      const d = lwDone(a.k), v = sc[a.k];
+      x.fillStyle = "#fff"; rr(px, py, w, h, 28); x.fill(); x.fillStyle = a.c; rr(px + 28, py + 30, 12, 62, 6); x.fill();
+      x.textAlign = "left"; x.fillStyle = "#1F2A44"; x.font = "600 40px " + D; x.fillText(a.t, px + 60, py + 62);
+      x.font = "500 28px " + D; x.fillStyle = "#4F6378"; x.fillText(d ? lcLevel(v)[0] : "ยังไม่ได้ทำ", px + 60, py + 104);
+      if (!d) return;
+      x.textAlign = "right"; x.fillStyle = a.ink; x.font = "600 84px " + D; x.fillText(lwNum(v), px + w - 36, py + 98); x.textAlign = "left";
+      const bx = px + 28, bw = w - 56, by = py + h - 38; x.fillStyle = "#E1EBF7"; rr(bx, by, bw, 14, 7); x.fill(); x.fillStyle = a.c; rr(bx, by, Math.max(14, bw * ((v + 8) / 16)), 14, 7); x.fill();
+    };
+    if (all) {
+      const bal = lcBalance(sc), c = 540, cy = 610, step = 26, ring = (v) => (v < 0 ? 0.6 : v + 1) * step, o = 9 * step;
+      x.fillStyle = "#fff"; rr(60, 250, 960, 670, 28); x.fill();
+      x.textAlign = "center"; x.fillStyle = "#4666BC"; x.font = "600 46px " + D; x.fillText(bal[0], c, 318);
+      for (let k = 9; k >= 0; k--) { const d = k ? k * step : 0.6 * step; x.fillStyle = k % 2 ? "#FFFFFF" : "#EAF3FB"; x.strokeStyle = "#9DB7D6"; x.lineWidth = 2; x.fillRect(c - d, cy - d, 2 * d, 2 * d); x.strokeRect(c - d, cy - d, 2 * d, 2 * d); }
+      const dir = { bond: [-1, -1], money: [1, -1], body: [1, 1], mind: [-1, 1] }, ord = ["bond", "money", "body", "mind"];
+      x.beginPath(); ord.forEach((k, n) => { const d = ring(sc[k]), px = c + dir[k][0] * d, py = cy + dir[k][1] * d; n ? x.lineTo(px, py) : x.moveTo(px, py); }); x.closePath();
+      x.fillStyle = "rgba(188,214,49,.5)"; x.fill(); x.strokeStyle = "#7FA300"; x.lineWidth = 5; x.stroke();
+      x.font = "600 30px " + D;
+      ord.forEach((k) => { const a = lcAcc(k), dx = dir[k][0], dy = dir[k][1]; x.fillStyle = a.ink; x.textAlign = dx < 0 ? "left" : "right"; x.fillText(a.t, c + dx * o, cy + dy * o + (dy < 0 ? -14 : 40)); });
+      LC_ACC.forEach((a, n) => tile(60 + (n % 2) * 490, 950 + Math.floor(n / 2) * 180, 470, 160, a));
+    } else LC_ACC.forEach((a, n) => tile(60, 262 + n * 252, 960, 228, a));
+    x.textAlign = "left"; x.fillStyle = "#4F6378"; x.font = "500 24px " + D; x.fillText("เกณฑ์ตามคู่มือ 4 บัญชีชีวิต · " + thDate(todayISO, { day: "numeric", month: "short", year: "numeric" }), 60, 1326);
+    return new Promise((ok) => { try { cv.toBlob((b) => ok(b ? new File([b], "ชีวิตดี 4 ด้าน.png", { type: "image/png" }) : null), "image/png"); } catch (e) { ok(null); } });
   }
-  // the picture the customer keeps: the radar, the four scores and the account they chose · no name, no logo
-  function lcImage() {
-    const sc = lcScores(), bal = lcBalance(sc), W = 1080, cv = document.createElement("canvas"); cv.width = W; cv.height = W;
-    const x = cv.getContext("2d"), D = "Anuphan, 'IBM Plex Sans Thai', sans-serif";
-    x.fillStyle = "#F4F8FC"; x.fillRect(0, 0, W, W); x.fillStyle = "#0058A9"; x.fillRect(0, 0, W, 120);
-    x.fillStyle = "#fff"; x.font = "700 54px " + D; x.fillText("สมดุลชีวิตของฉัน", 60, 80);
-    const c = 380, cy = 560, step = 32, ring = (v) => (v < 0 ? 0.6 : v + 1) * step;
-    for (let k = 9; k >= 0; k--) { const d = k ? k * step : 0.6 * step; x.fillStyle = k % 2 ? "#FFFFFF" : "#EAF3FB"; x.strokeStyle = "#9DB7D6"; x.lineWidth = 2; x.fillRect(c - d, cy - d, 2 * d, 2 * d); x.strokeRect(c - d, cy - d, 2 * d, 2 * d); }
-    const dir = { bond: [-1, -1], money: [1, -1], body: [1, 1], mind: [-1, 1] }, ord = ["bond", "money", "body", "mind"];
-    x.beginPath(); ord.forEach((k, n) => { const d = ring(sc[k]), px = c + dir[k][0] * d, py = cy + dir[k][1] * d; n ? x.lineTo(px, py) : x.moveTo(px, py); }); x.closePath();
-    x.fillStyle = "rgba(188,214,49,.5)"; x.fill(); x.strokeStyle = "#7FA300"; x.lineWidth = 5; x.stroke();
-    x.font = "700 30px " + D; x.textAlign = "center";
-    ord.forEach((k) => { const d = 9 * step + 30, a = lcAcc(k); x.fillStyle = a.c; x.fillText(a.t, c + dir[k][0] * (9 * step - 70), cy + dir[k][1] * d + (dir[k][1] > 0 ? 24 : 0)); });
-    x.textAlign = "left"; x.fillStyle = "#0B2545"; x.font = "700 38px " + D; x.fillText(bal[0], 720, 220);
-    LC_ACC.forEach((a, n) => { const y = 310 + n * 110; x.fillStyle = a.c; x.fillRect(720, y - 40, 14, 60); x.fillStyle = "#0B2545"; x.font = "600 32px " + D; x.fillText(a.t, 750, y); x.font = "700 52px " + D; x.textAlign = "right"; x.fillText(String(sc[a.k]), 1020, y + 6); x.textAlign = "left"; x.font = "500 24px " + D; x.fillStyle = "#5B6B80"; x.fillText(lcLevel(sc[a.k])[0], 750, y + 34); });
-    if (lc.pick) { x.fillStyle = "#EEF6D6"; x.fillRect(60, 930, 960, 90); x.fillStyle = "#4C6B00"; x.font = "700 32px " + D; x.fillText("ปีนี้ฉันเลือกเติม: " + lcAcc(lc.pick).t, 90, 988); }
-    x.fillStyle = "#5B6B80"; x.font = "500 22px " + D; x.fillText("เกณฑ์ตามคู่มือ 4 บัญชีชีวิต · " + thDate(todayISO, { day: "numeric", month: "short", year: "numeric" }), 60, 1060);
-    return new Promise((ok) => { try { cv.toBlob((b) => ok(b ? new File([b], "สมดุลชีวิตของฉัน.png", { type: "image/png" }) : null), "image/png"); } catch (e) { ok(null); } });
+  async function lwShare() {
+    const f = await lwImage(); if (!f) return toast("สร้างรูปไม่ได้ · ถ่ายภาพหน้าจอแทนได้");
+    try { if (navigator.canShare && navigator.canShare({ files: [f] })) { await navigator.share({ files: [f] }); return; } } catch (e) { if (e && e.name === "AbortError") return; }
+    // inside claude.ai the viewer confirms the save; opened as a plain page, the browser downloads it
+    const dl = window.claude && window.claude.use ? await window.claude.use("downloads").catch(() => null) : null;
+    if (dl) { try { await dl.save({ filename: f.name, data: f }); toast("บันทึกรูปแล้ว"); } catch (e) { toast(e && e.code === "declined" ? "ยกเลิกการบันทึกรูป" : "บันทึกรูปไม่ได้ · ถ่ายภาพหน้าจอแทนได้"); } return; }
+    try { const u = URL.createObjectURL(f), a = document.createElement("a"); a.href = u; a.download = f.name; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(u), 30000); toast("บันทึกรูปแล้ว"); } catch (e) { toast("บันทึกรูปไม่ได้ · ถ่ายภาพหน้าจอแทนได้"); }
   }
+  document.addEventListener("submit", (e) => {
+    if (!lw || e.target.id !== "lwForm") return; e.preventDefault();
+    const inp = $("#lwName"), v = inp.value.trim().replace(/\s+/g, " ");
+    if (!v) { $("#lwErr").hidden = false; inp.focus(); return; }
+    lw.name = v; lw.step = "hub"; lwDraw();
+  });
   document.addEventListener("click", (e) => {
-    const m = e.target.closest(".lc-mode"); if (!m || !lc) return;
-    const pk = e.target.closest("[data-lcpick]"); if (pk) { lc.pick = pk.dataset.lcpick; return lcDraw(); }
-    const b = e.target.closest("[data-lc]"); if (!b) return;
-    const k = b.dataset.lc;
-    if (k === "exit") { lc.from = lc.step; lc.step = "back"; return lcDraw(); }
-    if (k === "stay") { lc.step = lc.from || "q"; return lcDraw(); }
-    if (k === "leave") return lcClose(lc.from === "result" || lc.ans.length >= LC_Q.length);
-    if (k === "begin") { lc.step = "q"; lc.i = 0; return lcDraw(); }
-    if (k === "privgo") { lc.step = "q"; return lcDraw(); }
-    if (k === "yes" || k === "no") { lc.ans[lc.i] = k === "yes"; return lcNext(); }
-    if (k === "prev") { lc.i = Math.max(0, lc.i - 1); lc.step = "q"; return lcDraw(); }
-    if (k === "done") { lc.from = "result"; lc.step = "back"; return lcDraw(); }
-    if (k === "share") return lcImage().then((f) => { if (!f) return toast("สร้างรูปไม่ได้ · ถ่ายภาพหน้าจอแทนได้"); if (navigator.canShare && navigator.canShare({ files: [f] })) return navigator.share({ files: [f] }).catch(() => {}); bdSave(null, f); });
+    const m = e.target.closest(".lw-mode"); if (!m || !lw) return;
+    const sd = e.target.closest("[data-lwside]");
+    if (sd) {
+      lw.k = sd.dataset.lwside;
+      if (lwDone(lw.k)) lw.step = "done";
+      else { const a = (lw.ans[lw.k] = lw.ans[lw.k] || []); let i = 0; while (i < 15 && typeof a[i] === "boolean") i++; lw.i = i; lw.step = "q"; } // picks up where it stopped
+      return lwDraw();
+    }
+    const b = e.target.closest("[data-lw]"); if (!b) return;
+    const k = b.dataset.lw;
+    if (k === "exit") { if (lw.step === "name") return lwClose(); lw.from = lw.step; lw.step = "back"; return lwDraw(); }
+    if (k === "stay") { lw.step = lw.from || "hub"; return lwDraw(); }
+    if (k === "leave") return lwClose();
+    if (k === "hub") { lw.step = "hub"; return lwDraw(); }
+    if (k === "yes" || k === "no") { lw.ans[lw.k][lw.i] = k === "yes"; if (lw.i >= 15) lw.step = "done"; else lw.i++; return lwDraw(); }
+    if (k === "prev") { lw.i = Math.max(0, lw.i - 1); return lwDraw(); }
+    if (k === "redo") { lw.ans[lw.k] = []; lw.i = 0; lw.step = "q"; return lwDraw(); }
+    if (k === "share") return lwShare();
   });
-  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && lc && document.querySelector(".lc-mode") && lc.step !== "back") { lc.from = lc.step; lc.step = "back"; lcDraw(); } });
-  // back on the agent's side: who it was with and which account the customer chose · the date and that one choice are all that is kept
-  let lcAfter = null;
-  function dlgLcAfter(pid, pick) {
-    const ps = S.prospects.filter((p) => p.agentId === me().id && !isEnded(p) && statusOf(p) !== "no").sort((a, b) => pName(a).localeCompare(pName(b), "th"));
-    lcAfter = { pid: pid && ps.some((p) => p.id === pid) ? pid : "", pick: pick || "" };
-    const draw = () => '<p class="dlg-sub">หน้าของตัวแทน · ใช้ได้ทั้งสำรวจบนแท็บเล็ตและแบบกระดาษ</p>' +
-      '<div class="field"><label for="lcWho">สำรวจกับใคร</label><select id="lcWho" class="sel"><option value="">เลือกรายชื่อ</option>' + ps.map((p) => '<option value="' + p.id + '"' + (p.id === lcAfter.pid ? " selected" : "") + ">" + esc(pName(p)) + "</option>").join("") + "</select></div>" +
-      '<p class="cv-q">บัญชีที่ลูกค้าเลือกเติม</p><div class="pf-chips lc-apick">' + LC_ACC.map((a) => '<button type="button" class="pf-chip" data-lcap="' + a.k + '" aria-pressed="' + (lcAfter.pick === a.k) + '">' + a.t + "</button>").join("") + "</div>" +
-      (lcAfter.pick ? '<p class="muted lc-hint">หัวข้อที่แนะนำในหน้าวางแผนเสนอขาย: ' + ({ money: "ออมระยะยาว · เกษียณ · ลดหย่อนภาษี", body: "สุขภาพ · ค่ารักษา · โรคร้ายแรง", mind: "วางแผนเรื่องที่กังวล · ภาระหนี้ · รายได้สะดุด", bond: "คุ้มครองชีวิต · ทุนการศึกษาบุตร · มรดก" })[lcAfter.pick] + "</p>" : "") +
-      '<p class="lc-note">' + lcSvg(LC_I.lock, 16) + "ระบบเก็บแค่วันที่สำรวจ และบัญชีที่ลูกค้าเลือก ไม่เก็บคะแนน</p>" +
-      '<div class="step-nav eq"><button class="btn" type="button" data-lca="save"' + (lcAfter.pid && lcAfter.pick ? "" : " disabled") + '>ยังไม่นัด · บันทึกอย่างเดียว</button><button class="btn add-one" type="button" data-lca="book"' + (lcAfter.pid && lcAfter.pick ? "" : " disabled") + ">นัดเสนอแผน</button></div>";
-    openDialog("บันทึกผล 4 บัญชีชีวิต", '<div id="lcAfterBody">' + draw() + "</div>", null);
-    dlgForm.classList.add("lc-after");
-    lcAfter.draw = draw;
-  }
-  function lcSave() {
-    const p = findP(lcAfter.pid), a = lcAcc(lcAfter.pick); if (!p || !a) return null;
-    p.lc = { at: todayISO, acc: a.k }; // V308 · two values only
-    S.acts.push({ id: nid("a"), agentId: p.agentId, prospectId: p.id, kind: "lc", result: "สำรวจ 4 บัญชีชีวิต · เลือกเติม" + a.t, date: todayISO });
-    save(); return p;
-  }
-  dlgForm.addEventListener("click", (e) => {
-    if (!lcAfter || !dlgForm.classList.contains("lc-after")) return;
-    const ap = e.target.closest("[data-lcap]"); if (ap) { lcAfter.pick = ap.dataset.lcap; const box = $("#lcAfterBody"); if (box) box.innerHTML = lcAfter.draw(); return; }
-    const b = e.target.closest("[data-lca]"); if (!b || b.disabled) return;
-    const p = lcSave(); if (!p) return; lcAfter = null;
-    if (b.dataset.lca === "book") { dlg.close(); render(); return setTimeout(() => dlgEvent(p, "present"), 50); }
-    dlg.close(); render(); toast("บันทึกแล้ว · สำรวจ 4 บัญชีชีวิต");
-  });
-  dlgForm.addEventListener("change", (e) => { if (lcAfter && e.target.id === "lcWho") { lcAfter.pid = e.target.value; const box = $("#lcAfterBody"); if (box) box.innerHTML = lcAfter.draw(); } });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && lw && document.querySelector(".lw-mode") && lw.step !== "back") { if (lw.step === "name") return lwClose(); lw.from = lw.step; lw.step = "back"; lwDraw(); } });
   /* ---------- event wiring ---------- */
   document.addEventListener("click", (e) => {
     const vtb = e.target.closest("[data-vtab]"); if (vtb) { setViewTab(vtb.dataset.vtab); homeStage = "names"; pDetail = null; gStep = null; gDraft = null; gView = null; render(); return; }
@@ -9812,8 +9996,7 @@ window.addEventListener("error", function (e) {
         return;
       }
       case "bdayPage": return dlgBday(); // V297 · อวยพรวันเกิดวันนี้
-      case "lcStart": return lcStart(); // V308 · 4 บัญชีชีวิต (customer mode)
-      case "lcPaper": return dlgLcAfter(scriptFor, ""); // V308 · done on the booklet: record the result only
+      case "lcStart": return lcStart(); // V309 · ชีวิตดี 4 ด้าน
       case "doTask": {
         const tk = S.tasks.find((x) => x.id === id);
         if (tk.kind === "add") return dlgFive(Math.max(1, tk.target - (tk.progress || 0)));
