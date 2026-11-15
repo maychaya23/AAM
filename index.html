@@ -3348,6 +3348,7 @@ html.lw-on, html.lw-on body { overflow: hidden; }
 .lw-tips h2 { margin: -18px -20px 14px; padding: 9px 20px; background: var(--lw-grad); color: #fff; font-size: 17px; font-weight: 500; }
 .lw-track { background: linear-gradient(90deg, #D8E6F6, var(--c)); }
 .lw-bal-t h2 { font-weight: 600; }
+.ph-none { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; margin: 0; }
 /* V313 · the all-sides page in the words and look of the booklet's "เช็กสมดุลชีวิต" page */
 .ls { display: flex; flex-direction: column; gap: 18px; width: 100%; max-width: 560px; margin-inline: auto; }
 .ls section { min-width: 0; }
@@ -4856,6 +4857,8 @@ window.addEventListener("error", function (e) {
   }
   function head(desc, actions) {
     const v = viewsFor().find((x) => x.id === current) || VIEWS.find((x) => x.id === current);
+    // V314 · these two pages open straight on their card: no title block and no work-day button on top (the page name stays for screen readers)
+    if (current === "script" || (current === "planner" && S.role === "agent")) return '<h1 class="ph-none">' + (v.title || v.th) + "</h1>";
     return '<div class="page-head' + (actions && S.role === "agent" && (current === "home" || current === "planner") ? " ph-top" : current === "prospects" && actions ? " ph-two" : current === "calendar" ? " ph-cal" : "") + '"><div><h1>' + (current === "prospects" && hasViewTabs() && !myTab() ? "รายชื่อของทีม" : current === "prospects" && (S.role === "bdm" || S.role === "admin") ? "รายชื่อในเขต" : v.title || v.th) + (v.en ? ' <small class="en">' + v.en + "</small>" : "") + "</h1><p>" + (desc || (v.id === "home" && S.role === "bdm" ? '🚀 วันนี้มาช่วยกันขับเคลื่อนทีม <span class="nw">สู่เป้าหมายยอดขาย</span>' : v.desc)) + "</p>" + (S.role === "agent" || (current === "planner" && pDetail) || (hasViewTabs() && VT_PAGES.includes(current)) || (S.role === "bdm" && current === "home") || ((S.role === "bdm" || S.role === "admin") && current === "planner") ? "" : S.role === "admin" && ["home", "users", "rewards"].includes(current) ? "" : viewPicker()) + '</div><div class="head-actions">' + "" + (S.role === "admin" && (current === "home" || current === "users" || current === "rewards") ? '<button class="btn sm" type="button" data-act="xlsx">' + ico("share") + 'ส่งออก Excel</button><button class="btn sm" type="button" data-act="cfg">ตั้งค่าการกระตุ้น</button>' : S.role === "admin" && current === "planner" ? '<button class="btn sm" type="button" data-act="cfg">ตั้งค่าการกระตุ้น</button>' : "") + (actions || "") + "</div></div>" + (S.role === "admin" && ["home", "users", "rewards"].includes(current) ? '<div class="dash-filter ad-filter">' + rangePicker() + viewPicker() + "</div>" : "") + (hasViewTabs() && VT_PAGES.includes(current) && !(current === "planner" && pDetail) ? '<div class="vt-row"><div class="vt-line">' + viewTabs() + (myTab() ? "" : vpBox()) + "</div>" + (myTab() ? "" : crumbs()) + "</div>" : "") + tipBar();
   }
   // V175 · the app may stay open overnight on a phone: when it comes back on another day, it reloads for that day
