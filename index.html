@@ -7036,7 +7036,7 @@ window.addEventListener("error", function (e) {
     const showFresh = personFresh && Date.now() < freshUntil;
     if (showFresh) setTimeout(() => { const f = $(".pp-fresh"); if (f) { f.classList.add("bye"); setTimeout(() => f.remove(), 350); } personFresh = false; }, Math.max(0, freshUntil - Date.now()));
     const fresh = showFresh ? '<div class="pp-fresh" role="status"><b>เพิ่มรายชื่อเรียบร้อยแล้ว</b><span>อยากเริ่มพูดคุยเมื่อไหร่ก็ได้เลย</span></div>' : "";
-    return taskBar(p) + head + fresh + tipBar() + '<div class="home pp">' + pathCard(p, true) + nowCard(p) + (isCustomer(p) ? careCard(p) : "") + (isClient(p) ? convCard(p) : "") + "" + offersCard(p) + appsCard(p) + knowFold(p) + "</div>"; // V287 · no bar fixed over the page: the next step is the "ตอนนี้" card under the sales path
+    return taskBar(p) + head + fresh + tipBar() + '<div class="home pp">' + pathCard(p, true) + nowCard(p) + declinedCard(p) + insightsCard(p) + lc4Card(p) + (isCustomer(p) ? careCard(p) : "") + (isClient(p) ? convCard(p) : "") + "" + offersCard(p) + appsCard(p) + knowFold(p) + "</div>"; // V287 · no bar fixed over the page: the next step is the "ตอนนี้" card under the sales path
   }
   // V276 · what to do next sits right under the sales path, inside the first screen (it used to be at the end of the page)
   // V284 · the next step is a bar fixed at the bottom of the screen (thumb reach): the main step big, "ยังไม่สนใจ" and "ปฏิเสธ" small beside each other
@@ -7077,6 +7077,42 @@ window.addEventListener("error", function (e) {
     }
     return '<section class="panel now-card" id="nowCard" aria-label="ตอนนี้"><span class="now-lbl">ตอนนี้</span><b class="now-what">' + what + "</b>" + (sub ? '<span class="now-sub">' + esc(sub) + "</span>" : "") +
       (main ? axBtn({ tone: main.tone || "main", icon: main.icon, t: main.t, attrs: " " + main.attrs }) : "") + '<div class="now-links">' + links.join("") + "</div></section>";
+  }
+  // V321 · ปฏิเสธแล้วไม่ใช่ทางตัน: เห็นเหตุผลเดิม เปิดโอกาสขายใหม่ได้โดยไม่ลบประวัติ
+  function declinedCard(p) {
+    if (S.role !== "agent" || masked(p) || isClient(p) || statusOf(p) !== "no") return "";
+    const reasons = (p.declined || []).filter(Boolean);
+    return '<section class="panel declined-card"><div class="panel-head"><div><span class="chip hot">ปฏิเสธ</span><h2>ปิดโอกาสการขายแล้ว</h2></div></div>' +
+      '<p class="muted" style="margin:0 0 12px">' + (reasons.length ? "เหตุผล: " + reasons.map(esc).join(", ") : "ไม่ได้ระบุเหตุผล") + "</p>" +
+      '<button class="btn add-one" type="button" data-act="reopen" data-id="' + p.id + '">' + ico("plus") + "เปิดโอกาสขายใหม่</button></section>";
+  }
+  function reopenP(p) {
+    if (!p || masked(p)) return;
+    p.status = p.listed ? "new" : "yes"; p.temp = "warm"; p.snoozeUntil = "";
+    if (isEnded(p)) p.history.push({ st: p.stage, start: todayISO }); // ยกเลิกการนับว่า "สิ้นสุดแล้ว" จึงไม่ถูกลบอัตโนมัติอีก
+    S.acts.push({ id: nid("a"), agentId: p.agentId, prospectId: p.id, kind: "note", result: "เปิดโอกาสขายใหม่" + ((p.declined || []).length ? " · เคยปฏิเสธ: " + p.declined.join(", ") : ""), date: todayISO });
+    p.last = todayISO; save(); render(); toast("เปิดโอกาสขายใหม่แล้ว · ประวัติเดิมยังอยู่ครบ");
+  }
+  // V321 · "สรุปลูกค้า": รวมสิ่งที่เคยคุยและสนใจไว้ที่เดียว จากข้อมูลที่มีอยู่แล้วในระบบ (ไม่ได้เก็บข้อมูลใหม่)
+  function insightsCard(p) {
+    if (masked(p) || p.listed || isEnded(p) || isClient(p) || statusOf(p) === "no") return "";
+    const pr = prof(p), topics = pr.topics || [], interests = pr.interests || [];
+    const n = knowCount(p), total = KNOW_ALL.length, missing = total - n;
+    if (!topics.length && !interests.length && !missing) return "";
+    return '<section class="panel insights-card"><div class="panel-head"><div><h2>สรุปลูกค้า</h2></div></div>' +
+      (interests.length ? '<p style="margin:0 0 6px"><b>สนใจเป็นพิเศษ:</b> ' + interests.map(esc).join(", ") + "</p>" : "") +
+      (topics.length ? '<p style="margin:0 0 6px"><b>เคยคุยเรื่อง:</b> ' + topics.map(esc).join(", ") + "</p>" : "") +
+      '<p class="muted" style="margin:0">' + (missing > 0 ? "ข้อมูลยังขาดอีก " + missing + " จาก " + total + " รายการ · ดูที่ \"รู้จักลูกค้ามากขึ้น\" ด้านล่าง" : "เก็บข้อมูลลูกค้าครบแล้ว") + "</p></section>";
+  }
+  // V321 · ชวนทำ "ชีวิตดี 4 ด้าน": เชื่อมกับเครื่องมือเดิมที่มีอยู่แล้ว (ไม่สร้างเนื้อหาใหม่) · เครื่องมือไม่บันทึกคำตอบ จึงบันทึกได้แค่ "สถานะการชวน" ไม่ใช่ผลคะแนน
+  const LC4_ST = [["", "ยังไม่ได้ชวน"], ["invited", "ชวนแล้ว"], ["doing", "กำลังทำ"], ["done", "ทำเสร็จแล้ว"], ["declined", "ลูกค้าไม่สะดวก"]];
+  function lc4Card(p) {
+    if (masked(p) || p.listed || isEnded(p) || isClient(p) || statusOf(p) === "no" || p.stage > STG.ANALYZE) return "";
+    const cur = p.lc4 || "";
+    return '<section class="panel lc4-card"><div class="panel-head"><div><span class="sec-tag">เครื่องมือช่วยขาย</span><h2>ชวนทำบัญชีชีวิตดี 4 ด้าน</h2></div></div>' +
+      '<div class="pf-chips">' + LC4_ST.map(([k, t]) => '<button type="button" class="pf-chip" data-act="lc4" data-v="' + k + '" data-id="' + p.id + '" aria-pressed="' + (cur === k) + '">' + t + "</button>").join("") + "</div>" +
+      '<button class="btn sm" type="button" data-act="lcStart" style="margin-top:10px">เปิดเครื่องมือ · ชวนลูกค้าทำแบบทดสอบ</button>' +
+      '<p class="muted" style="margin:8px 0 0;font-size:13.5px">เครื่องมือนี้ไม่บันทึกคำตอบหรือคะแนนไว้ (ตามที่ตั้งใจออกแบบไว้) จึงบันทึกได้แค่สถานะการชวน ไม่ดึงผลคะแนนมาแสดงอัตโนมัติ</p></section>';
   }
   function nowCard(p) {
     if (S.role === "agent" && !masked(p) && isClient(p)) return clientNow(p);
@@ -10199,6 +10235,8 @@ window.addEventListener("error", function (e) {
       case "wdays": return dlgWorkDays(planOwnerId());
       case "planSet": return dlgPlanSet(planOwnerId());
       case "firstGo": { tcOpen = null; return openGreet(findP(id), null); }
+      case "reopen": return reopenP(findP(id)); // V321 · ปฏิเสธแล้ว ลูกค้ากลับมาสนใจ: เปิดโอกาสขายใหม่ เก็บประวัติเดิมไว้
+      case "lc4": { const p = findP(id); if (p && !masked(p)) { p.lc4 = t.dataset.v; save(); render(); } return; }
       case "greetBack": return greetExit();
       case "apptMoveP": case "apptCancelP": { // V241 · the same as in the old meeting pop-up, from the record page
         const tk = S.tasks.find((x) => x.id === id); if (!tk) return; const tp = findP(tk.prospectId), ev = S.events.find((x) => x.id === tk.eventId), move = t.dataset.act === "apptMoveP";
