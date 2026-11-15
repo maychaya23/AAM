@@ -3349,6 +3349,7 @@ html.lw-on, html.lw-on body { overflow: hidden; }
 .lw-track { background: linear-gradient(90deg, #D8E6F6, var(--c)); }
 .lw-bal-t h2 { font-weight: 600; }
 .ph-none { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; margin: 0; }
+.fy-note:empty { display: none; }
 /* V313 · the all-sides page in the words and look of the booklet's "เช็กสมดุลชีวิต" page */
 .ls { display: flex; flex-direction: column; gap: 18px; width: 100%; max-width: 560px; margin-inline: auto; }
 .ls section { min-width: 0; }
@@ -4855,10 +4856,11 @@ window.addEventListener("error", function (e) {
     const key = me().id + ":" + current; S.tips = S.tips || {};
     return S.tips[key] || !TIPS[current] ? "" : '<div class="tip"><span><b>เคล็ดลับ</b> ' + TIPS[current] + '</span><button class="btn sm ghost" type="button" data-act="tipOk" data-key="' + key + '">รับทราบ</button></div>';
   }
+  let phOff = false; // V315 · set by the planner while its empty first page is drawn
   function head(desc, actions) {
     const v = viewsFor().find((x) => x.id === current) || VIEWS.find((x) => x.id === current);
     // V314 · these two pages open straight on their card: no title block and no work-day button on top (the page name stays for screen readers)
-    if (current === "script" || (current === "planner" && S.role === "agent")) return '<h1 class="ph-none">' + (v.title || v.th) + "</h1>";
+    if (current === "script" || phOff) return '<h1 class="ph-none">' + (v.title || v.th) + "</h1>";
     return '<div class="page-head' + (actions && S.role === "agent" && (current === "home" || current === "planner") ? " ph-top" : current === "prospects" && actions ? " ph-two" : current === "calendar" ? " ph-cal" : "") + '"><div><h1>' + (current === "prospects" && hasViewTabs() && !myTab() ? "รายชื่อของทีม" : current === "prospects" && (S.role === "bdm" || S.role === "admin") ? "รายชื่อในเขต" : v.title || v.th) + (v.en ? ' <small class="en">' + v.en + "</small>" : "") + "</h1><p>" + (desc || (v.id === "home" && S.role === "bdm" ? '🚀 วันนี้มาช่วยกันขับเคลื่อนทีม <span class="nw">สู่เป้าหมายยอดขาย</span>' : v.desc)) + "</p>" + (S.role === "agent" || (current === "planner" && pDetail) || (hasViewTabs() && VT_PAGES.includes(current)) || (S.role === "bdm" && current === "home") || ((S.role === "bdm" || S.role === "admin") && current === "planner") ? "" : S.role === "admin" && ["home", "users", "rewards"].includes(current) ? "" : viewPicker()) + '</div><div class="head-actions">' + "" + (S.role === "admin" && (current === "home" || current === "users" || current === "rewards") ? '<button class="btn sm" type="button" data-act="xlsx">' + ico("share") + 'ส่งออก Excel</button><button class="btn sm" type="button" data-act="cfg">ตั้งค่าการกระตุ้น</button>' : S.role === "admin" && current === "planner" ? '<button class="btn sm" type="button" data-act="cfg">ตั้งค่าการกระตุ้น</button>' : "") + (actions || "") + "</div></div>" + (S.role === "admin" && ["home", "users", "rewards"].includes(current) ? '<div class="dash-filter ad-filter">' + rangePicker() + viewPicker() + "</div>" : "") + (hasViewTabs() && VT_PAGES.includes(current) && !(current === "planner" && pDetail) ? '<div class="vt-row"><div class="vt-line">' + viewTabs() + (myTab() ? "" : vpBox()) + "</div>" + (myTab() ? "" : crumbs()) + "</div>" : "") + tipBar();
   }
   // V175 · the app may stay open overnight on a phone: when it comes back on another day, it reloads for that day
@@ -6307,7 +6309,7 @@ window.addEventListener("error", function (e) {
   function vPlanner() {
     if (pDetail && S.role !== "agent" && canViewPlan(pDetail.id) && planLead(pDetail.id)) return '<button type="button" class="btn ghost sm pt-back page-back" data-pact="detailBack">‹ กลับ</button>' + head("รายละเอียดแผนงาน", "") + planDetailPage(pDetail.id);
     pDetail = null;
-    const role = S.role, wd = (id) => { const pl = S.plans[id], days = (pl && pl.defaultDays) || DEF_DAYS; return gStep ? "" : WD_BTN(days); };
+    const role = S.role, wd = (id) => { const pl = S.plans[id], days = (pl && pl.defaultDays) || DEF_DAYS; return WD_BTN(days); }; // V315 · the work-day button stays in the page head on the plan form too
     if (role === "manager" || role === "tm") {
       const who = role === "manager" ? "ตัวแทนในทีม" : " UM ในสายงาน";
       if (!myTab()) {
@@ -6325,7 +6327,10 @@ window.addEventListener("error", function (e) {
     const ids = scope();
     if (role === "bdm" || role === "admin") return head("", "") + planOverview(ids.concat(tmIdsIn(viewNode()))); // V296 · ดูแผนงาน
     if (role !== "agent") return head("ดูแผนงานและความคืบหน้าของบุคลากรในสังกัด · ดูได้อย่างเดียว", "") + plannerMonitor(ids.concat(tmIdsIn(viewNode())));
-    return ownBack(ids[0]) + (ownBack(ids[0]) ? "" : head("", wd(ids[0]))) + cheerBanner(ids[0]) + plannerOwn(ids[0]);
+    // V315 · the agent's empty first page opens straight on its card; the plan form and the plans keep the page head with "ตั้งค่าวันทำงาน" on the right
+    phOff = !gStep && !gView && !goalsOf(ids[0]).some((x) => planYear(x) >= TODAY.getFullYear());
+    const ph = ownBack(ids[0]) ? "" : head("", wd(ids[0])); phOff = false;
+    return ownBack(ids[0]) + ph + cheerBanner(ids[0]) + plannerOwn(ids[0]);
   }
   const WD_BTN = (days) => '<button class="btn ghost wd-btn" type="button" data-act="wdays" aria-label="ตั้งค่าวันทำงาน · ตอนนี้ ' + daysLabel(days) + '" title="ตั้งค่าวันทำงาน · ตอนนี้ ' + daysLabel(days) + '">' + ico("cal") + "<b>ตั้งค่าวันทำงาน</b></button>"; // V196
   // "รายบุคคล": pick one person, see their plan exactly as they do, read-only
@@ -6671,8 +6676,7 @@ window.addEventListener("error", function (e) {
     [[mEndOf(), "สิ้นเดือนนี้"], [qEndOf(), "สิ้นไตรมาส"], [yEndOf(), "สิ้นปี"]].forEach(([v, t]) => { if (v < todayISO || v > yMax) return; const ex = opts.find((o) => o[0] === v); if (ex) ex[1] = t; else opts.push([v, t]); });
     const custom = !opts.some((o) => o[0] === d.end);
     return '<div class="pl-q gp-end"><span class="pl-ql" id="gEndL">ภายในวันไหน</span><div class="quick">' + opts.map(([v, t]) => '<button type="button" data-gend="' + v + '" aria-pressed="' + (d.end === v) + '">' + t + " · " + thDate(v, { day: "numeric", month: "short" }) + "</button>").join("") +
-      '<label class="th-date gp-endd' + (custom ? " set" : "") + '">' + ico("cal") + "<span>" + (custom ? thDate(d.end, { day: "numeric", month: "short", year: "numeric" }) : "เลือกวัน") + '</span><input id="gEnd" type="date" min="' + (todayISO > yMin ? todayISO : yMin) + '" max="' + yMax + '" value="' + d.end + '" aria-labelledby="gEndL"></label></div>' +
-      '<p class="muted pl-wd">' + (wdN ? "มี " + wdN + " วันทำงาน" : "ไม่มีวันทำงานในช่วงนี้") + ' · <button type="button" class="linkbtn" data-act="wdays">ตั้งค่าวันทำงาน</button></p></div>';
+      '<label class="th-date gp-endd' + (custom ? " set" : "") + '">' + ico("cal") + "<span>" + (custom ? thDate(d.end, { day: "numeric", month: "short", year: "numeric" }) : "เลือกวัน") + '</span><input id="gEnd" type="date" min="' + (todayISO > yMin ? todayISO : yMin) + '" max="' + yMax + '" value="' + d.end + '" aria-labelledby="gEndL"></label></div></div>';
   }
   document.addEventListener("click", (e) => { const b = e.target.closest("[data-gend]"); if (!b || !gDraft) return; readGoalForm(); gDraft.end = b.dataset.gend; gFormOpen = true; render(); });
   // V291 · page 1 of 3: two questions only; the plan opens on its own page
@@ -6682,10 +6686,10 @@ window.addEventListener("error", function (e) {
     // an edited plan stays in its own year; a new one sits in the year it starts
     const yr = d.id ? d.start.slice(0, 4) : (d.start || todayISO).slice(0, 4), yMin = (d.id || yr > todayISO.slice(0, 4) ? yr : todayISO.slice(0, 4)) + "-01-01", yMax = yr + "-12-31";
     const wdN = wdBetween(id, d.start > todayISO ? d.start : todayISO, d.end);
-    return '<section class="panel goal-form pl-form">' + (d.id ? '<div class="sec-tag gp-mode">ปรับแผน</div>' : "") + '<h2 class="pl-h">' + (d.id ? "ปรับเป้า" : "วางแผนใหม่") + "</h2>" + PL_STEPS(1) +
+    return '<section class="panel goal-form pl-form">' + (d.id ? '<div class="sec-tag gp-mode">ปรับแผน</div>' : "") + '<h2 class="pl-h">' + (d.id ? "ปรับเป้า" : "วางแผนใหม่") + "</h2>" +
       '<div class="pl-q"><label class="pl-ql" for="gTarget">อยากขายเพิ่มเท่าไร <small>(FYP บาท)</small></label><input id="gTarget" class="goal-input" inputmode="numeric" autocomplete="off" value="' + (d.target ? d.target.toLocaleString("th-TH") : "") + '" placeholder="เช่น 100,000" aria-describedby="gTargetHint">' +
         '<div class="quick">' + QUICK_FYP.map((v) => '<button type="button" data-gq="' + v + '" aria-pressed="' + (v === d.target) + '">' + v.toLocaleString("th-TH") + "</button>").join("") + "</div>" +
-        '<p class="muted fy-note" id="gTargetHint">' + TARGET_HINT + "</p></div>" +
+        '<p class="muted fy-note" id="gTargetHint"></p></div>' +
       endPick(d, yMin, yMax, wdN) +
       '<div class="step-nav eq"><button class="btn" type="button" data-gact="cancel">ยกเลิก</button><button class="btn add-one" type="button" data-gact="toPlan">คำนวณแผนงาน</button></div></section>';
   }
@@ -10214,7 +10218,7 @@ window.addEventListener("error", function (e) {
       // show the amount with commas while typing, keeping the cursor at the same digit; a typed 0 stays 0 (empty stays empty)
       const el = e.target, raw = el.value.replace(/[^0-9]/g, ""), keep = el.value.length - el.selectionStart;
       el.value = raw === "" ? "" : (+raw).toLocaleString("th-TH"); const pos = Math.max(0, el.value.length - keep); try { el.setSelectionRange(pos, pos); } catch (err) {}
-      const h = $("#gTargetHint"), bad = raw !== "" && +raw === 0; if (h) { h.classList.toggle("err", bad); h.textContent = bad ? "เป้าหมายต้องมากกว่า 0 บาท" : TARGET_HINT; }
+      const h = $("#gTargetHint"), bad = raw !== "" && +raw === 0; if (h) { h.classList.toggle("err", bad); h.textContent = bad ? "เป้าหมายต้องมากกว่า 0 บาท" : ""; }
     }
     // figures changed after the plan was worked out: ask for one more "คำนวณแผนงาน" before using it
     if (["gTarget", "gPrev"].includes(e.target.id) && $("#gRes")) { $("#gRes").classList.add("stale"); $(".gp-stale").hidden = false; const u = $('#gRes [data-gact="use"]'); if (u) u.disabled = true; }
