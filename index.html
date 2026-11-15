@@ -9610,7 +9610,7 @@ window.addEventListener("error", function (e) {
   // บัญชีการเงิน has one picture per item (16); the other three accounts show their own emblem until their pictures are drawn.
   const LW_ART = (() => {
     const P = "#4666BC", PD = "#2F4A9A", SK = "#4DAEE8", SKL = "#9DD3F3", TL = "#00ACBF", LM = "#A6D71C", LN = "#D8E6F6", SH = "#C3D6F0", INK = "#1F2A44";
-    const frame = (inner) => '<svg viewBox="0 0 320 200" aria-hidden="true" font-family="Prompt, sans-serif"><circle cx="160" cy="104" r="88" fill="#E6F3FD"/><path d="M236 178c-6-34 10-62 44-74-2 36-16 62-44 74z" fill="#D6DFF5"/>' + inner + "</svg>";
+    const frame = (inner) => '<svg viewBox="0 0 320 200" aria-hidden="true" font-family="Prompt, sans-serif"><circle cx="160" cy="104" r="88" fill="#E6F3FD"/>' + inner + "</svg>";
     const coin = (x, y, r) => '<ellipse cx="' + x + '" cy="' + (y + r + 3) + '" rx="' + r * 0.8 + '" ry="' + r * 0.14 + '" fill="#B9CDEB" opacity=".6"/><circle cx="' + x + '" cy="' + y + '" r="' + r + '" fill="#F5B21E"/><circle cx="' + x + '" cy="' + y + '" r="' + r * 0.76 + '" fill="#FBC93D" stroke="#E79A0C" stroke-width="' + r * 0.07 + '"/>' +
       '<text x="' + x + '" y="' + (y + r * 0.38) + '" text-anchor="middle" font-size="' + r * 1.05 + '" font-weight="700" fill="#fff">฿</text>';
     const stack = (x, base, n) => { let s = '<ellipse cx="' + x + '" cy="' + (base + 2) + '" rx="30" ry="6" fill="#B9CDEB" opacity=".6"/>'; for (let k = 0; k < n; k++) { const y = base - k * 9; s += '<rect x="' + (x - 24) + '" y="' + (y - 7) + '" width="48" height="7" fill="#E79A0C"/><ellipse cx="' + x + '" cy="' + y + '" rx="24" ry="6" fill="#E79A0C"/><ellipse cx="' + x + '" cy="' + (y - 7) + '" rx="24" ry="6" fill="#FBC93D"/>'; } return s; };
