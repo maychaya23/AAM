@@ -3191,9 +3191,9 @@ dialog.as-page.in-frame::backdrop { background: transparent; }
 .lw-how li::before { content: counter(lw); grid-row: 1 / span 2; width: 34px; height: 34px; border-radius: 50%; background: var(--blue-soft); color: var(--head); font: 700 16px var(--font-display); display: grid; place-items: center; }
 .lw-how b { font-size: 16.5px; line-height: 1.4; }
 .lw-how span { grid-column: 2; font-size: 15px; color: var(--muted); line-height: 1.45; }
-.btn.lw-start { align-self: flex-start; min-width: 280px; min-height: 60px; font-size: 19px; font-weight: 700; border-radius: 14px; gap: 10px; }
+.btn.lw-start { align-self: center; width: min(100%, 360px); min-height: 60px; font-size: 19px; font-weight: 700; border-radius: 14px; gap: 10px; }
 .lw-note { display: flex; gap: 6px; align-items: center; justify-content: center; color: var(--muted); font-size: 15px; margin: 0; }
-.lw-card .lw-note { justify-content: flex-start; }
+.lw-card .lw-note { justify-content: center; }
 .lw-note .lk-ic { width: 16px; height: 16px; }
 
 html.lw-on, html.lw-on body { overflow: hidden; }
@@ -9827,7 +9827,6 @@ window.addEventListener("error", function (e) {
     if (S.role !== "agent") return "";
     return '<section class="panel lw-card"><div><h2>ชีวิตดี 4 ด้าน</h2><p class="muted">ชวนผู้มุ่งหวังเช็กสมดุลชีวิตทีละด้าน ให้ตอบเอง หรือคุณกดให้ก็ได้</p></div>' +
       '<div class="lw-tiles">' + LC_ACC.map((a) => '<div class="lw-tile" style="--c:' + a.c + '"><i>' + lcSvg(a.ico, 26) + "</i><b>" + a.t + "</b><small>" + a.about + "</small></div>").join("") + "</div>" +
-      '<ol class="lw-how"><li><b>กรอกชื่อ</b><span>ใช้แสดงบนผลเท่านั้น</span></li><li><b>เลือกด้าน แล้วตอบ 16 ข้อ</b><span>ใช่ หรือ ไม่ใช่ · ประมาณ 3 นาทีต่อด้าน</span></li><li><b>รับผลเป็นรูป</b><span>บันทึกแล้วส่งต่อทาง LINE ได้</span></li></ol>' +
       '<button class="btn add-one lw-start" type="button" data-act="lcStart">' + lcSvg(LW_I.play) + "เริ่มทดสอบ</button>" +
       '<p class="lw-note">' + lcSvg(LC_I.lock, 16) + "ไม่บันทึกคำตอบ · ไม่ผูกกับรายชื่อในระบบ</p></section>";
   }
