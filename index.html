@@ -6857,7 +6857,6 @@ window.addEventListener("error", function (e) {
     // the plan's own page head (own plans; a read-only view keeps a title line inside the page)
     const top = '<div class="page-head pt-head"><div><' + (ro ? "h2" : "h1") + ' class="mp-title">' + esc(g.name) + "</" + (ro ? "h2" : "h1") + '><p>' + when + ' <span class="chip ' + tone + '">' + label + "</span></p></div>" + (!ro && live ? '<div class="head-actions">' + WD_BTN((pl && pl.defaultDays) || DEF_DAYS) + "</div>" : "") + "</div>";
     return '<div class="pt-page pt-v296">' + top + summary + acts + names + week +
-      '<details class="panel assume pl-months pa-fold" data-box="plm"' + (openBoxes.plm ? " open" : "") + "><summary>แผนรายเดือน <small>" + (ended ? "ผลของแผนที่สิ้นสุดแล้ว" : "ระบบปรับเดือนถัดไปให้เองตามผลงานจริง") + "</small>" + CHEV + "</summary>" + months + "</details>" +
       goBtn + "</div>";
   }
   let settingsOpen = false;
