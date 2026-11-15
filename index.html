@@ -3342,6 +3342,7 @@ html.lw-on, html.lw-on body { overflow: hidden; }
 .lw-side, .lw-side.is-done { background: #fff; border-color: transparent; box-shadow: var(--lw-shadow); border-radius: 22px; }
 .lw-result { background: #fff; box-shadow: var(--lw-shadow); }
 .lw-badge { border-radius: 50%; }
+.lw-acts .btn.lw-sec, .lw-acts .btn.lw-next { min-height: 60px; font-size: 18px; font-weight: 600; white-space: normal; line-height: 1.3; }
 .lw-tips, .lw-bal { border: 0; box-shadow: var(--lw-shadow); }
 .lw-tips { overflow: hidden; }
 .lw-tips h2 { margin: -18px -20px 14px; padding: 9px 20px; background: var(--lw-grad); color: #fff; font-size: 17px; font-weight: 500; }
@@ -9728,8 +9729,7 @@ window.addEventListener("error", function (e) {
         '<div class="lw-scale" aria-hidden="true"><div class="lw-track"><span style="left:' + (((v + 8) / 16) * 100).toFixed(1) + '%"></span></div><div class="lw-ticks"><small>−8</small><small>0</small><small>8</small></div></div>' +
         '<p class="lw-dw">รายการฝาก <b>' + dep + "</b> ข้อ · รายการถอน <b>" + wd + "</b> ข้อ</p></section>" +
         '<section class="lw-tips"><h2>' + (tips.length ? "ลองเริ่มเติมจาก" : "ทำได้ครบทุกรายการฝากแล้ว") + "</h2>" + (tips.length ? "<ul>" + tips.map((q) => "<li>" + esc(q.t) + "</li>").join("") + "</ul>" : "<p>รักษาสิ่งที่ทำอยู่ให้ต่อเนื่อง</p>") + "</section>" +
-        '<div class="lw-acts">' + (next ? '<button class="btn add-one lw-main" type="button" data-lwside="' + next.k + '">ทำด้านถัดไป · ' + next.t + "</button>" : '<button class="btn add-one lw-main" type="button" data-lw="hub">ดูภาพสมดุลชีวิต</button>') +
-        '<button class="btn lw-sec" type="button" data-lw="share">' + lcSvg(LW_I.img) + 'บันทึกรูปผล</button><button class="btn lw-sec" type="button" data-lw="hub">ดูผลทุกด้าน</button>' +
+        '<div class="lw-acts">' + (next ? '<button class="btn lw-sec" type="button" data-lw="hub">ดูผลทุกด้าน</button><button class="btn add-one lw-next" type="button" data-lwside="' + next.k + '">ทำด้านถัดไป</button>' : '<button class="btn add-one lw-main" type="button" data-lw="hub">ดูภาพสมดุลชีวิต</button>') + // V311 · the picture is saved from the all-sides page only
         '<button class="lw-prev" type="button" data-lw="redo">ทำด้านนี้อีกครั้ง</button></div></div>';
     } else if (lw.step === "back") {
       h = '<div class="lw-hero lw-confirm"><h1>ออกจากแบบทดสอบใช่ไหม</h1><p class="lw-sub">คำตอบและผลทั้งหมดจะหายไป ถ้าอยากเก็บผล ให้บันทึกรูปก่อนออก</p>' +
