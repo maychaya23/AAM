@@ -1219,7 +1219,7 @@ ol.tl li span { grid-column: 2 / -1; font-size: 15.5px; color: var(--muted); }
 .soc-t { color: var(--head); }
 @media (min-width: 761px) { .soc-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 /* V174 · สคริปต์ช่วยขาย */
-.sc-page { max-width: 820px; }
+.sc-page { max-width: none; }
 .sc-rec { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; width: 100%; margin-bottom: 14px; padding: 12px 16px; border: 1px solid var(--cyan); border-radius: 12px; background: var(--cyan-soft); font: inherit; text-align: left; cursor: pointer; color: var(--fg); }
 .sc-rec span { font-size: 15.5px; color: var(--muted); }
 .sc-rec b { font-size: 17px; color: var(--head); }
@@ -9822,7 +9822,7 @@ window.addEventListener("error", function (e) {
   // V309 · the scripts page is this one card
   function lcCard() {
     if (S.role !== "agent") return "";
-    return '<section class="panel lw-card"><div><span class="sec-tag">เครื่องมือชวนคุย</span><h2>ชีวิตดี 4 ด้าน</h2><p class="muted">ชวนผู้มุ่งหวังเช็กสมดุลชีวิตทีละด้าน ให้ตอบเอง หรือคุณกดให้ก็ได้</p></div>' +
+    return '<section class="panel lw-card"><div><h2>ชีวิตดี 4 ด้าน</h2><p class="muted">ชวนผู้มุ่งหวังเช็กสมดุลชีวิตทีละด้าน ให้ตอบเอง หรือคุณกดให้ก็ได้</p></div>' +
       '<div class="lw-tiles">' + LC_ACC.map((a) => '<div class="lw-tile" style="--c:' + a.c + '"><i>' + lcSvg(a.ico, 26) + "</i><b>" + a.t + "</b><small>" + a.about + "</small></div>").join("") + "</div>" +
       '<ol class="lw-how"><li><b>กรอกชื่อ</b><span>ใช้แสดงบนผลเท่านั้น</span></li><li><b>เลือกด้าน แล้วตอบ 16 ข้อ</b><span>ใช่ หรือ ไม่ใช่ · ประมาณ 3 นาทีต่อด้าน</span></li><li><b>รับผลเป็นรูป</b><span>บันทึกแล้วส่งต่อทาง LINE ได้</span></li></ol>' +
       '<button class="btn add-one lw-start" type="button" data-act="lcStart">' + lcSvg(LW_I.play) + "เริ่มทดสอบ</button>" +
