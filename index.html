@@ -7632,7 +7632,7 @@ window.addEventListener("error", function (e) {
   function presAnswer(st) {
     const p = st.p; if (st.res !== "talked" || !presStage(p)) return "";
     const opts = nextOpts(p), o = opts.find((x) => x.k === st.nx);
-    let h = '<div class="tc-f gt-ask" id="tcAns"><span class="lbl">ลูกค้าตอบว่าอย่างไร</span>' + axBar(opts.map((x) => axBtn({ tone: x.k === "agree" ? "go" : x.k === "think" ? "later" : "info", icon: CV_ICO[x.k], face: FACE_OF[x.k] || "", t: x.t, sub: x.s, attrs: ' data-tc="nx" data-v="' + x.k + '"', pressed: st.nx === x.k }))) + "</div>";
+    let h = '<div class="tc-f gt-ask" id="tcAns"><span class="lbl">ลูกค้าตอบว่าอย่างไร</span>' + axBar(opts.map((x) => axBtn({ tone: x.k === "agree" ? "go" : x.k === "think" ? "later" : "info", icon: CV_ICO[x.k], t: x.t, sub: x.s, attrs: ' data-tc="nx" data-v="' + x.k + '"', pressed: st.nx === x.k }))) + "</div>";
     if (o && o.k === "agree") {
       const list = offersOf(p).slice().reverse();
       if (list.length) { if (!st.pick) { const y = list.find((x) => x.reply === "yes"); st.pick = (y || list[0]).id; }
@@ -7667,7 +7667,7 @@ window.addEventListener("error", function (e) {
     // 1 · ผลการติดต่อ (a big button moves on by itself)
     if (!st.res) {
       const list = st.n > 1 ? TC_RES : TC_RES.filter((x) => x[0] !== "callback"); // V222 · no "นัดติดต่ออีกครั้ง" on the first hello
-      return wzProg(0, total) + '<div class="tc-f" id="tcRes"><p class="cv-q">ผลการติดต่อ</p>' + axBar(list.map(([k, t]) => axBtn({ tone: k === "talked" ? "go" : "info", face: k, icon: TC_RES_ICO[k], t, sub: TC_RES_SUB[k], attrs: ' data-tc="res" data-v="' + k + '"' })), "ax-four") + "</div>" +
+      return wzProg(0, total) + '<div class="tc-f" id="tcRes"><p class="cv-q">ผลการติดต่อ</p>' + axBar(list.map(([k, t]) => axBtn({ tone: k === "talked" ? "go" : "info", icon: TC_RES_ICO[k], t, sub: TC_RES_SUB[k], attrs: ' data-tc="res" data-v="' + k + '"' })), "ax-four") + "</div>" +
         (!p.listed ? '<button type="button" class="linkbtn tc-meet" data-tcmeet="1">เจอลูกค้าโดยไม่ได้นัด? บันทึกผลการพบ</button>' : "");
     }
     const resT = (TC_RES.find((x) => x[0] === st.res) || [])[1] || "";
@@ -7679,7 +7679,7 @@ window.addEventListener("error", function (e) {
     // 2 · ลูกค้าสนใจไหม: "ยังไม่สนใจ" and "ปฏิเสธ" save straight away (same rules as before); "สนใจ" goes on to the next step
     if (st.int !== "yes") {
       const nx = p.listed ? STAGES[0] : null;
-      const ob = (k, tone, icon, t, sb) => axBtn({ tone, icon, face: FACE_OF[k], t, sub: sb, attrs: ' data-gt="' + k + '"' });
+      const ob = (k, tone, icon, t, sb) => axBtn({ tone, icon, t, sub: sb, attrs: ' data-gt="' + k + '"' });
       // V320 · ไม่ถามคุยเรื่องอะไร/โอกาสเข้าพบ/โน้ตซ้ำที่นี่: ถ้าสนใจ จะถามครั้งเดียวที่ขั้นถัดไป · ถ้ายังไม่สนใจ/ปฏิเสธ ไม่มีอะไรต้องเพิ่ม บันทึกได้ทันที
       return wzProg(1, 3) + '<div class="tc-f" id="tcInt"><p class="cv-q">ลูกค้าสนใจไหม?</p>' + axBar([ob("later", "later", "pause", "ยังไม่สนใจตอนนี้", laterSub(p)), ob("no", "no", "x", "ปฏิเสธ", "ปิดโอกาสการขาย"), ob("yes", "go", nx ? "userplus" : "check", "สนใจ", nx ? "เป็น" + nx.label : "")]) + "</div>" +
         '<div class="step-nav">' + back("res") + "</div>";
@@ -8012,7 +8012,7 @@ window.addEventListener("error", function (e) {
   }
   function cfHtml(cf) { return cfProg(cf) + cfBody(cf); }
   function cfBody(cf) {
-    const p = cf.p, big = (k, cls, title, sub, on) => axBtn({ tone: CV_TONE[cls] || "info", face: FACE_OF[k.replace(/^nx:/, "")] || "", icon: CV_ICO[k.replace(/^nx:/, "")], t: title, sub, attrs: ' data-cf="' + k + '"', pressed: on });
+    const p = cf.p, big = (k, cls, title, sub, on) => axBtn({ tone: CV_TONE[cls] || "info", icon: CV_ICO[k.replace(/^nx:/, "")], t: title, sub, attrs: ' data-cf="' + k + '"', pressed: on });
     const back = (to) => '<button class="btn sm ghost" type="button" data-cf="go:' + to + '">‹ ย้อนกลับ</button>';
     const tmr = iso(addDays(TODAY, 1));
     const dateIn = (lbl) => '<div class="cf-when"><label class="lbl" for="cfDate">' + lbl + '</label><input type="date" id="cfDate" value="' + tmr + '" min="' + todayISO + '"></div>';
