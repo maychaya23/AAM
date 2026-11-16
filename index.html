@@ -3401,6 +3401,8 @@ html.lw-on, html.lw-on body { overflow: hidden; }
 .pa-mi small { display: block; font-size: 15px; color: var(--muted); }
 .pa-mic { width: 44px; height: 44px; border-radius: 50%; background: var(--cyan-soft); color: var(--head); display: grid; place-items: center; }
 .pa-mic svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.btn.ls-add { width: 100%; min-height: 52px; border-radius: 99px; font-size: 17px; font-weight: 600; white-space: normal; line-height: 1.3; }
+.ls-added { margin: 0; display: flex; gap: 6px; align-items: center; justify-content: center; color: #1E7F3C; font-weight: 600; font-size: 16px; }
 /* V313 · the all-sides page in the words and look of the booklet's "เช็กสมดุลชีวิต" page */
 .ls { display: flex; flex-direction: column; gap: 18px; width: 100%; max-width: 560px; margin-inline: auto; }
 .ls section { min-width: 0; }
@@ -7112,7 +7114,7 @@ window.addEventListener("error", function (e) {
     const cur = p.lc4 || "";
     return '<section class="panel lc4-card"><div class="panel-head"><div><span class="sec-tag">เครื่องมือช่วยขาย</span><h2>ชวนทำบัญชีชีวิตดี 4 ด้าน</h2></div></div>' +
       '<div class="pf-chips">' + LC4_ST.map(([k, t]) => '<button type="button" class="pf-chip" data-act="lc4" data-v="' + k + '" data-id="' + p.id + '" aria-pressed="' + (cur === k) + '">' + t + "</button>").join("") + "</div>" +
-      '<button class="btn sm" type="button" data-act="lcStart" style="margin-top:10px">เปิดเครื่องมือ · ชวนลูกค้าทำแบบทดสอบ</button>' +
+      '<button class="btn sm" type="button" data-act="lcStart" data-id="' + p.id + '" style="margin-top:10px">เปิดเครื่องมือ · ชวนลูกค้าทำแบบทดสอบ</button>' +
       '<p class="muted" style="margin:8px 0 0;font-size:13.5px">เครื่องมือนี้ไม่บันทึกคำตอบหรือคะแนนไว้ (ตามที่ตั้งใจออกแบบไว้) จึงบันทึกได้แค่สถานะการชวน ไม่ดึงผลคะแนนมาแสดงอัตโนมัติ</p></section>';
   }
   function nowCard(p) {
@@ -9953,9 +9955,11 @@ window.addEventListener("error", function (e) {
       '<button class="btn add-one lw-start" type="button" data-act="lcStart">' + lcSvg(LW_I.play) + "เริ่มทดสอบ</button>" +
       '<p class="lw-note">' + lcSvg(LC_I.lock, 16) + "ไม่บันทึกคำตอบ · ไม่ผูกกับรายชื่อในระบบ</p></section>";
   }
-  function lcStart() {
+  function lcStart(pid) {
     if (document.querySelector(".lw-mode")) return;
     lw = { step: "name", name: "", k: "", i: 0, ans: {}, from: "" };
+    // V322 · opened from a customer's page: only who it is for is remembered (to mark "ทำเสร็จแล้ว"); answers and scores are still never kept
+    const lp = pid && findP(pid); if (lp && !masked(lp)) { lw.pid = lp.id; lw.name = lp.name; lw.step = "hub"; }
     const el = document.createElement("div"); el.className = "lw-mode"; el.setAttribute("role", "dialog"); el.setAttribute("aria-modal", "true"); el.setAttribute("aria-label", "แบบทดสอบชีวิตดี 4 ด้าน");
     document.body.appendChild(el); document.documentElement.classList.add("lw-on"); lwDraw();
   }
@@ -9985,6 +9989,8 @@ window.addEventListener("error", function (e) {
       '<section class="ls-how"><h2>วิธีเช็ก “สมดุลชีวิต”</h2>' + LW_LV.map((l, i) => '<div class="ls-lv' + (i === on ? " on" : all ? " off" : "") + '"><b>' + l[0] + (i === on ? '<span class="ls-badge">ผลของ' + who + "</span>" : "") + "</b><ul>" + l[1].map((t) => "<li>" + t + "</li>").join("") + "</ul></div>").join("") + "</section>" +
       '<p class="ls-quote">' + LW_QUOTE + "</p>" +
       '<button class="btn add-one lw-main" type="button" data-lw="share">' + lcSvg('<path d="M12 4v11M7 11l5 5 5-5M5 20h14"/>') + "บันทึกผล</button>" +
+      (S.role !== "agent" ? "" : lw.added ? '<p class="ls-added" role="status">' + lcSvg(LW_I.check, 18) + (lw.pid ? "บันทึกแล้วว่า" + who + "ทำเสร็จแล้ว" : "เพิ่ม" + who + "เข้ารายชื่อแล้ว") + "</p>"
+        : '<button class="btn lw-sec ls-add" type="button" data-lw="' + (lw.pid ? "markDone" : "addName") + '">' + (lw.pid ? "บันทึกว่า" + who + "ทำเสร็จแล้ว" : "เพิ่ม" + who + "เข้ารายชื่อ") + "</button>") +
       '<p class="lw-note">' + lcSvg(LC_I.lock, 16) + "ไม่บันทึกคำตอบ ออกจากหน้านี้แล้วหายทันที</p></div>";
   }
   function lwDraw() {
@@ -10104,6 +10110,16 @@ window.addEventListener("error", function (e) {
     if (k === "prev") { lw.i = Math.max(0, lw.i - 1); return lwDraw(); }
     if (k === "redo") { lw.ans[lw.k] = []; lw.i = 0; lw.step = "q"; return lwDraw(); }
     if (k === "share") return lwShare();
+    // V322 · after the summary: add this name to the list (the name only), or mark the customer's invite as done
+    if (k === "addName") {
+      const nm = (lw.name || "").trim(); if (!nm) return;
+      const mine = defaultOwner(), bare = (x) => String(x || "").replace(/^คุณ/, "").trim();
+      if (S.prospects.some((x) => x.agentId === mine && bare(x.name) === bare(nm))) { lw.added = true; lwDraw(); return toast("มีชื่อนี้ในรายชื่ออยู่แล้ว ไม่ได้เพิ่มซ้ำ"); }
+      S.prospects.push({ id: nid("p"), agentId: mine, source: SOURCES[0], temp: "warm", stage: 0, listed: true, created: todayISO, addedAt: Date.now() * 1000 + S.seq, last: null, lastResult: null, note: "", name: nm, age: "", job: "", met: "" });
+      const at = S.tasks.find((t) => t.kind === "add" && t.date === todayISO && t.agentId === mine); if (at) syncAddTask(at);
+      lw.added = true; save(); lwDraw(); return toast("เพิ่ม" + lwWho() + "เข้ารายชื่อแล้ว");
+    }
+    if (k === "markDone") { const p = findP(lw.pid); if (p) { p.lc4 = "done"; save(); } lw.added = true; lwDraw(); return toast("บันทึกแล้วว่าทำเสร็จแล้ว"); }
   });
   document.addEventListener("keydown", (e) => { if (e.key === "Escape" && lw && document.querySelector(".lw-mode") && lw.step !== "back") { if (lw.step === "name") return lwClose(); lw.from = lw.step; lw.step = "back"; lwDraw(); } });
   /* ---------- event wiring ---------- */
@@ -10298,7 +10314,7 @@ window.addEventListener("error", function (e) {
         return;
       }
       case "bdayPage": return dlgBday(); // V297 · อวยพรวันเกิดวันนี้
-      case "lcStart": return lcStart(); // V309 · ชีวิตดี 4 ด้าน
+      case "lcStart": return lcStart(id); // V309 · ชีวิตดี 4 ด้าน
       case "doTask": {
         const tk = S.tasks.find((x) => x.id === id);
         if (tk.kind === "add") return dlgFive(Math.max(1, tk.target - (tk.progress || 0)));
