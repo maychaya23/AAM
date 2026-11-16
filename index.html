@@ -4123,6 +4123,7 @@ window.addEventListener("error", function (e) {
   /* after the policy is issued: deliver it, ask for referrals, keep in touch; never "not interested / declined" */
   const isClient = (p) => isCustomer(p) && p.stage === STG.ISSUED;
   const polLast = (p) => (p.policies || []).slice(-1)[0];
+  const DELIVER_CH = ["พบด้วยตนเอง", "ส่งทางไปรษณีย์", "อื่น ๆ"];
   const AF_TOPICS = [["greet", "ทักทาย / ถามข่าว"], ["deliver", "ส่งมอบกรมธรรม์แล้ว"], ["ref", "ขอรายชื่อแนะนำแล้ว"], ["more", "สนใจความคุ้มครองเพิ่ม"], ["service", "เรื่องเคลม / บริการ"]];
   const referred = (p) => S.prospects.filter((x) => x.refBy === p.id);
   // what to do next with a customer, in order: hand over the policy, ask for referrals, then keep in touch
@@ -9135,7 +9136,8 @@ window.addEventListener("error", function (e) {
     return msg + '<p class="cv-q">คุยเรื่องอะไร <small>เลือกได้หลายข้อ</small></p><div class="pf-chips">' +
       AF_TOPICS.filter(([k]) => k !== "deliver" || (pol && !pol.delivered)).map(([k, l]) => '<button type="button" class="pf-chip" data-aft="' + k + '" aria-pressed="' + on(k) + '">' + l + "</button>").join("") + "</div>" +
       (on("ref") ? '<p class="cv-q cf-sub">ได้รายชื่อกี่คน <small>บันทึกชื่อในขั้นถัดไป</small></p><div class="pf-chips">' + [0, 1, 2, 3, 4, 5].map((n) => '<button type="button" class="pf-chip" data-afn="' + n + '" aria-pressed="' + (af.n === n) + '">' + (n ? n + " คน" : "ยังไม่ได้") + "</button>").join("") + "</div>" : "") +
-      (on("deliver") ? '<label class="rv-opt"><input type="checkbox" id="afRemind"' + (af.remind === false ? "" : " checked") + '><span><b>ใส่เตือนครบรอบในปฏิทิน</b><small>ระบบเตือนล่วงหน้า ' + REVIEW_DAYS + " วันก่อนครบรอบทบทวนกรมธรรม์ทุกปี</small></span></label>" : "") +
+      (on("deliver") ? '<p class="cv-q cf-sub">ส่งมอบทางไหน</p><div class="pf-chips">' + DELIVER_CH.map((t) => '<button type="button" class="pf-chip" data-afch="' + esc(t) + '" aria-pressed="' + (af.deliverCh === t) + '">' + t + "</button>").join("") + "</div>" +
+        '<label class="rv-opt"><input type="checkbox" id="afRemind"' + (af.remind === false ? "" : " checked") + '><span><b>ใส่เตือนครบรอบในปฏิทิน</b><small>ระบบเตือนล่วงหน้า ' + REVIEW_DAYS + " วันก่อนครบรอบทบทวนกรมธรรม์ทุกปี</small></span></label>" : "") +
       (on("more") ? '<p class="muted ct-note">หลังบันทึก ระบบจะเปิดตัวช่วยความต้องการ เพื่อคุยเรื่องความคุ้มครองที่ลูกค้าสนใจ</p>' : "") +
       (on("service") ? '<p class="muted ct-note">เรื่องเคลมและบริการ แนะนำให้ลูกค้าติดต่อช่องทางของบริษัท · จดสั้นๆ ได้ด้านล่าง ไม่ต้องใส่ข้อมูลสุขภาพ</p>' : "") +
       noteField("afNote", tcDraft.get("af:" + af.p.id), { ph: "เช่น ลูกค้าสบายดี ฝากสวัสดีครอบครัว" }) +
@@ -9148,7 +9150,7 @@ window.addEventListener("error", function (e) {
     else if (kind === "callback") { const d = ($("#afDate") || {}).value || iso(addDays(TODAY, 1)); addCallback(p, d, "ลูกค้าขอให้ติดต่อกลับ"); label = CALL_BACK; }
     else {
       const names = af.topics.map((k) => AF_TOPICS.find((x) => x[0] === k)[1]);
-      if (af.topics.includes("deliver")) { const pol = polLast(p); if (pol) pol.delivered = todayISO; const rm = $("#afRemind"); if (rm && !rm.checked) p.remind = false; else delete p.remind; } // V305
+      if (af.topics.includes("deliver")) { const pol = polLast(p); if (pol) { pol.delivered = todayISO; if (af.deliverCh) pol.deliverCh = af.deliverCh; } const rm = $("#afRemind"); if (rm && !rm.checked) p.remind = false; else delete p.remind; } // V305
       if (af.topics.includes("ref")) { p.refAsked = todayISO; p.refAsks = (p.refAsks || 0) + 1; }
       label = "หลังการขาย · " + names.join(", ") + (af.topics.includes("ref") ? " (ได้ " + af.n + " คน)" : "");
       p.noAnswer = 0;
@@ -9165,10 +9167,11 @@ window.addEventListener("error", function (e) {
   }
   dlgForm.addEventListener("click", (e) => {
     if (!af) return;
-    const b = e.target.closest("[data-af],[data-aft],[data-afn]"); if (!b) return;
+    const b = e.target.closest("[data-af],[data-aft],[data-afn],[data-afch]"); if (!b) return;
     const draw = () => { const note = ($("#afNote") || {}).value, box = $("#afBody"), rm = $("#afRemind"); if (rm) af.remind = rm.checked; if (note != null) tcDraft.set("af:" + af.p.id, note); if (box) box.innerHTML = afHtml(); if (note && $("#afNote")) $("#afNote").value = note; };
     if (b.dataset.aft) { const k = b.dataset.aft, i = af.topics.indexOf(k); i >= 0 ? af.topics.splice(i, 1) : af.topics.push(k); return draw(); }
     if (b.dataset.afn != null) { af.n = +b.dataset.afn; return draw(); }
+    if (b.dataset.afch != null) { af.deliverCh = af.deliverCh === b.dataset.afch ? "" : b.dataset.afch; return draw(); }
     const k = b.dataset.af;
     if (k === "copy") { const m = careMsg(af.task, af.p); try { navigator.clipboard.writeText(m).then(() => toast("คัดลอกข้อความแล้ว"), () => toast("คัดลอกไม่ได้ ให้กดค้างที่ข้อความเพื่อเลือก")); } catch (err) { toast("คัดลอกไม่ได้ ให้กดค้างที่ข้อความเพื่อเลือก"); } return; }
     if (k === "talked") { af.step = "talk"; return draw(); }
